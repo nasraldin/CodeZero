@@ -1,0 +1,58 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Description>CodeZero Core Package.
+
+CodeZero is a general purpose application framework specially designed for new modern web applications is a open-source project written in .NET Core.
+
+CodeZero provides a Clean Architecture based on Domain Driven Design and provides a SOLID model for your application.
+
+Modular Design
+Designed to be modular and extensible, CodeZero provides the infrastructure to build your own modules, too.
+
+Multi-Tenancy
+SaaS applications made easy! Integrated multi-tenancy from database to UI.</Description>
+    <PackageLicenseUrl>https://github.com/nasraldin/CodeZero/blob/master/LICENSE</PackageLicenseUrl>
+    <Copyright>Copyright © 2018</Copyright>
+    <PackageProjectUrl>https://nasraldin.github.io/CodeZero</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/nasraldin/CodeZero</RepositoryUrl>
+    <PackageTags>c#,c-sharp,best-practices,aspnet,aspnetcore,domain-driven-design,architecture,framework,multi-tenancy,clean-architecture</PackageTags>
+    <Version>1.0.1</Version>
+    <Authors>CodeZero</Authors>
+    <Company>CodeZero</Company>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <NeutralLanguage>en</NeutralLanguage>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Castle.Core" Version="4.3.0" />
+    <PackageReference Include="Castle.LoggingFacility" Version="4.1.0" />
+    <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="2.1.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="Nito.AsyncEx.Context" Version="1.1.0" />
+    <PackageReference Include="Nito.AsyncEx.Coordination" Version="1.0.2" />
+    <PackageReference Include="SourceLink.Create.CommandLine" Version="2.8.2" />
+    <PackageReference Include="System.Collections.Immutable" Version="1.5.0" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
+    <PackageReference Include="System.Data.Common" Version="4.3.0" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.8.11" />
+    <PackageReference Include="System.Linq.Queryable" Version="4.3.0" />
+    <PackageReference Include="System.Runtime.Serialization.Formatters" Version="4.3.0" />
+    <PackageReference Include="System.Security.Claims" Version="4.3.0" />
+    <PackageReference Include="System.Threading" Version="4.3.0" />
+    <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
+    <PackageReference Include="TimeZoneConverter" Version="2.4.1" />
+  </ItemGroup>
+
+</Project>

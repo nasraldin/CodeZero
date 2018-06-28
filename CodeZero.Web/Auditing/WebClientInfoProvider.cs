@@ -1,0 +1,105 @@
+﻿//  <copyright file="WebClientInfoProvider.cs" project="CodeZero.Web" solution="CodeZero">
+//      Copyright (c) 2018 CodeZero Framework.  All rights reserved.
+//  </copyright>
+//  <author>Nasr Aldin M.</author>
+//  <email>nasr2ldin@gmail.com</email>
+//  <website>https://nasraldin.com/codezero</website>
+//  <github>https://nasraldin.github.io/CodeZero</github>
+//  <date>01/01/2018 01:00 AM</date>
+using System;
+using System.Net;
+using System.Net.Sockets;
+using System.Web;
+using Castle.Core.Logging;
+
+namespace CodeZero.Auditing
+{
+    public class WebClientInfoProvider : IClientInfoProvider
+    {
+        public string BrowserInfo => GetBrowserInfo();
+
+        public string ClientIpAddress => GetClientIpAddress();
+
+        public string ComputerName => GetComputerName();
+
+        public ILogger Logger { get; set; }
+
+        /// <summary>
+        /// Creates a new <see cref="WebClientInfoProvider"/>.
+        /// </summary>
+        public WebClientInfoProvider()
+        {
+            Logger = NullLogger.Instance;
+        }
+
+        protected virtual string GetBrowserInfo()
+        {
+            var httpContext = HttpContext.Current;
+            if (httpContext?.Request.Browser == null)
+            {
+                return null;
+            }
+
+            return httpContext.Request.Browser.Browser + " / " +
+                   httpContext.Request.Browser.Version + " / " +
+                   httpContext.Request.Browser.Platform;
+        }
+
+        protected virtual string GetClientIpAddress()
+        {
+            var httpContext = HttpContext.Current;
+            if (httpContext?.Request.ServerVariables == null)
+            {
+                return null;
+            }
+
+            var clientIp = httpContext.Request.ServerVariables["HTTP_X_FORWARDED_FOR"] ??
+                           httpContext.Request.ServerVariables["REMOTE_ADDR"];
+
+            try
+            {
+                foreach (var hostAddress in Dns.GetHostAddresses(clientIp))
+                {
+                    if (hostAddress.AddressFamily == AddressFamily.InterNetwork)
+                    {
+                        return hostAddress.ToString();
+                    }
+                }
+
+                foreach (var hostAddress in Dns.GetHostAddresses(Dns.GetHostName()))
+                {
+                    if (hostAddress.AddressFamily == AddressFamily.InterNetwork)
+                    {
+                        return hostAddress.ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Debug(ex.ToString());
+            }
+
+            return clientIp;
+        }
+
+        protected virtual string GetComputerName()
+        {
+            var httpContext = HttpContext.Current;
+            if (httpContext == null || !httpContext.Request.IsLocal)
+            {
+                return null;
+            }
+
+            try
+            {
+                var clientIp = httpContext.Request.ServerVariables["HTTP_X_FORWARDED_FOR"] ??
+                               httpContext.Request.ServerVariables["REMOTE_ADDR"];
+                return Dns.GetHostEntry(IPAddress.Parse(clientIp)).HostName;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+    }
+}

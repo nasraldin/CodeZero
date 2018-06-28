@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Copyright>Copyright © 2018</Copyright>
+    <Product>CodeZero.Identity.Common</Product>
+    <Description>CodeZero.Identity.Common</Description>
+    <PackageLicenseUrl>https://github.com/nasraldin/CodeZero/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://nasraldin.github.io/CodeZero</PackageProjectUrl>
+    <PackageIconUrl></PackageIconUrl>
+    <RepositoryUrl>https://github.com/nasraldin/CodeZero</RepositoryUrl>
+    <PackageTags>c#,c-sharp,best-practices,aspnet,aspnetcore,domain-driven-design,architecture,framework,multi-tenancy,clean-architecture</PackageTags>
+    <NeutralLanguage>en</NeutralLanguage>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SourceLink.Create.CommandLine" Version="2.8.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CodeZero\CodeZero.csproj" />
+  </ItemGroup>
+
+</Project>

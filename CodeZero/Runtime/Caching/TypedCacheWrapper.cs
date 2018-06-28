@@ -1,0 +1,103 @@
+//  <copyright file="TypedCacheWrapper.cs" project="CodeZero" solution="CodeZero">
+//      Copyright (c) 2018 CodeZero Framework.  All rights reserved.
+//  </copyright>
+//  <author>Nasr Aldin M.</author>
+//  <email>nasr2ldin@gmail.com</email>
+//  <website>https://nasraldin.com/codezero</website>
+//  <github>https://nasraldin.github.io/CodeZero</github>
+//  <date>01/01/2018 01:00 AM</date>
+using System;
+using System.Threading.Tasks;
+
+namespace CodeZero.Runtime.Caching
+{
+    /// <summary>
+    /// Implements <see cref="ITypedCache{TKey,TValue}"/> to wrap a <see cref="ICache"/>.
+    /// </summary>
+    /// <typeparam name="TKey"></typeparam>
+    /// <typeparam name="TValue"></typeparam>
+    public class TypedCacheWrapper<TKey, TValue> : ITypedCache<TKey, TValue>
+    {
+        public string Name
+        {
+            get { return InternalCache.Name; }
+        }
+
+        public TimeSpan DefaultSlidingExpireTime
+        {
+            get { return InternalCache.DefaultSlidingExpireTime; }
+            set { InternalCache.DefaultSlidingExpireTime = value; }
+        }
+        public TimeSpan? DefaultAbsoluteExpireTime
+        {
+            get { return InternalCache.DefaultAbsoluteExpireTime; }
+            set { InternalCache.DefaultAbsoluteExpireTime = value; }
+        }
+
+        public ICache InternalCache { get; private set; }
+
+        /// <summary>
+        /// Creates a new <see cref="TypedCacheWrapper{TKey,TValue}"/> object.
+        /// </summary>
+        /// <param name="internalCache">The actual internal cache</param>
+        public TypedCacheWrapper(ICache internalCache)
+        {
+            InternalCache = internalCache;
+        }
+
+        public void Dispose()
+        {
+            InternalCache.Dispose();
+        }
+
+        public void Clear()
+        {
+            InternalCache.Clear();
+        }
+
+        public Task ClearAsync()
+        {
+            return InternalCache.ClearAsync();
+        }
+
+        public TValue Get(TKey key, Func<TKey, TValue> factory)
+        {
+            return InternalCache.Get(key, factory);
+        }
+
+        public Task<TValue> GetAsync(TKey key, Func<TKey, Task<TValue>> factory)
+        {
+            return InternalCache.GetAsync(key, factory);
+        }
+
+        public TValue GetOrDefault(TKey key)
+        {
+            return InternalCache.GetOrDefault<TKey, TValue>(key);
+        }
+
+        public Task<TValue> GetOrDefaultAsync(TKey key)
+        {
+            return InternalCache.GetOrDefaultAsync<TKey, TValue>(key);
+        }
+
+        public void Set(TKey key, TValue value, TimeSpan? slidingExpireTime = null, TimeSpan? absoluteExpireTime = null)
+        {
+            InternalCache.Set(key.ToString(), value, slidingExpireTime, absoluteExpireTime);
+        }
+
+        public Task SetAsync(TKey key, TValue value, TimeSpan? slidingExpireTime = null, TimeSpan? absoluteExpireTime = null)
+        {
+            return InternalCache.SetAsync(key.ToString(), value, slidingExpireTime, absoluteExpireTime);
+        }
+
+        public void Remove(TKey key)
+        {
+            InternalCache.Remove(key.ToString());
+        }
+
+        public Task RemoveAsync(TKey key)
+        {
+            return InternalCache.RemoveAsync(key.ToString());
+        }
+    }
+}

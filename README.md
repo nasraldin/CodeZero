@@ -18,6 +18,7 @@ CodeZero provides a clean architectural based on **Domain Driven Design** and pr
 ## Nuget Packages
 
 CodeZero is distributed as NuGet packages.
+<a href="https://www.nuget.org/packages/CodeZero" target="_blank">**CodeZero Nuget Packages**</a>
 
 Shared Packages.
 CodeZero - basecore package.

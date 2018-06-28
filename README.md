@@ -7,13 +7,13 @@ CodeZero Modules base on <a href="https://aspnetboilerplate.com/Pages/Documents/
 
 Designed to be modular and extensible, CodeZero provides the infrastructure to build your own modules, too.
 
-## Clean Architecture
-
-CodeZero provides a clean architectural based on **Domain Driven Design** and provides a **SOLID** model for your application.
-
 ###### Multi-Tenancy
 
 **SaaS** applications made easy! Integrated multi-tenancy from database to UI.
+
+## Clean Architecture
+
+CodeZero provides a clean architectural based on **Domain Driven Design** and provides a **SOLID** model for your application.
 
 ## Nuget Packages
 

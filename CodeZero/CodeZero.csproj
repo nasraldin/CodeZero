@@ -25,23 +25,24 @@ SaaS applications made easy! Integrated multi-tenancy from database to UI.</Desc
     <PackageProjectUrl>https://nasraldin.github.io/CodeZero</PackageProjectUrl>
     <RepositoryUrl>https://github.com/nasraldin/CodeZero</RepositoryUrl>
     <PackageTags>c#,c-sharp,best-practices,aspnet,aspnetcore,domain-driven-design,architecture,framework,multi-tenancy,clean-architecture</PackageTags>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <Authors>CodeZero</Authors>
     <Company>CodeZero</Company>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <NeutralLanguage>en</NeutralLanguage>
+    <PackageReleaseNotes>update .net core package to 2.1.1</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Castle.Core" Version="4.3.0" />
+    <PackageReference Include="Castle.Core" Version="4.3.1" />
     <PackageReference Include="Castle.LoggingFacility" Version="4.1.0" />
     <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="2.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="Nito.AsyncEx.Context" Version="1.1.0" />
     <PackageReference Include="Nito.AsyncEx.Coordination" Version="1.0.2" />
-    <PackageReference Include="SourceLink.Create.CommandLine" Version="2.8.2" />
+    <PackageReference Include="SourceLink.Create.CommandLine" Version="2.8.3" />
     <PackageReference Include="System.Collections.Immutable" Version="1.5.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />

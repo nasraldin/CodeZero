@@ -10,10 +10,19 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <TargetFramework>net461</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageTags>c#,c-sharp,best-practices,aspnet,aspnetcore,domain-driven-design,architecture,framework,multi-tenancy,clean-architecture</PackageTags>
+    <NeutralLanguage>en</NeutralLanguage>
+    <RepositoryType>https://github.com/nasraldin/CodeZero</RepositoryType>
+    <PackageProjectUrl>https://nasraldin.github.io/CodeZero</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/nasraldin/CodeZero/blob/master/LICENSE</PackageLicenseUrl>
+    <Copyright>Copyright © 2018</Copyright>
+    <Product>CodeZero.Identity.EntityFramework</Product>
+    <Description>CodeZero.Identity.EntityFramework</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SourceLink.Create.CommandLine" Version="2.8.2" />
+    <PackageReference Include="SourceLink.Create.CommandLine" Version="2.8.3" />
   </ItemGroup>
 
   <ItemGroup>

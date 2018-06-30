@@ -6,12 +6,12 @@
 //  <website>https://nasraldin.com/codezero</website>
 //  <github>https://nasraldin.github.io/CodeZero</github>
 //  <date>01/01/2018 01:00 AM</date>
+using CodeZero.Domain.Uow;
+using Microsoft.AspNet.OData;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.Controllers;
-using System.Web.OData;
-using CodeZero.Domain.Uow;
 
 namespace CodeZero.WebApi.OData.Controllers
 {

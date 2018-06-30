@@ -6,14 +6,14 @@
 //  <website>https://nasraldin.com/codezero</website>
 //  <github>https://nasraldin.github.io/CodeZero</github>
 //  <date>01/01/2018 01:00 AM</date>
+using CodeZero.Domain.Entities;
+using CodeZero.Domain.Repositories;
+using Microsoft.AspNet.OData;
 using System;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.OData;
-using CodeZero.Domain.Entities;
-using CodeZero.Domain.Repositories;
 
 namespace CodeZero.WebApi.OData.Controllers
 {
@@ -32,7 +32,7 @@ namespace CodeZero.WebApi.OData.Controllers
         where TEntity : class, IEntity<TPrimaryKey>
     {
         protected IRepository<TEntity, TPrimaryKey> Repository { get; private set; }
-        
+
         protected CodeZeroODataEntityController(IRepository<TEntity, TPrimaryKey> repository)
         {
             Repository = repository;
@@ -61,7 +61,7 @@ namespace CodeZero.WebApi.OData.Controllers
 
             var createdEntity = await Repository.InsertAsync(entity);
             await UnitOfWorkManager.Current.SaveChangesAsync();
-            
+
             return Created(createdEntity);
         }
 
@@ -71,13 +71,13 @@ namespace CodeZero.WebApi.OData.Controllers
             {
                 return BadRequest(ModelState);
             }
-            
+
             var dbLookup = await Repository.GetAsync(key);
             if (dbLookup == null)
             {
                 return NotFound();
             }
-            
+
             entity.Patch(dbLookup);
 
             return Updated(entity);
@@ -94,7 +94,7 @@ namespace CodeZero.WebApi.OData.Controllers
             {
                 return BadRequest();
             }
-            
+
             var updated = await Repository.UpdateAsync(update);
 
             return Updated(updated);
@@ -107,7 +107,7 @@ namespace CodeZero.WebApi.OData.Controllers
             {
                 return NotFound();
             }
-            
+
             await Repository.DeleteAsync(key);
 
             return StatusCode(HttpStatusCode.NoContent);

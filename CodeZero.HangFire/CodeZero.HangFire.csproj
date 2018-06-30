@@ -9,11 +9,20 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Product>CodeZero.HangFire</Product>
+    <Description>CodeZero.HangFire</Description>
+    <PackageLicenseUrl>https://github.com/nasraldin/CodeZero/blob/master/LICENSE</PackageLicenseUrl>
+    <Copyright>Copyright © 2018</Copyright>
+    <PackageProjectUrl>https://nasraldin.github.io/CodeZero</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/nasraldin/CodeZero</RepositoryUrl>
+    <PackageTags>c#,c-sharp,best-practices,aspnet,aspnetcore,domain-driven-design,architecture,framework,multi-tenancy,clean-architecture</PackageTags>
+    <NeutralLanguage>English</NeutralLanguage>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="HangFire.Core" Version="1.6.19" />
-    <PackageReference Include="SourceLink.Create.CommandLine" Version="2.8.2" />
+    <PackageReference Include="SourceLink.Create.CommandLine" Version="2.8.3" />
   </ItemGroup>
 
   <ItemGroup>

@@ -6,10 +6,10 @@
 //  <website>https://nasraldin.com/codezero</website>
 //  <github>https://nasraldin.github.io/CodeZero</github>
 //  <date>01/01/2018 01:00 AM</date>
-using System;
-using System.Web.OData.Builder;
-using System.Web.OData.Extensions;
 using CodeZero.Configuration.Startup;
+using Microsoft.AspNet.OData.Builder;
+using Microsoft.AspNet.OData.Extensions;
+using System;
 
 namespace CodeZero.WebApi.OData.Configuration
 {

@@ -17,10 +17,12 @@
     <Product>CodeZero.Identity.Ldap</Product>
     <Description>CodeZero.Identity.Ldap</Description>
     <Copyright>Copyright © 2018</Copyright>
+    <PackageReleaseNotes>update .net core package to 2.1.1</PackageReleaseNotes>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SourceLink.Create.CommandLine" Version="2.8.2" />
+    <PackageReference Include="SourceLink.Create.CommandLine" Version="2.8.3" />
     <PackageReference Include="System.DirectoryServices.AccountManagement" Version="4.5.0" />
     <PackageReference Include="System.DirectoryServices.Protocols" Version="4.5.0" />
   </ItemGroup>

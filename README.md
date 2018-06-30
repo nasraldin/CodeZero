@@ -20,45 +20,53 @@ CodeZero provides a clean architectural based on **Domain Driven Design** and pr
 CodeZero is distributed as NuGet packages.
 <a href="https://www.nuget.org/packages/CodeZero" target="_blank">**CodeZero Nuget Packages**</a>
 
-Shared Packages.
-CodeZero - basecore package.
-CodeZero.EntityFramework.Common
-CodeZero.Identity.Common
-CodeZero.Identity.Ldap
+###### Shared Packages.
+|Package|Status|
+|:------|:-----:|
+|CodeZero|
+|CodeZero.EntityFramework.Common|
+|CodeZero.Identity.Common|
+|CodeZero.Identity.Ldap|
 
-EntityFramework Packages.
-CodeZero.EntityFramework
-CodeZero.EntityFramework.GraphDiff
-CodeZero.EntityFrameworkCore
+###### Entity Framework Packages.
+|Package|Status|
+|:------|:-----:|
+|CodeZero.EntityFramework|
+|CodeZero.EntityFramework.GraphDiff|
+|CodeZero.EntityFrameworkCore|
 
-ASP.NET Core Identity Packages.
-CodeZero.IdentityCore
-CodeZero.IdentityCore.EntityFrameworkCore
-CodeZero.IdentityCore.IdentityServer4
-CodeZero.IdentityCore.IdentityServer4.EFCore
+###### ASP.NET Core Identity Packages.
+|Package|Status|
+|:------|:-----:|
+|CodeZero.IdentityCore|
+|CodeZero.IdentityCore.EntityFrameworkCore|
+|CodeZero.IdentityCore.IdentityServer4|
+|CodeZero.IdentityCore.IdentityServer4.EFCore|
 
-CodeZero NuGet Packages.
-CodeZero.AspNetCore
-CodeZero.Web.Common
-CodeZero.Web
-CodeZero.Web.Mvc
-CodeZero.Web.Api
-CodeZero.Web.Api.OData
-CodeZero.Web.Resources
-CodeZero.Web.SignalR
-CodeZero.Owin
-CodeZero.FluentMigrator
-CodeZero.AspNetCore
-CodeZero.AspNetCore.SignalR
-CodeZero.AutoMapper
-CodeZero.HangFire
-CodeZero.HangFire.AspNetCore
-CodeZero.Castle.Log4Net
-CodeZero.Castle.NLog
-CodeZero.RedisCache
-CodeZero.RedisCache.ProtoBuf
-CodeZero.MailKit
-CodeZero.Quartz
+###### CodeZero NuGet Packages.
+|Package|Status|
+|:------|:-----:|
+|CodeZero.AspNetCore|
+|CodeZero.Web.Common|
+|CodeZero.Web|
+|CodeZero.Web.Mvc|
+|CodeZero.Web.Api|
+|CodeZero.Web.Api.OData|
+|CodeZero.Web.Resources|
+|CodeZero.Web.SignalR|
+|CodeZero.Owin|
+|CodeZero.FluentMigrator|
+|CodeZero.AspNetCore|
+|CodeZero.AspNetCore.SignalR|
+|CodeZero.AutoMapper|
+|CodeZero.HangFire|
+|CodeZero.HangFire.AspNetCore|
+|CodeZero.Castle.Log4Net|
+|CodeZero.Castle.NLog|
+|CodeZero.RedisCache|
+|CodeZero.RedisCache.ProtoBuf|
+|CodeZero.MailKit|
+|CodeZero.Quartz|
 
 ## Startup Templates
 

@@ -1,18 +1,29 @@
-//  <copyright file="DomainService.cs" project="CodeZero" solution="CodeZero">
-//      Copyright (c) 2018 CodeZero Framework.  All rights reserved.
-//  </copyright>
-//  <author>Nasr Aldin M.</author>
-//  <email>nasr2ldin@gmail.com</email>
-//  <website>https://nasraldin.com/codezero</website>
-//  <github>https://nasraldin.github.io/CodeZero</github>
-//  <date>01/01/2018 01:00 AM</date>
-namespace CodeZero.Domain.Services
-{
-    /// <summary>
-    /// This class can be used as a base class for domain services. 
-    /// </summary>
-    public abstract class DomainService : CodeZeroServiceBase, IDomainService
-    {
+//using System;
+//using Microsoft.Extensions.Logging;
+//using Microsoft.Extensions.Logging.Abstractions;
+//using CodeZero.DependencyInjection;
+//using CodeZero.Guids;
+//using CodeZero.Linq;
+//using CodeZero.MultiTenancy;
+//using CodeZero.Timing;
 
-    }
-}
+//namespace CodeZero.Domain.Services
+//{
+//    public abstract class DomainService : IDomainService
+//    {
+//        public IAbpLazyServiceProvider LazyServiceProvider { get; set; }
+
+//        public IServiceProvider ServiceProvider { get; set; }
+
+//        protected IClock Clock => LazyServiceProvider.LazyGetRequiredService<IClock>();
+
+//        public IGuidGenerator GuidGenerator => LazyServiceProvider.LazyGetService<IGuidGenerator>(SimpleGuidGenerator.Instance);
+
+//        protected ILoggerFactory LoggerFactory => LazyServiceProvider.LazyGetRequiredService<ILoggerFactory>();
+
+
+//        protected IAsyncQueryableExecuter AsyncExecuter => LazyServiceProvider.LazyGetRequiredService<IAsyncQueryableExecuter>();
+
+//        protected ILogger Logger => LazyServiceProvider.LazyGetService<ILogger>(provider => LoggerFactory?.CreateLogger(GetType().FullName) ?? NullLogger.Instance);
+//    }
+//}

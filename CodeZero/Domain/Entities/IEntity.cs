@@ -1,19 +1,33 @@
-//  <copyright file="IEntity.cs" project="CodeZero" solution="CodeZero">
-//      Copyright (c) 2018 CodeZero Framework.  All rights reserved.
-//  </copyright>
-//  <author>Nasr Aldin M.</author>
-//  <email>nasr2ldin@gmail.com</email>
-//  <website>https://nasraldin.com/codezero</website>
-//  <github>https://nasraldin.github.io/CodeZero</github>
-//  <date>01/01/2018 01:00 AM</date>
-namespace CodeZero.Domain.Entities
+﻿namespace CodeZero.Domain.Entities
 {
-    /// <inheritdoc />
     /// <summary>
-    /// A shortcut of <see cref="T:CodeZero.Domain.Entities.IEntity`1" /> for most used primary key type (<see cref="T:System.Int32" />).
+    /// Defines an entity. It's primary key may not be "Id" or it may have a composite primary key.
+    /// Use <see cref="IEntity{TKey}"/> where possible for better integration to repositories and other structures in the framework.
     /// </summary>
-    public interface IEntity : IEntity<int>
+    public interface IEntity
     {
+        /// <summary>
+        /// Returns an array of ordered keys for this entity.
+        /// </summary>
+        /// <returns></returns>
+        object[] GetKeys();
+    }
 
+    /// <summary>
+    /// Defines interface for base entity type. All entities in the system must implement this interface.
+    /// </summary>
+    /// <typeparam name="TKey">Type of the primary key of the entity</typeparam>
+    public interface IEntity<TKey> : IEntity
+    {
+        /// <summary>
+        /// Unique identifier for this entity.
+        /// </summary>
+        TKey Id { get; set; }
+
+        /// <summary>
+        /// Checks if this entity is transient (not persisted to database and it has not an <see cref="Id"/>).
+        /// </summary>
+        /// <returns>True, if this entity is transient</returns>
+        bool IsTransient();
     }
 }

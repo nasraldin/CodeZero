@@ -1,28 +1,18 @@
-//  <copyright file="IAggregateRoot.cs" project="CodeZero" solution="CodeZero">
-//      Copyright (c) 2018 CodeZero Framework.  All rights reserved.
-//  </copyright>
-//  <author>Nasr Aldin M.</author>
-//  <email>nasr2ldin@gmail.com</email>
-//  <website>https://nasraldin.com/codezero</website>
-//  <github>https://nasraldin.github.io/CodeZero</github>
-//  <date>01/01/2018 01:00 AM</date>
-using System.Collections.Generic;
-using CodeZero.Events.Bus;
-
-namespace CodeZero.Domain.Entities
+﻿namespace CodeZero.Domain.Entities
 {
-    public interface IAggregateRoot : IAggregateRoot<int>, IEntity
+    /// <summary>
+    /// Defines an aggregate root. It's primary key may not be "Id" or it may have a composite primary key.
+    /// Use <see cref="IAggregateRoot{TKey}"/> where possible for better integration to repositories and other structures in the framework.
+    /// </summary>
+    public interface IAggregateRoot : IEntity
     {
-
     }
 
-    public interface IAggregateRoot<TPrimaryKey> : IEntity<TPrimaryKey>, IGeneratesDomainEvents
+    /// <summary>
+    /// Defines an aggregate root with a single primary key with "Id" property.
+    /// </summary>
+    /// <typeparam name="TKey">Type of the primary key of the entity</typeparam>
+    public interface IAggregateRoot<TKey> : IEntity<TKey>, IAggregateRoot
     {
-
-    }
-
-    public interface IGeneratesDomainEvents
-    {
-        ICollection<IEventData> DomainEvents { get; }
     }
 }

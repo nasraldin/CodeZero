@@ -1,21 +1,11 @@
-﻿//  <copyright file="EntityNotFoundException.cs" project="CodeZero" solution="CodeZero">
-//      Copyright (c) 2018 CodeZero Framework.  All rights reserved.
-//  </copyright>
-//  <author>Nasr Aldin M.</author>
-//  <email>nasr2ldin@gmail.com</email>
-//  <website>https://nasraldin.com/codezero</website>
-//  <github>https://nasraldin.github.io/CodeZero</github>
-//  <date>01/01/2018 01:00 AM</date>
+﻿using CodeZero.ExceptionHandling;
 using System;
-using System.Runtime.Serialization;
 
 namespace CodeZero.Domain.Entities
 {
-    /// <inheritdoc />
     /// <summary>
     /// This exception is thrown if an entity excepted to be found but not found.
     /// </summary>
-    [Serializable]
     public class EntityNotFoundException : CodeZeroException
     {
         /// <summary>
@@ -28,28 +18,25 @@ namespace CodeZero.Domain.Entities
         /// </summary>
         public object Id { get; set; }
 
-        /// <inheritdoc />
         /// <summary>
-        /// Creates a new <see cref="T:CodeZero.Domain.Entities.EntityNotFoundException" /> object.
+        /// Creates a new <see cref="EntityNotFoundException"/> object.
         /// </summary>
         public EntityNotFoundException()
         {
 
         }
 
-        /// <inheritdoc />
         /// <summary>
-        /// Creates a new <see cref="T:CodeZero.Domain.Entities.EntityNotFoundException" /> object.
+        /// Creates a new <see cref="EntityNotFoundException"/> object.
         /// </summary>
-        public EntityNotFoundException(SerializationInfo serializationInfo, StreamingContext context)
-            : base(serializationInfo, context)
+        public EntityNotFoundException(Type entityType)
+            : this(entityType, null, null)
         {
 
         }
 
-        /// <inheritdoc />
         /// <summary>
-        /// Creates a new <see cref="T:CodeZero.Domain.Entities.EntityNotFoundException" /> object.
+        /// Creates a new <see cref="EntityNotFoundException"/> object.
         /// </summary>
         public EntityNotFoundException(Type entityType, object id)
             : this(entityType, id, null)
@@ -57,20 +44,22 @@ namespace CodeZero.Domain.Entities
 
         }
 
-        /// <inheritdoc />
         /// <summary>
-        /// Creates a new <see cref="T:CodeZero.Domain.Entities.EntityNotFoundException" /> object.
+        /// Creates a new <see cref="EntityNotFoundException"/> object.
         /// </summary>
         public EntityNotFoundException(Type entityType, object id, Exception innerException)
-            : base($"There is no such an entity. Entity type: {entityType.FullName}, id: {id}", innerException)
+            : base(
+                id == null
+                    ? $"There is no such an entity given given id. Entity type: {entityType.FullName}"
+                    : $"There is no such an entity. Entity type: {entityType.FullName}, id: {id}",
+                innerException)
         {
             EntityType = entityType;
             Id = id;
         }
 
-        /// <inheritdoc />
         /// <summary>
-        /// Creates a new <see cref="T:CodeZero.Domain.Entities.EntityNotFoundException" /> object.
+        /// Creates a new <see cref="EntityNotFoundException"/> object.
         /// </summary>
         /// <param name="message">Exception message</param>
         public EntityNotFoundException(string message)
@@ -79,9 +68,8 @@ namespace CodeZero.Domain.Entities
 
         }
 
-        /// <inheritdoc />
         /// <summary>
-        /// Creates a new <see cref="T:CodeZero.Domain.Entities.EntityNotFoundException" /> object.
+        /// Creates a new <see cref="EntityNotFoundException"/> object.
         /// </summary>
         /// <param name="message">Exception message</param>
         /// <param name="innerException">Inner exception</param>

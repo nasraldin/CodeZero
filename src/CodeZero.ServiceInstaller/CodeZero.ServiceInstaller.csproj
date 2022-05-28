@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>CodeZero.ServiceInstaller</AssemblyName>
+    <PackageId>CodeZero.ServiceInstaller</PackageId>
+    <!--Change this {Version} if you fix a bug or add a new rule, for shipping new package.-->
+    <PackageVersion>6.0.0</PackageVersion>
+    <Version>6.0.0</Version>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Description>CodeZero.ServiceInstaller enable dependency injection (DI)</Description>
+    <PackageDescription>CodeZero.ServiceInstaller enable dependency injection (DI)</PackageDescription>
+    <PackageTags>.net core;clean architecture;logging;serilog;best-practices</PackageTags>
+    <!--Change this {PackageReleaseNotes}, add your relase notes for fix a bug or a new rule.-->
+    <PackageReleaseNotes>CodeZero.ServiceInstaller .net 6 Inial release</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>obj\Debug\net6.0\CodeZero.ServiceInstaller.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <!--Import common packages are used across all projects-->
+  <Import Project="..\..\Common.props" />
+
+</Project>

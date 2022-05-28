@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>CodeZero.Serilog</AssemblyName>
+    <PackageId>CodeZero.Serilog</PackageId>
+    <!--Change this {Version} if you fix a bug or add a new rule, for shipping new package.-->
+    <PackageVersion>6.0.0</PackageVersion>
+    <Version>6.0.0</Version>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Description>Add serilog to your application</Description>
+    <PackageDescription>Add serilog to your application</PackageDescription>
+    <PackageTags>.net core;clean architecture;logging;serilog;best-practices</PackageTags>
+    <!--Change this {PackageReleaseNotes}, add your relase notes for fix a bug or a new rule.-->
+    <PackageReleaseNotes>CodeZero.Serilog .net 6 Inial release</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>obj\Debug\net6.0\CodeZero.Serilog.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <!--Import common packages are used across all projects-->
+  <Import Project="..\..\Common.props" />
+
+</Project>

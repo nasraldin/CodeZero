@@ -3,30 +3,30 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <LangVersion>latest</LangVersion>
-    <AssemblyName>CodeZero.Logging</AssemblyName>
-    <PackageId>CodeZero.Logging</PackageId>
+    <AssemblyName>CodeZero.Shared.Logging</AssemblyName>
+    <PackageId>CodeZero.Shared.Logging</PackageId>
     <!--Change this {Version} if you fix a bug or add a new rule, for shipping new package.-->
     <PackageVersion>6.0.0</PackageVersion>
     <Version>6.0.0</Version>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Description>CodeZero.Logging is a set of common classes can help you build faster web applications</Description>
-    <PackageDescription>CodeZero.Logging is a set of common classes can help you build faster web applications</PackageDescription>
-    <PackageTags>.net core;boilerplate;clean architecture;logging;check;modular;best-practices</PackageTags>
+    <Description>CodeZero.Shared.Logging is a set of common classes shared for CodeZero Framework</Description>
+    <PackageDescription>CodeZero.Shared.Logging is a set of common classes shared for CodeZero Framework</PackageDescription>
+    <PackageTags>.net core;boilerplate;modular;best-practices</PackageTags>
     <!--Change this {PackageReleaseNotes}, add your relase notes for fix a bug or a new rule.-->
-    <PackageReleaseNotes>CodeZero.Logging .net 6 Inial release</PackageReleaseNotes>
+    <PackageReleaseNotes>CodeZero.Shared.Logging .net 6 Inial release</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>obj\Debug\net6.0\CodeZero.Logging.xml</DocumentationFile>
+    <DocumentationFile>obj\Debug\net6.0\CodeZero.Shared.Logging.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2022.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CodeZero.Shared.Exception\CodeZero.Shared.Exception.csproj" />
-    <ProjectReference Include="..\CodeZero.Shared.Logging\CodeZero.Shared.Logging.csproj" />
   </ItemGroup>
 
   <!--Import common packages are used across all projects-->

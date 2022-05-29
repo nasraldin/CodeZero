@@ -290,3 +290,6 @@ dotnet_diagnostic.IDE0055.severity = warning
 dotnet_code_quality_unused_parameters = non_public
 csharp_style_namespace_declarations = block_scoped:silent
 csharp_style_prefer_method_group_conversion = true:silent
+
+# S3925: "ISerializable" should be implemented correctly
+dotnet_diagnostic.S3925.severity = none

@@ -46,6 +46,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeZero.Shared.Reflection"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeZero.Exception", "src\CodeZero.Exception\CodeZero.Exception.csproj", "{5A963675-5B2A-4AE4-B41F-075DB80A3285}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeZero.Configuration", "src\CodeZero.Configuration\CodeZero.Configuration.csproj", "{A5B9FDFF-6C83-44D6-B313-691A4DDFC54D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeZero.Shared.Constants", "src\CodeZero.Shared.Constants\CodeZero.Shared.Constants.csproj", "{2D36CA66-8C30-4486-9546-5362EAFD4CFC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -116,6 +120,14 @@ Global
 		{5A963675-5B2A-4AE4-B41F-075DB80A3285}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A963675-5B2A-4AE4-B41F-075DB80A3285}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A963675-5B2A-4AE4-B41F-075DB80A3285}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5B9FDFF-6C83-44D6-B313-691A4DDFC54D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5B9FDFF-6C83-44D6-B313-691A4DDFC54D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5B9FDFF-6C83-44D6-B313-691A4DDFC54D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5B9FDFF-6C83-44D6-B313-691A4DDFC54D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D36CA66-8C30-4486-9546-5362EAFD4CFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D36CA66-8C30-4486-9546-5362EAFD4CFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D36CA66-8C30-4486-9546-5362EAFD4CFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D36CA66-8C30-4486-9546-5362EAFD4CFC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -138,6 +150,8 @@ Global
 		{034CF604-3371-4224-8442-550BA2241679} = {39EDCEBF-00F9-4EC4-AE19-E1101DECD297}
 		{046E44D2-9701-401B-BC18-C73AD753AAE3} = {39EDCEBF-00F9-4EC4-AE19-E1101DECD297}
 		{5A963675-5B2A-4AE4-B41F-075DB80A3285} = {CEC1506F-B1FB-471B-AC28-E0C9D2B24C0A}
+		{A5B9FDFF-6C83-44D6-B313-691A4DDFC54D} = {CEC1506F-B1FB-471B-AC28-E0C9D2B24C0A}
+		{2D36CA66-8C30-4486-9546-5362EAFD4CFC} = {39EDCEBF-00F9-4EC4-AE19-E1101DECD297}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {74546C9D-1D95-4643-9CCD-415BF342A1DC}

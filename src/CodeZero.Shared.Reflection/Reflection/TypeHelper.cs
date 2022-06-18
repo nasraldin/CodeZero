@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+using JetBrains.Annotations;
 
 namespace CodeZero.Reflection;
 
@@ -7,7 +7,6 @@ namespace CodeZero.Reflection;
 /// </summary>
 public static class TypeHelper
 {
-
     public static object GetDefaultValue(Type type)
     {
         if (type.IsValueType)

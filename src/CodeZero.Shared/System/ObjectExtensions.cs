@@ -164,4 +164,14 @@ public static class ObjectExtensions
         if (obj is null)
             throw new ArgumentNullException(text + " not allowed to be null");
     }
+
+    public static T GetPropertyValue<T>(this object obj, string propName)
+    {
+        return (T)obj.GetType().GetProperty(propName)?.GetValue(obj, null)!;
+    }
+
+    public static T GetFieldValue<T>(this object obj, string name)
+    {
+        return (T)obj.GetType().GetField(name)?.GetValue(obj)!;
+    }
 }

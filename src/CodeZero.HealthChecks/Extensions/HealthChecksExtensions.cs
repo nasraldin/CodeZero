@@ -1,5 +1,4 @@
 using CodeZero.Configuration;
-using CodeZero.Configuration.Models;
 using CodeZero.HealthChecks.Configuration;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;

@@ -21,6 +21,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="6.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CodeZero.Antiforgery\CodeZero.Antiforgery.csproj" />
     <ProjectReference Include="..\CodeZero.Exceptional\CodeZero.Exceptional.csproj" />
     <ProjectReference Include="..\CodeZero.HealthChecks\CodeZero.HealthChecks.csproj" />

@@ -18,19 +18,21 @@ public static partial class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services">The <see cref="IServiceCollection"/>.</param>
     /// <param name="setupAction">Configures the Swagger generation options 
+    /// <param name="configuration">The <see cref="IConfiguration"/>.</param>
     /// <see cref="Action{SwaggerGenOptions}"/>.</param>
     /// <returns><see cref="IServiceCollection"/></returns>
     public static IServiceCollection AddSwaggerVersioned(
         [NotNull] this IServiceCollection services,
+        [NotNull] IConfiguration configuration,
         Action<SwaggerGenOptions> setupAction = null!)
     {
+        var swaggerConfig = configuration.GetSection(nameof(SwaggerConfig)).Get<SwaggerConfig>();
+        var apiKeyConfig = configuration.GetSection(nameof(ApiKeyConfig)).Get<ApiKeyConfig>();
+        // Convert Scopes List to Dictionary (a map of key and value)
+        // var scopes = swaggerConfig.Scopes.ToDictionary(sn => sn.ScopeName, sd => sd.ShortDescription);
+
         // Add Swagger info
         services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
-
-        //var config = AppSettings.Instance.SwaggerConfig;
-        // Convert Scopes List to Dictionary (a map of key and value)
-        //var scopes = config.Scopes.ToDictionary(sn => sn.ScopeName, sd => sd.ShortDescription);
-
         services.AddSwaggerGen(options =>
         {
             options.ResolveConflictingActions(apiDescriptions => apiDescriptions.FirstOrDefault());
@@ -38,7 +40,6 @@ public static partial class ServiceCollectionExtensions
             options.EnableAnnotations();
             // Add a custom operation filter which sets default values
             options.OperationFilter<SwaggerDefaultValues>();
-            options.OperationFilter<SwagggerProducesResponseTypeAttribute>();
             options.OperationFilter<AcceptLanguageHeader>();
             options.OperationFilter<AcceptHeader>();
             options.OperationFilter<ContentTypeHeader>();
@@ -50,11 +51,7 @@ public static partial class ServiceCollectionExtensions
             // see: https://github.com/domaindrivendev/Swashbuckle/issues/442
             //options.CustomSchemaIds(x => x.FullName);
 
-            var featureManagement = AppServiceLoader.Instance.Configuration
-                                    .GetSection(nameof(CodeZero.Configuration.FeatureManagement))
-                                    .Get<CodeZero.Configuration.FeatureManagement>();
-
-            if (featureManagement.Authentication)
+            if (swaggerConfig.EnableAuthentication)
             {
                 options.AddSecurityDefinition(AppConsts.AuthSchemes.Bearer, new OpenApiSecurityScheme
                 {
@@ -68,26 +65,21 @@ public static partial class ServiceCollectionExtensions
 
                 options.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
+                    {
+                        new OpenApiSecurityScheme
                         {
-                            new OpenApiSecurityScheme
+                            Reference = new OpenApiReference
                             {
-                                Reference = new OpenApiReference
-                                {
-                                    Type = ReferenceType.SecurityScheme,
-                                    Id = "Bearer"
-                                }
-                            },
-                            new string[] {} // ex: { "readAccess", "writeAccess" }
-                        }
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] {} // ex: { "readAccess", "writeAccess" }
+                    }
                 });
             }
 
-            var apiKeyConfig = AppServiceLoader.Instance.Configuration
-                                    .GetSection(nameof(ApiKeyConfig))
-                                    .Get<ApiKeyConfig>();
-
-
-            if (featureManagement.ApiKey)
+            if (swaggerConfig.EnableApiKey)
             {
                 options.AddSecurityDefinition(apiKeyConfig.HeaderName, new OpenApiSecurityScheme
                 {
@@ -98,25 +90,25 @@ public static partial class ServiceCollectionExtensions
                 });
 
                 options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
                     {
+                        new OpenApiSecurityScheme
+                        {
+                            Name = apiKeyConfig.HeaderName,
+                            Type = SecuritySchemeType.ApiKey,
+                            In = ParameterLocation.Header,
+                            Reference = new OpenApiReference
                             {
-                                new OpenApiSecurityScheme
-                                {
-                                    Name = apiKeyConfig.HeaderName,
-                                    Type = SecuritySchemeType.ApiKey,
-                                    In = ParameterLocation.Header,
-                                    Reference = new OpenApiReference
-                                    {
-                                        Type = ReferenceType.SecurityScheme,
-                                        Id = apiKeyConfig.HeaderName
-                                    },
-                                },
-                                new string[] {}
-                            }
-                    });
+                                Type = ReferenceType.SecurityScheme,
+                                Id = apiKeyConfig.HeaderName
+                            },
+                        },
+                        new string[] {}
+                    }
+                });
             }
 
-            options.OperationFilter<SwaggerFilterSecurityRequirements>();
+            options.OperationFilter<SecurityRequirements>();
 
             // Adds fluent validation rules to swagger
             // options.AddFluentValidationRules();
@@ -185,7 +177,7 @@ public static partial class ServiceCollectionExtensions
     }
 
     // Get the comments path for the Swagger JSON and UI.
-    public static string XmlCommentsFilePath
+    private static string XmlCommentsFilePath
     {
         get
         {

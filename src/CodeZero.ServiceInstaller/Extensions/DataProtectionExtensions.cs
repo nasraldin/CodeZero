@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.DataProtection.XmlEncryption;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
+using StackExchange.Redis;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -23,7 +24,7 @@ public static partial class ServiceCollectionExtensions
         [NotNull] IConfiguration configuration)
     {
         var dpConfig = configuration.GetSection(nameof(DataProtectionConfig)).Get<DataProtectionConfig>();
-        //var redisConfig = configuration.GetSection(nameof(RedisConfig)).Get<RedisConfig>();
+        var redisConfig = configuration.GetSection(nameof(RedisConfig)).Get<RedisConfig>();
 
         // Remove any previously registered options setups.
         services.RemoveAll<IConfigureOptions<KeyManagementOptions>>();
@@ -37,8 +38,8 @@ public static partial class ServiceCollectionExtensions
 
         if (dpConfig.PersistKeysToRedis)
         {
-            //ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(redisConfig.ConnectionString);
-            //builder.PersistKeysToStackExchangeRedis(redis, dpConfig.RedisKey);
+            ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(redisConfig.ConnectionString);
+            builder.PersistKeysToStackExchangeRedis(redis, dpConfig.RedisKey);
         }
         else
         {

@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.FeatureManagement;
 
 namespace CodeZero.Configuration;
 
@@ -22,5 +21,4 @@ public class AppServiceLoader : IAppServiceLoader
 
     public IWebHostEnvironment Environment { get; set; }
     public IConfiguration Configuration { get; set; }
-    public IFeatureManager FeatureManager { get; set; } = default!;
 }

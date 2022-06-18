@@ -27,3 +27,10 @@ public partial class ServiceSettings
     public bool EnableRateLimitingRedis { get; set; }
     public bool EnableStackExchangeExceptional { get; set; }
 }
+
+public partial class DefaultApiVersion
+{
+    public int Major { get; set; } = 1;
+    public int Minor { get; set; } = 0;
+    public string Status { get; set; } = default!;
+}

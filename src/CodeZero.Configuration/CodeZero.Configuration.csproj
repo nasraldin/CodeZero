@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -22,8 +22,7 @@
 
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2022.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
-    <PackageReference Include="Microsoft.FeatureManagement.AspNetCore" Version="2.5.1" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
   <!--Import common packages are used across all projects-->

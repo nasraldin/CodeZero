@@ -31,7 +31,8 @@ public static partial class ApplicationBuilderExtensions
             for (var i = 0; i < provider.ApiVersionDescriptions.Count; i++)
             {
                 var description = provider.ApiVersionDescriptions[i];
-                options.SwaggerEndpoint($"/{sgOptions.UiEndpoint}/{description.GroupName}/{sgOptions.RoutePrefix}", description.GroupName.ToUpperInvariant());
+                options.SwaggerEndpoint($"/{sgOptions.UiEndpoint}/{description.GroupName}/{sgOptions.RoutePrefix}",
+                    description.GroupName.ToUpperInvariant());
             }
 
             options.DefaultModelsExpandDepth(sgOptions.DefaultModelsExpandDepth);

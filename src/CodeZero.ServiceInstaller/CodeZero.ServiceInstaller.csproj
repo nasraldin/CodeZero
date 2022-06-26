@@ -20,6 +20,24 @@
     <DocumentationFile>obj\Debug\net6.0\CodeZero.ServiceInstaller.xml</DocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="6.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CodeZero.Antiforgery\CodeZero.Antiforgery.csproj" />
+    <ProjectReference Include="..\CodeZero.Exceptional\CodeZero.Exceptional.csproj" />
+    <ProjectReference Include="..\CodeZero.HealthChecks\CodeZero.HealthChecks.csproj" />
+    <ProjectReference Include="..\CodeZero.Localization\CodeZero.Localization.csproj" />
+    <ProjectReference Include="..\CodeZero.MiniProfiler\CodeZero.MiniProfiler.csproj" />
+    <ProjectReference Include="..\CodeZero.RateLimit\CodeZero.RateLimit.csproj" />
+    <ProjectReference Include="..\CodeZero.ReverseProxy\CodeZero.ReverseProxy.csproj" />
+    <ProjectReference Include="..\CodeZero.Serilog\CodeZero.Serilog.csproj" />
+    <ProjectReference Include="..\CodeZero.Shared.Exception\CodeZero.Shared.Exception.csproj" />
+    <ProjectReference Include="..\CodeZero.Swagger\CodeZero.Swagger.csproj" />
+  </ItemGroup>
+
   <!--Import common packages are used across all projects-->
   <Import Project="..\..\Common.props" />
 

@@ -21,8 +21,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
     <PackageReference Include="JetBrains.Annotations" Version="2022.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CodeZero.Shared.Exception\CodeZero.Shared.Exception.csproj" />
+    <ProjectReference Include="..\CodeZero.Shared.Logging\CodeZero.Shared.Logging.csproj" />
   </ItemGroup>
 
   <!--Import common packages are used across all projects-->

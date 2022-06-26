@@ -21,7 +21,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.1.0" />
     <PackageReference Include="JetBrains.Annotations" Version="2022.1.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
+    <PackageReference Include="Microsoft.FeatureManagement.AspNetCore" Version="2.5.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CodeZero.Exception\CodeZero.Exception.csproj" />
+    <ProjectReference Include="..\CodeZero.Shared\CodeZero.Shared.csproj" />
   </ItemGroup>
 
   <!--Import common packages are used across all projects-->

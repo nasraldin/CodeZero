@@ -17,7 +17,8 @@ public class NotFoundException : CodeZeroException
     }
 
     /// <summary>
-    /// Initializes a new instance of the NotFoundException class with a specified name of the queried object, its key,
+    /// Initializes a new instance of the NotFoundException class 
+    /// with a specified name of the queried object, its key,
     /// and the exception that is the cause of this exception.
     /// </summary>
     /// <param name="key">The value by which the object is queried.</param>

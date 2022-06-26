@@ -12,9 +12,7 @@ public class BusinessException : CodeZeroException,
         IHasLogLevel
 {
     public string Code { get; set; } = default!;
-
     public string Details { get; set; } = default!;
-
     public LogLevel LogLevel { get; set; }
 
     public BusinessException(

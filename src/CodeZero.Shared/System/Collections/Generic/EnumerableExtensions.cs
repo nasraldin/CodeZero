@@ -1,5 +1,6 @@
 using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
+using JetBrains.Annotations;
 
 namespace System.Collections.Generic;
 
@@ -8,6 +9,14 @@ namespace System.Collections.Generic;
 /// </summary>
 public static class EnumerableExtensions
 {
+    /// <summary>
+    /// Checks whatever given IEnumerable object is null or has no item.
+    /// </summary>
+    public static bool IsNullOrEmpty<T>([CanBeNull] this IEnumerable<T> source)
+    {
+        return source is null || !source.Any();
+    }
+
     /// <summary>
     /// Concatenates the members of a constructed <see cref="IEnumerable{T}"/> 
     /// collection of type System.String, using the specified separator between each member.

@@ -1,6 +1,6 @@
 using JetBrains.Annotations;
 
-namespace CodeZero.Reflection;
+namespace CodeZero.Helpers;
 
 /// <summary>
 /// Some simple type-checking methods used internally.

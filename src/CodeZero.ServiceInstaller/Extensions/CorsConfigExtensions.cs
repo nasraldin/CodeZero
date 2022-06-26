@@ -1,4 +1,3 @@
-using CodeZero;
 using CodeZero.Configuration;
 using JetBrains.Annotations;
 using Microsoft.Extensions.Configuration;
@@ -18,6 +17,11 @@ public static partial class ServiceCollectionExtensions
         [NotNull] IConfiguration configuration)
     {
         var corsConfig = configuration.GetSection(nameof(CorsSettings)).Get<CorsSettings>();
+
+        if (corsConfig is null)
+        {
+            throw new CodeZeroException($"Configure {nameof(CorsSettings)} settings in appsettings.Environment.json");
+        }
 
         if (!corsConfig.CorsPolicy.Any())
             return services;

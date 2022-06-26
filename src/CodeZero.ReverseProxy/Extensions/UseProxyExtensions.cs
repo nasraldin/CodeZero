@@ -21,7 +21,7 @@ public static partial class ApplicationBuilderExtensions
     {
         var proxySettings = configuration.GetSection(nameof(ProxySettings)).Get<ProxySettings>();
 
-        if (!string.IsNullOrEmpty(proxySettings.RequestBasePath))
+        if (!string.IsNullOrEmpty(proxySettings?.RequestBasePath))
         {
             app.Use(async (context, next) =>
             {
@@ -35,7 +35,8 @@ public static partial class ApplicationBuilderExtensions
             ForwardedHeaders = ForwardedHeaders.All
         };
 
-        if (proxySettings.ForwardedHeadersOptions.AddActiveNetworkInterfaceToKnownNetworks)
+        if (proxySettings?.ForwardedHeadersOptions is not null &&
+            proxySettings.ForwardedHeadersOptions.AddActiveNetworkInterfaceToKnownNetworks)
         {
             foreach (var network in Network.GetNetworks(NetworkInterfaceType.Ethernet))
             {
@@ -49,7 +50,6 @@ public static partial class ApplicationBuilderExtensions
         // You may want to change this for production scenarios,
         // see https://aka.ms/aspnetcore-hsts.
         app.UseHsts();
-        app.UseHttpsRedirection();
 
         return app;
     }

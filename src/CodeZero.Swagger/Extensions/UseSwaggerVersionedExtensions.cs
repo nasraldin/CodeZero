@@ -2,6 +2,7 @@ using CodeZero.Configuration;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Microsoft.AspNetCore.Builder;
 
@@ -11,15 +12,15 @@ public static partial class ApplicationBuilderExtensions
     /// Register the Swagger generator and the Swagger UI middlewares.
     /// </summary>
     /// <param name="app">The <see cref="IApplicationBuilder"/>.</param>
-    /// <param name="provider">The <see cref="IApiVersionDescriptionProvider"/>.</param>
     /// <param name="configuration">The <see cref="IConfiguration"/>.</param>
     /// <returns><see cref="IApplicationBuilder"/></returns>
     public static IApplicationBuilder UseSwaggerVersioned(
         this IApplicationBuilder app,
-        IApiVersionDescriptionProvider provider,
+        //IApiVersionDescriptionProvider provider,
         [NotNull] IConfiguration configuration)
     {
-        var sgOptions = configuration.GetSection(nameof(SwaggerConfig)).Get<SwaggerConfig>();
+        var provider = app.ApplicationServices.GetRequiredService<IApiVersionDescriptionProvider>();
+        var sgOptions = configuration.GetSection(nameof(SwaggerConfig)).Get<SwaggerConfig>() ?? new SwaggerConfig();
 
         // Enable middleware to serve generated Swagger as a JSON endpoint.
         app.UseSwagger(option => { option.RouteTemplate = sgOptions.RouteTemplate; });

@@ -18,7 +18,7 @@ public static partial class ServiceCollectionExtensions
         [NotNull] this IServiceCollection services,
         [NotNull] IConfiguration configuration)
     {
-        var serviceSettings = configuration.GetSection(nameof(ServiceSettings)).Get<ServiceSettings>();
+        var serviceSettings = configuration.GetSection(nameof(ServiceSettings)).Get<ServiceSettings>() ?? new ServiceSettings();
 
         // load general configuration from appsettings.json
         services.Configure<IpRateLimitOptions>(configuration.GetSection("IpRateLimiting"));

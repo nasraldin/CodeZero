@@ -21,7 +21,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="2022.1.0" />
+    <ProjectReference Include="..\CodeZero.ServiceInstaller\CodeZero.ServiceInstaller.csproj" />
   </ItemGroup>
 
   <!--Import common packages are used across all projects-->

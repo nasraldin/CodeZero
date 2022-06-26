@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 using System.IO.Compression;
 using System.Security.Cryptography;
 using System.Text;
@@ -266,7 +266,6 @@ public static partial class StringExtensions
         {
             return str;
         }
-
         if (str.Length == 1)
         {
             return useCurrentCulture ? str.ToLower() : str.ToLowerInvariant();
@@ -287,7 +286,6 @@ public static partial class StringExtensions
         {
             return str;
         }
-
         if (str.Length == 1)
         {
             return useCurrentCulture ? str.ToUpper() : str.ToUpperInvariant();
@@ -312,7 +310,6 @@ public static partial class StringExtensions
                 nextIsUpper = true;
                 continue;
             }
-
             if (nextIsUpper)
             {
                 result.Append(char.ToUpperInvariant(c));
@@ -382,7 +379,9 @@ public static partial class StringExtensions
     /// <returns></returns>
     public static string ToUpperLowerNameVariant(this string value)
     {
-        if (string.IsNullOrEmpty(value)) return "";
+        if (string.IsNullOrEmpty(value))
+            return string.Empty;
+
         char[] valuearray = value.ToLower().ToCharArray();
         bool nextupper = true;
 
@@ -516,7 +515,6 @@ public static partial class StringExtensions
     private static string TrimCharacter(this string str, char character)
     {
         string result = string.Empty;
-
         result = string.Join(character.ToString(), str.Split(character).Where(s => s != string.Empty).ToArray());
 
         return result;
@@ -615,7 +613,6 @@ public static partial class StringExtensions
         {
             return string.Empty;
         }
-
         if (postFixes.IsNullOrEmpty())
         {
             return str;
@@ -657,7 +654,6 @@ public static partial class StringExtensions
         {
             return string.Empty;
         }
-
         if (preFixes.IsNullOrEmpty())
         {
             return str;
@@ -695,7 +691,6 @@ public static partial class StringExtensions
         {
             return string.Empty;
         }
-
         if (str.Length <= maxLength)
         {
             return str;
@@ -714,7 +709,6 @@ public static partial class StringExtensions
         {
             return string.Empty;
         }
-
         if (str.Length <= maxLength)
         {
             return str;
@@ -746,12 +740,10 @@ public static partial class StringExtensions
         {
             return string.Empty;
         }
-
         if (str.Length <= maxLength)
         {
             return str;
         }
-
         if (maxLength <= postfix.Length)
         {
             return postfix.Left(maxLength);
@@ -817,7 +809,6 @@ public static partial class StringExtensions
     public static bool Like(this string value, string searchString)
     {
         bool result = false;
-
         var likeParts = searchString.Split(new char[] { '%' });
 
         for (int i = 0; i < likeParts.Length; i++)
@@ -826,7 +817,6 @@ public static partial class StringExtensions
             {
                 continue;   // "a%"
             }
-
             if (i == 0)
             {
                 if (likeParts.Length == 1) // "a"
@@ -868,7 +858,6 @@ public static partial class StringExtensions
     public static bool ReverseLike(this string value, string compareString)
     {
         bool result = false;
-
         var likeParts = value.Split(new char[] { '%' });
 
         for (int i = 0; i < likeParts.Length; i++)
@@ -877,7 +866,6 @@ public static partial class StringExtensions
             {
                 continue;   // "a%"
             }
-
             if (i == 0)
             {
                 if (likeParts.Length == 1) // "a"
@@ -925,19 +913,19 @@ public static partial class StringExtensions
     {
         byte[] buffer = Encoding.UTF8.GetBytes(text);
         var memoryStream = new MemoryStream();
+
         using (var gZipStream = new GZipStream(memoryStream, CompressionMode.Compress, true))
         {
             gZipStream.Write(buffer, 0, buffer.Length);
         }
 
         memoryStream.Position = 0;
-
         var compressedData = new byte[memoryStream.Length];
         memoryStream.Read(compressedData, 0, compressedData.Length);
-
         var gZipBuffer = new byte[compressedData.Length + 4];
         Buffer.BlockCopy(compressedData, 0, gZipBuffer, 4, compressedData.Length);
         Buffer.BlockCopy(BitConverter.GetBytes(buffer.Length), 0, gZipBuffer, 0, 4);
+
         return Convert.ToBase64String(gZipBuffer);
     }
 
@@ -952,10 +940,9 @@ public static partial class StringExtensions
         using var memoryStream = new MemoryStream();
         int dataLength = BitConverter.ToInt32(gZipBuffer, 0);
         memoryStream.Write(gZipBuffer, 4, gZipBuffer.Length - 4);
-
         var buffer = new byte[dataLength];
-
         memoryStream.Position = 0;
+
         using (var gZipStream = new GZipStream(memoryStream, CompressionMode.Decompress))
         {
             gZipStream.Read(buffer, 0, buffer.Length);
@@ -1034,7 +1021,7 @@ public static partial class StringExtensions
     /// <returns></returns>
     public static string Format(this string format, object arg, params object[] additionalArgs)
     {
-        if (additionalArgs == null || additionalArgs.Length == 0)
+        if (additionalArgs is null || additionalArgs.Length == 0)
         {
             return string.Format(format, arg);
         }

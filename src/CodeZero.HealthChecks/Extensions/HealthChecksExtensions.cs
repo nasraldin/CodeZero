@@ -20,7 +20,7 @@ public static partial class ServiceCollectionExtensions
         [NotNull] IConfiguration configuration,
         string dbContextName = "ApplicationDbContext") where TContext : DbContext
     {
-        var hcsUIConfig = configuration.GetSection(nameof(HealthChecksUI)).Get<HealthChecksUI>();
+        var hcsUIConfig = configuration.GetSection(nameof(HealthChecksUI)).Get<HealthChecksUI>() ?? new HealthChecksUI();
 
         // Registers required services for health checks
         var healthChecks = services.AddHealthChecks();
@@ -41,13 +41,15 @@ public static partial class ServiceCollectionExtensions
         if (hcsUIConfig.Checks.Redis)
         {
             var redisConfig = configuration.GetSection(nameof(RedisConfig)).Get<RedisConfig>();
-            healthChecks.AddRedis(redisConfig.ConnectionString, "Redis Server", tags: new[] { "Cache" });
+            healthChecks
+                .AddRedis(redisConfig.ConnectionString, "Redis Server", tags: new[] { "Cache" });
         }
 
         if (hcsUIConfig.Checks.Seq)
         {
             var seqOptions = configuration.GetSection(nameof(SeqOptions)).Get<SeqOptions>();
-            healthChecks.AddSeqPublisher(seq => { seq.Endpoint = seqOptions.Endpoint; }, "HealthChecks");
+            healthChecks
+                .AddSeqPublisher(seq => { seq.Endpoint = seqOptions.Endpoint; }, "HealthChecks");
         }
 
         var healthChecksUI = services.AddHealthChecksUI(opt =>

@@ -18,7 +18,7 @@ public static partial class ApplicationBuilderExtensions
         this IApplicationBuilder app,
         [NotNull] IConfiguration configuration)
     {
-        var hcsUIConfig = configuration.GetSection(nameof(HealthChecksUI)).Get<HealthChecksUI>();
+        var hcsUIConfig = configuration.GetSection(nameof(HealthChecksUI)).Get<HealthChecksUI>() ?? new HealthChecksUI();
 
         hcsUIConfig.HealthChecks?.ForEach(item =>
         {
@@ -30,7 +30,7 @@ public static partial class ApplicationBuilderExtensions
             });
         });
 
-        // HealthCheck UI default is /healthchecks-ui/
+        // HealthCheck UI default is /healthy-ui/
         app.UseHealthChecksUI(opt =>
         {
             opt.UIPath = hcsUIConfig.UiEndpoint;

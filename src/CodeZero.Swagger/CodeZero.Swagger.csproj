@@ -30,6 +30,8 @@
   <ItemGroup>
     <ProjectReference Include="..\CodeZero.Configuration\CodeZero.Configuration.csproj" />
     <ProjectReference Include="..\CodeZero.Shared.Constants\CodeZero.Shared.Constants.csproj" />
+    <ProjectReference Include="..\CodeZero.Shared.Exception\CodeZero.Shared.Exception.csproj" />
+    <ProjectReference Include="..\CodeZero.Shared.Logging\CodeZero.Shared.Logging.csproj" />
   </ItemGroup>
 
   <!--Import common packages are used across all projects-->

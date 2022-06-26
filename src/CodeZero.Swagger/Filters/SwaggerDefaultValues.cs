@@ -27,7 +27,6 @@ public class SwaggerDefaultValues : IOperationFilter
         }
 
         var apiDescription = context.ApiDescription;
-
         operation.Deprecated |= apiDescription.IsDeprecated();
 
         if (operation.Parameters is null)
@@ -45,7 +44,6 @@ public class SwaggerDefaultValues : IOperationFilter
             {
                 parameter.Description = description.ModelMetadata?.Description;
             }
-
             if (parameter.Schema.Default is null && description.DefaultValue is not null)
             {
                 parameter.Schema.Default = new OpenApiString(description.DefaultValue.ToString());

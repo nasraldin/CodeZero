@@ -2,6 +2,7 @@ using CodeZero.Configuration;
 using JetBrains.Annotations;
 using Microsoft.Extensions.Configuration;
 using StackExchange.Profiling.Storage;
+using StackExchange.Redis;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -17,7 +18,7 @@ public static partial class ServiceCollectionExtensions
         [NotNull] this IServiceCollection services,
         [NotNull] IConfiguration configuration)
     {
-        var mpConfig = configuration.GetSection(nameof(MiniProfilerConfig)).Get<MiniProfilerConfig>();
+        var mpConfig = configuration.GetSection(nameof(MiniProfilerConfig)).Get<MiniProfilerConfig>() ?? new MiniProfilerConfig();
 
         // Note .AddMiniProfiler() returns a IMiniProfilerBuilder for easy intellisense
         services.AddMiniProfiler(options =>
@@ -29,21 +30,20 @@ public static partial class ServiceCollectionExtensions
 
             // (Optional) Control storage
             // MemoryCache, MySql, SqlServer, Redis
-            if (mpConfig != null)
+            if (mpConfig is not null && !string.IsNullOrEmpty(mpConfig.Storage))
             {
                 switch (mpConfig.Storage)
                 {
-                    //case "Redis":
-                    //    var redisService = services.BuildServiceProvider().GetRequiredService<IRedisService>();
-                    //    redisService.ConnectAsync().ConfigureAwait(true).GetAwaiter().GetResult();
-                    //    options.Storage = new RedisStorage(redisService.Database);
-                    //    break;
+                    case "Redis":
+                        var conn = ConnectionMultiplexer.Connect(mpConfig.ConnectionString);
+                        options.Storage = new RedisStorage(conn);
+                        break;
                     case "MySql":
                         options.Storage = new MySqlStorage(mpConfig.ConnectionString);
                         break;
-                    //case "SqlServer":
-                    //    options.Storage = new SqlServerStorage(AppSettings.Instance.MiniProfilerConfig.ConnectionString);
-                    //    break;
+                    case "SqlServer":
+                        options.Storage = new SqlServerStorage(mpConfig.ConnectionString);
+                        break;
                     default:
                         (options.Storage as MemoryCacheStorage)!.CacheDuration = TimeSpan.FromMinutes(60);
                         break;

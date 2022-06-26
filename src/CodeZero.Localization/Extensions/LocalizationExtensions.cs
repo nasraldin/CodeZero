@@ -18,9 +18,9 @@ public static partial class ServiceCollectionExtensions
         [NotNull] this IServiceCollection services,
         [NotNull] IConfiguration configuration)
     {
-        var serviceSettings = configuration.GetSection(nameof(ServiceSettings)).Get<ServiceSettings>();
+        var serviceSettings = configuration.GetSection(nameof(ServiceSettings)).Get<ServiceSettings>() ?? new ServiceSettings();
         var language = configuration.GetSection(nameof(Language)).Get<Language[]>();
-        var supportedCultures = language.Select(lang => new CultureInfo(lang.Culture)).ToArray();
+        var supportedCultures = language?.Select(lang => new CultureInfo(lang.Culture)).ToArray();
         var defaultCulture = new CultureInfo[] { new CultureInfo("en"), new CultureInfo("ar") };
 
         services.AddLocalization();
@@ -37,7 +37,7 @@ public static partial class ServiceCollectionExtensions
             };
         });
 
-        services.AddMvc().AddDataAnnotationsLocalization();
+        //services.AddControllers().AddDataAnnotationsLocalization();
 
         return services;
     }

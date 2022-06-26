@@ -1,4 +1,4 @@
-﻿namespace CodeZero;
+namespace CodeZero;
 
 public static partial class AppConsts
 {

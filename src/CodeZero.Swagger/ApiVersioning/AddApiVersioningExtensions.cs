@@ -23,7 +23,7 @@ public static partial class ServiceCollectionExtensions
         services.AddTransient<IRequestedApiVersion, HttpContextRequestedApiVersion>();
         services.AddSingleton<IRequestedApiVersion>(NullRequestedApiVersion.Instance);
 
-        var apiVer = config.GetSection(nameof(DefaultApiVersion)).Get<DefaultApiVersion>();
+        var apiVer = config.GetSection(nameof(DefaultApiVersion)).Get<DefaultApiVersion>() ?? new DefaultApiVersion();
 
         // Add API versioning
         services.AddApiVersioning(options =>

@@ -29,8 +29,8 @@ public static class ReflectionToStringExtensions
         string res = null!;
         Type TType = typeof(T);
 
-        if (TType.IsGenericType
-            && (TType.GetGenericTypeDefinition() == typeof(KeyValuePair<,>)))
+        if (TType.IsGenericType &&
+            (TType.GetGenericTypeDefinition() == typeof(KeyValuePair<,>)))
         {
             Type kvpType = typeof(KeyValuePair<,>)
                 .MakeGenericType(TType.GetGenericArguments()[0], TType.GetGenericArguments()[1]);
@@ -40,8 +40,8 @@ public static class ReflectionToStringExtensions
         {
             foreach (var IType in TType.GetInterfaces())
             {
-                if (IType.IsGenericType
-                    && (IType.GetGenericTypeDefinition() == typeof(ICollection<>)))
+                if (IType.IsGenericType &&
+                    (IType.GetGenericTypeDefinition() == typeof(ICollection<>)))
                 {
                     res = ReflectionToStringExtensions.ToStringExtCollection(obj.CastToReflected(IType), d + 1);
                     break;

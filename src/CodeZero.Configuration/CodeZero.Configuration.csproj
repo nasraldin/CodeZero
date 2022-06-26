@@ -25,6 +25,10 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CodeZero.Shared.Constants\CodeZero.Shared.Constants.csproj" />
+  </ItemGroup>
+
   <!--Import common packages are used across all projects-->
   <Import Project="..\..\Common.props" />
 

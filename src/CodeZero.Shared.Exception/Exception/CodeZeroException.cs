@@ -1,12 +1,12 @@
 using System.Runtime.Serialization;
 
-namespace CodeZero;
+namespace System;
 
 /// <summary>
 /// Base exception type for those are thrown by CodeZero system for app specific exceptions.
 /// </summary>
 [Serializable]
-public class CodeZeroException : System.Exception
+public class CodeZeroException : Exception
 {
     private readonly string _resourceName = default!;
     private readonly IList<string> _validationErrors = default!;
@@ -21,7 +21,7 @@ public class CodeZeroException : System.Exception
     }
 
     /// <inheritdoc />
-    public CodeZeroException(string message, System.Exception innerException)
+    public CodeZeroException(string message, Exception innerException)
         : base(message, innerException)
     {
     }
@@ -40,7 +40,7 @@ public class CodeZeroException : System.Exception
         string message,
         string resourceName,
         IList<string> validationErrors,
-        System.Exception innerException)
+        Exception innerException)
         : base(message, innerException)
     {
         _resourceName = resourceName;

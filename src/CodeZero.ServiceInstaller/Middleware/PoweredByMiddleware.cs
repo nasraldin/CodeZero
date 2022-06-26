@@ -31,7 +31,6 @@ internal class PoweredByMiddlewareOptions : IPoweredByMiddlewareOptions
 {
     private const string PoweredByHeaderName = AppConsts.HeaderName.PoweredBy;
     private const string PoweredByHeaderValue = "CodeZero";
-
     public string HeaderName => PoweredByHeaderName;
     public string HeaderValue { get; set; } = PoweredByHeaderValue;
     public bool Enabled { get; set; } = true;

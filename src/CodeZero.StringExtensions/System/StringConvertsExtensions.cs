@@ -13,7 +13,7 @@ public static partial class StringExtensions
     {
         if (string.IsNullOrWhiteSpace(camel))
         {
-            return "";
+            return string.Empty;
         }
 
         var sb = new StringBuilder(camel);
@@ -38,7 +38,7 @@ public static partial class StringExtensions
     {
         if (string.IsNullOrWhiteSpace(text))
         {
-            return "";
+            return string.Empty;
         }
 
         if (characterCount < 0 || text.Length <= characterCount)
@@ -72,15 +72,14 @@ public static partial class StringExtensions
     {
         if (string.IsNullOrWhiteSpace(text))
         {
-            return "";
+            return string.Empty;
         }
 
         var friendlier = text.CamelFriendly();
-
         var result = new char[friendlier.Length];
-
         var cursor = 0;
         var previousIsNotLetter = false;
+
         for (var i = 0; i < friendlier.Length; i++)
         {
             char current = friendlier[i];
@@ -259,7 +258,7 @@ public static partial class StringExtensions
 
     public static string Strip(this string subject, params char[] stripped)
     {
-        if (stripped == null || stripped.Length == 0 || string.IsNullOrEmpty(subject))
+        if (stripped is null || stripped.Length == 0 || string.IsNullOrEmpty(subject))
         {
             return subject;
         }
@@ -298,7 +297,7 @@ public static partial class StringExtensions
 
     public static bool Any(this string subject, params char[] chars)
     {
-        if (string.IsNullOrEmpty(subject) || chars == null || chars.Length == 0)
+        if (string.IsNullOrEmpty(subject) || chars is null || chars.Length == 0)
         {
             return false;
         }
@@ -322,7 +321,7 @@ public static partial class StringExtensions
             return true;
         }
 
-        if (chars == null || chars.Length == 0)
+        if (chars is null || chars.Length is 0)
         {
             return false;
         }
@@ -346,7 +345,7 @@ public static partial class StringExtensions
             return subject;
         }
 
-        if (from == null || to == null)
+        if (from is null || to is null)
         {
             throw new ArgumentNullException($"{from}, {to}", "Parameters must have the same");
         }

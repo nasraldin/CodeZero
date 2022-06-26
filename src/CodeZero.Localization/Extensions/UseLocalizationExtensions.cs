@@ -19,30 +19,33 @@ public static partial class ApplicationBuilderExtensions
         [NotNull] this IApplicationBuilder app,
         [NotNull] IConfiguration configuration)
     {
-        var serviceSettings = configuration.GetSection(nameof(ServiceSettings)).Get<ServiceSettings>();
+        var serviceSettings = configuration.GetSection(nameof(ServiceSettings)).Get<ServiceSettings>() ?? new ServiceSettings();
         var language = configuration.GetSection(nameof(Language)).Get<Language[]>();
-        CultureInfo[] supportedCultures = language.Select(lang => new CultureInfo(lang.Culture)).ToArray();
+        var supportedCultures = language?.Select(lang => new CultureInfo(lang.Culture)).ToArray()!;
+        var defaultCulture = new CultureInfo[] { new CultureInfo("en"), new CultureInfo("ar") };
 
         app.UseRequestLocalization(new RequestLocalizationOptions
         {
             DefaultRequestCulture = new RequestCulture(serviceSettings.DefaultCulture),
             // Formatting numbers, dates, etc.
-            SupportedCultures = supportedCultures,
+            SupportedCultures = supportedCultures ?? defaultCulture,
         });
 
         app.Use(async (context, next) =>
         {
             // Get client prefered language
-            var userLangs = context.Request.Headers[AppConsts.HeaderName.AcceptLanguage].ToString();
-            var firstLang = userLangs.Split(',').FirstOrDefault();
+            var userLang = context.Request.Headers[AppConsts.HeaderName.AcceptLanguage].ToString()
+                            .Split(',').FirstOrDefault();
 
             // Set language
-            var lang = supportedCultures.FirstOrDefault(lang => lang.Name == firstLang)?.Name ?? serviceSettings.DefaultCulture;
+            var lang = supportedCultures?.FirstOrDefault(lang => lang.Name == userLang)?.Name ??
+            defaultCulture.FirstOrDefault(lang => lang.Name == userLang)?.Name ??
+            serviceSettings.DefaultCulture;
 
             context.Response.Headers.TryAdd(AppConsts.HeaderName.ContentLanguage, lang);
 
             // Switch app culture
-            Thread.CurrentThread.CurrentCulture = new CultureInfo(lang);
+            Thread.CurrentThread.CurrentCulture = new CultureInfo(lang!);
 
             await next();
         });

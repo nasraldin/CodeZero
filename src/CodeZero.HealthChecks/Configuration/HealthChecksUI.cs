@@ -7,8 +7,8 @@ namespace CodeZero.HealthChecks.Configuration;
 /// </summary>
 public partial class HealthChecksUI
 {
-    public string UiEndpoint { get; set; } = "healthchecks-ui";
-    public string HeaderText { get; set; } = "CodeZero - Health Checks Status";
+    public string UiEndpoint { get; set; } = "healthy-ui";
+    public string HeaderText { get; set; } = $"{AppDomain.CurrentDomain.FriendlyName} - Health Checks Status";
     public string StorageConnectionString { get; set; } = default!;
     public bool EnableDatabaseStorage { get; set; } = false;
     public List<CodeZero.Configuration.Models.HealthChecks> HealthChecks { get; set; } = default!;

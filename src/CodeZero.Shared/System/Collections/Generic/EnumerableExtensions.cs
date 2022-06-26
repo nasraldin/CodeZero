@@ -92,7 +92,7 @@ public static class EnumerableExtensions
     /// seealso https://stackoverflow.com/a/35839942/5483868
     public static bool AreAllSame<T>(this IEnumerable<T> enumerable)
     {
-        if (enumerable == null) throw new ArgumentNullException(nameof(enumerable));
+        if (enumerable is null) throw new ArgumentNullException(nameof(enumerable));
 
         using (var enumerator = enumerable.GetEnumerator())
         {
@@ -105,7 +105,7 @@ public static class EnumerableExtensions
 
             while (enumerator.MoveNext())
             {
-                if (toCompare != null && !toCompare.Equals(enumerator.Current))
+                if (toCompare is not null && !toCompare.Equals(enumerator.Current))
                 {
                     return false;
                 }
@@ -128,7 +128,7 @@ public static class EnumerableExtensions
     {
         T result = list.FirstOrDefault()!;
 
-        if (result != null)
+        if (result is not null)
         {
             var bestMin = predicate(result);
             foreach (var item in list.Skip(1))
@@ -158,7 +158,7 @@ public static class EnumerableExtensions
     {
         T result = list.FirstOrDefault()!;
 
-        if (result != null)
+        if (result is not null)
         {
             var bestMax = predicate(result);
             foreach (var item in list.Skip(1))
@@ -182,13 +182,13 @@ public static class EnumerableExtensions
     /// <returns>false if enumerable is null or contains no items</returns>
     public static bool HasItems<T>(this IEnumerable<T> enumerable)
     {
-        if (enumerable == null)
+        if (enumerable is null)
             return false;
 
         try
         {
             var enumerator = enumerable.GetEnumerator();
-            if (enumerator != null && enumerator.MoveNext())
+            if (enumerator is not null && enumerator.MoveNext())
             {
                 return true;
             }

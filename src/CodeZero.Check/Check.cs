@@ -43,12 +43,10 @@ public static class Check
         {
             throw new ArgumentException($"{parameterName} can not be null!", parameterName);
         }
-
         if (value.Length > maxLength)
         {
             throw new ArgumentException($"{parameterName} length must be equal to or lower than {maxLength}!", parameterName);
         }
-
         if (minLength > 0 && value.Length < minLength)
         {
             throw new ArgumentException($"{parameterName} length must be equal to or bigger than {minLength}!", parameterName);
@@ -69,12 +67,10 @@ public static class Check
         {
             throw new ArgumentException($"{parameterName} can not be null or empty!", parameterName);
         }
-
         if (value.Length > maxLength)
         {
             throw new ArgumentException($"{parameterName} length must be equal to or lower than {maxLength}!", parameterName);
         }
-
         if (minLength > 0 && value.Length < minLength)
         {
             throw new ArgumentException($"{parameterName} length must be equal to or bigger than {minLength}!", parameterName);
@@ -107,12 +103,10 @@ public static class Check
         {
             throw new ArgumentException($"{parameterName} can not be null, empty or white space!", parameterName);
         }
-
         if (value.Length > maxLength)
         {
             throw new ArgumentException($"{parameterName} length must be equal to or lower than {maxLength}!", parameterName);
         }
-
         if (minLength > 0 && value.Length < minLength)
         {
             throw new ArgumentException($"{parameterName} length must be equal to or bigger than {minLength}!", parameterName);

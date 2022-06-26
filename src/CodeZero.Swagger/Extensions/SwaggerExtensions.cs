@@ -17,8 +17,8 @@ public static partial class ServiceCollectionExtensions
     /// register the Swagger generator and the Swagger UI middlewares.
     /// </summary>
     /// <param name="services">The <see cref="IServiceCollection"/>.</param>
-    /// <param name="setupAction">Configures the Swagger generation options 
     /// <param name="configuration">The <see cref="IConfiguration"/>.</param>
+    /// <param name="setupAction">Configures the Swagger generation options 
     /// <see cref="Action{SwaggerGenOptions}"/>.</param>
     /// <returns><see cref="IServiceCollection"/></returns>
     public static IServiceCollection AddSwaggerVersioned(
@@ -26,24 +26,24 @@ public static partial class ServiceCollectionExtensions
         [NotNull] IConfiguration configuration,
         Action<SwaggerGenOptions> setupAction = null!)
     {
-        var swaggerConfig = configuration.GetSection(nameof(SwaggerConfig)).Get<SwaggerConfig>();
+        var swaggerConfig = configuration.GetSection(nameof(SwaggerConfig)).Get<SwaggerConfig>() ?? new SwaggerConfig();
         var apiKeyConfig = configuration.GetSection(nameof(ApiKeyConfig)).Get<ApiKeyConfig>();
         // Convert Scopes List to Dictionary (a map of key and value)
-        // var scopes = swaggerConfig.Scopes.ToDictionary(sn => sn.ScopeName, sd => sd.ShortDescription);
+        //var scopes = swaggerConfig.Scopes.ToDictionary(sn => sn.ScopeName, sd => sd.ShortDescription);
 
         // Add Swagger info
         services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
         services.AddSwaggerGen(options =>
         {
             options.ResolveConflictingActions(apiDescriptions => apiDescriptions.FirstOrDefault());
-            options.IncludeXmlComments(XmlCommentsFilePath);
+
+            if (!string.IsNullOrEmpty(XmlCommentsFilePath))
+                options.IncludeXmlComments(XmlCommentsFilePath);
+
             options.EnableAnnotations();
             // Add a custom operation filter which sets default values
             options.OperationFilter<SwaggerDefaultValues>();
             options.OperationFilter<AcceptLanguageHeader>();
-            options.OperationFilter<AcceptHeader>();
-            options.OperationFilter<ContentTypeHeader>();
-            options.SchemaFilter<AutoRestSchemaFilter>();
             options.OperationFilter<RemoveVersionFromParameter>();
             options.DocumentFilter<ReplaceVersionWithExactValueInPath>();
 
@@ -74,13 +74,19 @@ public static partial class ServiceCollectionExtensions
                                 Id = "Bearer"
                             }
                         },
-                        new string[] {} // ex: { "readAccess", "writeAccess" }
+                        swaggerConfig.Scopes?.Select(s=>s.ScopeName).ToList()
+                        //new string[] {} // ex: { "readAccess", "writeAccess" }
                     }
                 });
             }
 
             if (swaggerConfig.EnableApiKey)
             {
+                if (apiKeyConfig is null)
+                {
+                    throw new CodeZeroException($"Configure {nameof(ApiKeyConfig)} settings in appsettings.Environment.json");
+                }
+
                 options.AddSecurityDefinition(apiKeyConfig.HeaderName, new OpenApiSecurityScheme
                 {
                     Description = $"ApiKey needed to access the endpoints. {apiKeyConfig.HeaderName}: Your_API_Key",
@@ -103,7 +109,7 @@ public static partial class ServiceCollectionExtensions
                                 Id = apiKeyConfig.HeaderName
                             },
                         },
-                        new string[] {}
+                        swaggerConfig.Scopes?.Select(s=>s.ScopeName).ToList()
                     }
                 });
             }
@@ -183,7 +189,9 @@ public static partial class ServiceCollectionExtensions
         {
             // Set the comments path for the Swagger JSON and UI.
             var xmlFile = $"{AppDomain.CurrentDomain.FriendlyName}.xml";
-            return System.IO.Path.Combine(AppContext.BaseDirectory, xmlFile);
+            if (File.Exists(xmlFile))
+                return Path.Combine(AppContext.BaseDirectory, xmlFile);
+            return string.Empty;
         }
     }
 }

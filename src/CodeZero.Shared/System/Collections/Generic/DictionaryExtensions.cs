@@ -19,7 +19,6 @@ public static class DictionaryExtensions
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (key is null) throw new ArgumentNullException(nameof(key));
-
         if (source.TryGetValue(key, out var item))
         {
             return item;
@@ -44,7 +43,6 @@ public static class DictionaryExtensions
     {
         if (dictionary is null) throw new ArgumentNullException(nameof(dictionary));
         if (key is null) throw new ArgumentNullException(nameof(key));
-
         if (dictionary.TryGetValue(key, out var obj))
         {
             return obj;

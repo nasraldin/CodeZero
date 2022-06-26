@@ -23,7 +23,7 @@ public static partial class ServiceCollectionExtensions
     {
         var proxySettings = configuration.GetSection(nameof(ProxySettings)).Get<ProxySettings>();
 
-        if (proxySettings.ForwardedHeadersOptions != null)
+        if (proxySettings?.ForwardedHeadersOptions is not null)
         {
             // Configure ASP.NET Core to work with proxy servers and load balancers
             services.Configure<ForwardedHeadersOptions>(options =>
@@ -77,7 +77,7 @@ public static partial class ServiceCollectionExtensions
             });
         }
 
-        if (proxySettings.HstsOptions != null)
+        if (proxySettings?.HstsOptions is not null)
         {
             // Enforce HTTPS
             services.AddHsts(options =>
@@ -101,7 +101,7 @@ public static partial class ServiceCollectionExtensions
             });
         }
 
-        if (proxySettings.HttpsRedirectionOptions != null)
+        if (proxySettings?.HttpsRedirectionOptions is not null)
         {
             // Configure temporary/permanent redirects in production (Status308PermanentRedirect)
             services.AddHttpsRedirection(options =>

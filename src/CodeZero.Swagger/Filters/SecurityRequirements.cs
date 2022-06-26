@@ -1,3 +1,4 @@
+using CodeZero.Logging;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -44,15 +45,21 @@ public class SecurityRequirements : IOperationFilter
             return;
         }
 
-        if (operation.Responses.ContainsKey("400"))
-            operation.Responses.Add("400", new OpenApiResponse { Description = "Bad Request" });
-
-        if (operation.Responses.ContainsKey("400"))
-            operation.Responses.Add("404", new OpenApiResponse { Description = "Request Not Found" });
-
-        if (operation.Responses.ContainsKey("400"))
-            operation.Responses.Add("500", new OpenApiResponse { Description = "Internal Server Error" });
-
+        if (operation.Responses.ContainsKey(ErrorCode.BadRequest.Id.ToString()))
+        {
+            operation.Responses.Add(ErrorCode.BadRequest.Id.ToString(),
+                new OpenApiResponse { Description = ErrorCode.BadRequest.Name });
+        }
+        if (operation.Responses.ContainsKey(ErrorCode.NotFound.Id.ToString()))
+        {
+            operation.Responses.Add(ErrorCode.NotFound.Id.ToString(),
+                new OpenApiResponse { Description = ErrorCode.NotFound.Name.ToString() });
+        }
+        if (operation.Responses.ContainsKey(ErrorCode.InternalServerError.Id.ToString()))
+        {
+            operation.Responses.Add(ErrorCode.InternalServerError.Id.ToString(),
+                new OpenApiResponse { Description = ErrorCode.InternalServerError.Name.ToString() });
+        }
 
         // only add authorization specification information if there is 
         // at least one 'Authorize' in the chain and NO method-level 'AllowAnonymous'
@@ -60,21 +67,26 @@ public class SecurityRequirements : IOperationFilter
         {
             // add generic message if the controller methods dont already specify the response type
 
-
             // If Authorization header not present, has no value or no valid jwt bearer token
-            if (!operation.Responses.ContainsKey("401"))
-                operation.Responses.Add("401", new OpenApiResponse { Description = "Unauthorized" });
+            if (!operation.Responses.ContainsKey(ErrorCode.Unauthorized.Id.ToString()))
+            {
+                operation.Responses.Add(ErrorCode.Unauthorized.Id.ToString(),
+                    new OpenApiResponse { Description = ErrorCode.Unauthorized.Name.ToString() });
+            }
 
             // If user not authorized to perform requested action
-            if (!operation.Responses.ContainsKey("403"))
-                operation.Responses.Add("403", new OpenApiResponse { Description = "Forbidden" });
+            if (!operation.Responses.ContainsKey(ErrorCode.Forbidden.Id.ToString()))
+            {
+                operation.Responses.Add(ErrorCode.Forbidden.Id.ToString(),
+                    new OpenApiResponse { Description = ErrorCode.Forbidden.Name.ToString() });
+            }
 
             var jwtAuthScheme = new OpenApiSecurityScheme
             {
                 Reference = new OpenApiReference
                 {
                     Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer" // oauth2
+                    Id = AppConsts.AuthSchemes.Bearer, // oauth2
                 }
             };
 

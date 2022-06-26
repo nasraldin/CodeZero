@@ -25,9 +25,8 @@ public static class TypeExtensions
                 Params = m.GetParameters(),
                 Args = m.GetGenericArguments()
             })
-            .Where(x => x.Params.Length == pParametersCount
-                        && x.Args.Length == pGenericArgumentsCount
-            ).Select(x => x.Method)
+            .Where(x => x.Params.Length == pParametersCount && x.Args.Length == pGenericArgumentsCount)
+            .Select(x => x.Method)
             .First();
     }
 
@@ -92,7 +91,6 @@ public static class TypeExtensions
         {
             return;
         }
-
         if (!includeObject && type == typeof(object))
         {
             return;

@@ -420,5 +420,6 @@ ASALocalRun/
 # Local History for Visual Studio
 .localhistory/
 
+logs/
 AppData/
 **/.env

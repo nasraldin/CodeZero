@@ -17,7 +17,6 @@ public static class TypeHelper
         return null!;
     }
 
-
     public static bool IsDefaultValue([CanBeNull] object obj)
     {
         if (obj is null)

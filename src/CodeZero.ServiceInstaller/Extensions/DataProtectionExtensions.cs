@@ -26,6 +26,11 @@ public static partial class ServiceCollectionExtensions
         var dpConfig = configuration.GetSection(nameof(DataProtectionConfig)).Get<DataProtectionConfig>();
         var redisConfig = configuration.GetSection(nameof(RedisConfig)).Get<RedisConfig>();
 
+        if (dpConfig is null)
+        {
+            throw new CodeZeroException($"Configure {nameof(DataProtectionConfig)} settings in appsettings.Environment.json");
+        }
+
         // Remove any previously registered options setups.
         services.RemoveAll<IConfigureOptions<KeyManagementOptions>>();
         services.RemoveAll<IConfigureOptions<DataProtectionOptions>>();
@@ -38,6 +43,11 @@ public static partial class ServiceCollectionExtensions
 
         if (dpConfig.PersistKeysToRedis)
         {
+            if (redisConfig is null)
+            {
+                throw new CodeZeroException($"Add your {nameof(RedisConfig)} to appsettings json.");
+            }
+
             ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(redisConfig.ConnectionString);
             builder.PersistKeysToStackExchangeRedis(redis, dpConfig.RedisKey);
         }

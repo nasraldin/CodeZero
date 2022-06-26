@@ -12,14 +12,14 @@ public static class SerilogConfig
 {
     public static void SetupLogger([NotNull] IConfiguration configuration)
     {
-        Console.WriteLine($"[CodeZero]: Loads Serilog config...");
+        Console.WriteLine($"[CodeZero] Loads Serilog Configuration...");
 
         var appName = configuration.GetSection("ApplicationName").Value ?? AppDomain.CurrentDomain.FriendlyName;
 
         Log.Logger = new LoggerConfiguration()
             .ReadFrom.Configuration(configuration)
             .Enrich.FromLogContext()
-            .Enrich.WithProperty("ApplicationName", appName)
+            .Enrich.WithProperty("Application", appName)
             .Enrich.WithProperty("Environment", Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")!)
             .Enrich.WithExceptionDetails(new DestructuringOptionsBuilder()
                                     .WithDefaultDestructurers()

@@ -1,4 +1,4 @@
-﻿using CodeZero.Configuration.Models;
+using CodeZero.Configuration.Models;
 
 namespace CodeZero.Configuration;
 
@@ -7,8 +7,8 @@ namespace CodeZero.Configuration;
 /// </summary>
 public partial class SwaggerInfo
 {
-    public string Title { get; set; } = "CodeZero";
-    public string Description { get; set; } = "CodeZero API Swagger";
+    public string Title { get; set; } = AppServiceLoader.Instance.APP_NAME;
+    public string Description { get; set; } = $"{AppServiceLoader.Instance.APP_NAME} API Swagger";
     public Contact Contact { get; set; } = default!;
     public string TermsOfService { get; set; } = default!;
     public License License { get; set; } = default!;

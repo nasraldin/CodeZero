@@ -26,6 +26,7 @@
     <PackageReference Include="MiniProfiler.EntityFrameworkCore" Version="4.2.22" />
     <PackageReference Include="MiniProfiler.Providers.MySql" Version="4.2.22" />
     <PackageReference Include="MiniProfiler.Providers.Redis" Version="4.2.22" />
+    <PackageReference Include="MiniProfiler.Providers.SqlServer" Version="4.2.22" />
   </ItemGroup>
 
   <!--Import common packages are used across all projects-->

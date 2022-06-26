@@ -49,29 +49,43 @@ public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
 
     private OpenApiInfo CreateInfoForApiVersion(ApiVersionDescription description)
     {
+        var swaggerInfo = _config?.Options ?? new SwaggerInfo();
+
         // Register the Swagger services info
         var info = new OpenApiInfo
         {
-            Title = _config.Options.Title,
+            Title = swaggerInfo.Title,
             Version = description.ApiVersion.ToString(),
-            Description = _config.Options.Description,
-            Contact = new OpenApiContact
-            {
-                Name = _config.Options.Contact.Name,
-                Email = _config.Options.Contact.Email,
-                Url = new Uri(_config.Options.Contact.Url)
-            },
-            TermsOfService = new Uri(_config.Options.TermsOfService),
-            License = new OpenApiLicense
-            {
-                Name = _config.Options.License.Name,
-                Url = new Uri(_config.Options.License.Url)
-            }
+            Description = swaggerInfo.Description,
         };
+
+        if (swaggerInfo.Contact is not null)
+        {
+            info.Contact = new OpenApiContact
+            {
+                Name = swaggerInfo.Contact?.Name,
+                Email = swaggerInfo.Contact?.Email,
+                Url = new Uri(swaggerInfo.Contact?.Url!)
+            };
+        }
+
+        if (swaggerInfo.TermsOfService is not null)
+        {
+            info.TermsOfService = new Uri(swaggerInfo.TermsOfService);
+        }
+
+        if (swaggerInfo.License is not null)
+        {
+            info.License = new OpenApiLicense
+            {
+                Name = swaggerInfo.License?.Name,
+                Url = new Uri(swaggerInfo.License?.Url!)
+            };
+        }
 
         if (description.IsDeprecated)
         {
-            info.Description += " This API version has been deprecated.";
+            info.Description += " this API version has been deprecated.";
         }
 
         return info;

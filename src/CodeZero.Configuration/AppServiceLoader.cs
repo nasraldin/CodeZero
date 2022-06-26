@@ -12,7 +12,6 @@ public class AppServiceLoader : IAppServiceLoader
 
     public AppServiceLoader(IWebHostEnvironment env, IConfiguration configuration)
     {
-
         Environment = env;
         Configuration = configuration;
         APP_NAME = configuration["ApplicationName"] ?? AppDomain.CurrentDomain.FriendlyName;

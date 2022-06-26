@@ -25,7 +25,6 @@ public static partial class ServiceCollectionExtensions
             // set by the pipeline and comming from the request 'PathBase' which already ends with the
             // service prefix but may also start by a path related e.g to a virtual folder.
         });
-
         services.AddMvc(options =>
         {
             // ValidateAntiforgery will validate every request,

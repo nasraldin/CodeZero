@@ -68,12 +68,10 @@ public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
                 Url = new Uri(swaggerInfo.Contact?.Url!)
             };
         }
-
         if (swaggerInfo.TermsOfService is not null)
         {
             info.TermsOfService = new Uri(swaggerInfo.TermsOfService);
         }
-
         if (swaggerInfo.License is not null)
         {
             info.License = new OpenApiLicense
@@ -82,7 +80,6 @@ public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
                 Url = new Uri(swaggerInfo.License?.Url!)
             };
         }
-
         if (description.IsDeprecated)
         {
             info.Description += " this API version has been deprecated.";

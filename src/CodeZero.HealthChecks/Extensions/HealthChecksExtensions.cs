@@ -30,21 +30,18 @@ public static partial class ServiceCollectionExtensions
             healthChecks
                 .AddDbContextCheck<TContext>(dbContextName, tags: new[] { "DB" });
         }
-
         if (hcsUIConfig.Checks.Database)
         {
             var dbConfig = configuration.GetSection(nameof(MariaDB)).Get<MariaDB>();
             healthChecks
                 .AddMySql(dbConfig.DefaultConnection, "MariaDB Server", tags: new[] { "DB" });
         }
-
         if (hcsUIConfig.Checks.Redis)
         {
             var redisConfig = configuration.GetSection(nameof(RedisConfig)).Get<RedisConfig>();
             healthChecks
                 .AddRedis(redisConfig.ConnectionString, "Redis Server", tags: new[] { "Cache" });
         }
-
         if (hcsUIConfig.Checks.Seq)
         {
             var seqOptions = configuration.GetSection(nameof(SeqOptions)).Get<SeqOptions>();

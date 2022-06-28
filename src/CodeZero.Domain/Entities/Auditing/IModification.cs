@@ -22,7 +22,8 @@ public interface IModification
 /// Adds navigation properties to <see cref="IModification"/> interface for user.
 /// </summary>
 /// <typeparam name="TUser">Type of the user</typeparam>
-public interface IModification<TUser> : IModification where TUser : IEntity<string>
+/// <typeparam name="TKey">Type of the user primary key</typeparam>
+public interface IModification<TUser, TKey> : IModification where TUser : IEntity<TKey>
 {
     /// <summary>
     /// Reference to the last modifier user of this entity.

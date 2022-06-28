@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CodeZero.Domain.Entities.Auditing;
 
@@ -21,13 +21,13 @@ public abstract class AuditedEntity<TKey> : CreationAudited<TKey>, IAudited
 }
 
 /// <summary>
-/// This class can be used to simplify implementing <see cref="IAudited{TUser}"/>.
+/// This class can be used to simplify implementing <see cref="IAudited{TUser, TKey}"/>.
 /// </summary>
 /// <typeparam name="TKey">Type of the primary key of the entity</typeparam>
 /// <typeparam name="TUser">Type of the user</typeparam>
 [Serializable]
-public abstract class AuditedEntity<TKey, TUser> : AuditedEntity<TKey>, IAudited<TUser>
-    where TUser : IEntity<string>
+public abstract class AuditedEntity<TKey, TUser> : AuditedEntity<TKey>, IAudited<TUser, TKey>
+    where TUser : IEntity<TKey>
 {
     /// <summary>
     /// Reference to the creator user of this entity.

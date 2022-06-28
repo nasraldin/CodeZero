@@ -10,7 +10,7 @@ namespace CodeZero.Domain.Entities;
 /// </summary>
 public static class EntityHelper
 {
-    public static bool EntityEquals(IEntity entity1, IEntity entity2)
+    public static bool EntityEquals<TKey>(IEntity<TKey> entity1, IEntity<TKey> entity2)
     {
         if (entity1 is null || entity2 is null)
         {
@@ -34,48 +34,9 @@ public static class EntityHelper
         }
 
         // Transient objects are not considered as equal
-        if (HasDefaultKeys(entity1) && HasDefaultKeys(entity2))
+        if (!IsDefaultKeyValue(entity1) && !IsDefaultKeyValue(entity2))
         {
             return false;
-        }
-
-        var entity1Keys = entity1.GetKeys();
-        var entity2Keys = entity2.GetKeys();
-
-        if (entity1Keys.Length != entity2Keys.Length)
-        {
-            return false;
-        }
-
-        for (var i = 0; i < entity1Keys.Length; i++)
-        {
-            var entity1Key = entity1Keys[i];
-            var entity2Key = entity2Keys[i];
-
-            if (entity1Key is null)
-            {
-                if (entity2Key is null)
-                {
-                    // Both null, so considered as equals
-                    continue;
-                }
-
-                // entity2Key is not null!
-                return false;
-            }
-            if (entity2Key is null)
-            {
-                // entity1Key was not null!
-                return false;
-            }
-            if (TypeHelper.IsDefaultValue(entity1Key) && TypeHelper.IsDefaultValue(entity2Key))
-            {
-                return false;
-            }
-            if (!entity1Key.Equals(entity2Key))
-            {
-                return false;
-            }
         }
 
         return true;
@@ -83,7 +44,7 @@ public static class EntityHelper
 
     public static bool IsEntity([NotNull] Type type)
     {
-        return typeof(IEntity).IsAssignableFrom(type);
+        return typeof(IEntity<>).IsAssignableFrom(type);
     }
 
     public static bool IsEntityWithId([NotNull] Type type)
@@ -142,25 +103,12 @@ public static class EntityHelper
         return TypeHelper.IsDefaultValue(value);
     }
 
-    public static bool HasDefaultKeys([NotNull] IEntity entity)
-    {
-        foreach (var key in entity.GetKeys())
-        {
-            if (!IsDefaultKeyValue(key))
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
     /// <summary>
     /// Tries to find the primary key type of the given entity type.
     /// May return null if given type does not implement <see cref="IEntity{TKey}"/>
     /// </summary>
     [CanBeNull]
-    public static Type FindPrimaryKeyType<TEntity>() where TEntity : IEntity
+    public static Type FindPrimaryKeyType<TEntity>()
     {
         return FindPrimaryKeyType(typeof(TEntity));
     }
@@ -172,9 +120,9 @@ public static class EntityHelper
     [CanBeNull]
     public static Type FindPrimaryKeyType([NotNull] Type entityType)
     {
-        if (!typeof(IEntity).IsAssignableFrom(entityType))
+        if (!typeof(IEntity<>).IsAssignableFrom(entityType))
         {
-            throw new CodeZeroException($"Given {nameof(entityType)} is not an entity. It should implement {typeof(IEntity).AssemblyQualifiedName}!");
+            throw new CodeZeroException($"Given {nameof(entityType)} is not an entity. It should implement {typeof(IEntity<>).AssemblyQualifiedName}!");
         }
 
         foreach (var interfaceType in entityType.GetTypeInfo().GetInterfaces())

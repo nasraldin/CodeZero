@@ -1,10 +1,11 @@
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Text;
+using CodeZero.Exception;
 using CodeZero.Logging;
 using Microsoft.Extensions.Logging;
 
-namespace CodeZero.Exception;
+namespace CodeZero.Domain;
 
 /// <summary>
 /// This exception type is used to throws validation exceptions.

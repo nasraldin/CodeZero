@@ -13,7 +13,8 @@ public interface IAudited : ICreation, IModification
 /// Adds navigation properties to <see cref="IAudited"/> interface for user.
 /// </summary>
 /// <typeparam name="TUser">Type of the user</typeparam>
-public interface IAudited<TUser> : IAudited, ICreation<TUser>, IModification<TUser>
-    where TUser : IEntity<string>
+/// <typeparam name="TKey">Type of the user primary key</typeparam>
+public interface IAudited<TUser, TKey> : IAudited, ICreation<TUser, TKey>, IModification<TUser, TKey>
+    where TUser : IEntity<TKey>
 {
 }

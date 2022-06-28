@@ -1,9 +1,9 @@
-﻿using MediatR;
+using MediatR;
 
 namespace CodeZero.Domain.Messaging;
 
 /// <summary>
-/// BaseDomainEvent
+/// Base DomainEvent
 /// </summary>
 public abstract class Event : Message, INotification
 {

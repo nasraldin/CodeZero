@@ -1,9 +1,15 @@
-﻿namespace CodeZero.Domain.Entities;
+using FluentValidation.Results;
 
+namespace CodeZero.Domain.Entities;
+
+/// <summary>
+/// Interface for all classes that may be validated on their own.
+/// </summary>
 public interface IValidatableEntity
 {
     /// <summary>
-    /// Used to validation Entity.
+    /// Validate the entity, returning a validation result.
     /// </summary>
-    ValidateModelResult Validate();
+    /// <returns>A validation result containing errors - or not.</returns>
+    ValidationResult Validate();
 }

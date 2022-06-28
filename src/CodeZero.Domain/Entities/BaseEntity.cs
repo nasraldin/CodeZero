@@ -1,31 +1,9 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using CodeZero.Domain.Messaging;
 using FluentValidation;
 using FluentValidation.Results;
 
 namespace CodeZero.Domain.Entities;
-
-/// <summary>
-/// Defines an entity. It's primary key may not be "Id" or 
-/// it may have a composite primary key.
-/// Use <see cref="IEntity{TKey}"/> where possible for better 
-/// integration to repositories and other structures in the framework.
-/// </summary>
-[Serializable]
-public abstract class Entity : IEntity
-{
-    /// <inheritdoc/>
-    public override string ToString()
-    {
-        return $"[ENTITY: {GetType().Name}] Keys = {GetKeys().JoinAsString(", ")}";
-    }
-
-    public abstract object[] GetKeys();
-
-    public bool EntityEquals(IEntity other)
-    {
-        return EntityHelper.EntityEquals(this, other);
-    }
-}
 
 /// <summary>
 /// Basic implementation of IEntity interface.
@@ -33,7 +11,7 @@ public abstract class Entity : IEntity
 /// </summary>
 /// <typeparam name="TKey">Type of the primary key of the entity</typeparam>
 [Serializable]
-public abstract class BaseEntity<TKey> : Entity, IEntity<TKey>
+public abstract class BaseEntity<TKey> : IEntity<TKey>
 {
     /// <inheritdoc />
     public virtual TKey Id { get; protected init; } = default!;
@@ -41,6 +19,32 @@ public abstract class BaseEntity<TKey> : Entity, IEntity<TKey>
     protected BaseEntity() { }
 
     protected BaseEntity(TKey id) => Id = id;
+
+    #region DomainEvent
+
+    [NotMapped]
+    private readonly List<Event> _domainEvents = new();
+
+    [NotMapped]
+    public IReadOnlyCollection<Event> DomainEvents => _domainEvents.AsReadOnly();
+
+    public void AddDomainEvent(Event domainEvent)
+    {
+        //_domainEvents = _domainEvents ?? new List<Event>();
+        _domainEvents.Add(domainEvent);
+    }
+
+    public void RemoveDomainEvent(Event domainEvent)
+    {
+        _domainEvents.Remove(domainEvent);
+    }
+
+    public void ClearDomainEvents()
+    {
+        _domainEvents.Clear();
+    }
+
+    #endregion
 
     #region BaseBehaviours
 
@@ -70,7 +74,7 @@ public abstract class BaseEntity<TKey> : Entity, IEntity<TKey>
         return obj != null! && Equals(obj.Id, default(TKey));
     }
 
-    public virtual bool _Equals(BaseEntity<TKey> other)
+    public virtual bool EntityEquals(BaseEntity<TKey> other)
     {
         if (other is null)
             return false;
@@ -80,13 +84,13 @@ public abstract class BaseEntity<TKey> : Entity, IEntity<TKey>
 
         if (IsTransient(this) || IsTransient(other) || !Equals(Id, other.Id)) return false;
 
-        var otherType = other.GetType();
         var thisType = GetType();
+        var otherType = other.GetType();
 
         return thisType.IsAssignableFrom(otherType) || otherType.IsAssignableFrom(thisType);
     }
 
-    public override bool Equals(object? obj) => obj is BaseEntity<TKey> objS && _Equals(objS);
+    public override bool Equals(object? obj) => obj is BaseEntity<TKey> objS && EntityEquals(objS);
 
     public override int GetHashCode()
     {
@@ -130,7 +134,9 @@ public abstract class BaseEntity<TKey> : Entity, IEntity<TKey>
         return IsValid;
     }
 
-    protected bool OnValidate<TValidator, TEntity>(TEntity entity, TValidator validator,
+    protected bool OnValidate<TValidator, TEntity>(
+        TEntity entity,
+        TValidator validator,
         Func<AbstractValidator<TEntity>, TEntity, ValidationResult> validation)
         where TValidator : AbstractValidator<TEntity>
         where TEntity : BaseEntity<TKey>
@@ -140,10 +146,10 @@ public abstract class BaseEntity<TKey> : Entity, IEntity<TKey>
         return IsValid;
     }
 
-    protected void AddError(string errorMessage, ValidationResult validationResult = default!)
+    protected void AddError(string errorMessage, ValidationResult validationResult)
     {
         ValidationResult.Errors.Add(new(default, errorMessage));
-        validationResult?.Errors.ToList().ForEach(failure => ValidationResult.Errors.Add(failure));
+        validationResult.Errors.ToList().ForEach(failure => ValidationResult.Errors.Add(failure));
     }
 
     protected abstract bool Validate();

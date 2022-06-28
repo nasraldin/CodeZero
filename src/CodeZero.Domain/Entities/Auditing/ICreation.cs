@@ -23,7 +23,8 @@ public interface ICreation
 /// Adds navigation properties to <see cref="ICreation"/> interface for user.
 /// </summary>
 /// <typeparam name="TUser">Type of the user</typeparam>
-public interface ICreation<TUser> : ICreation where TUser : IEntity<string>
+/// <typeparam name="TKey">Type of the user primary key</typeparam>
+public interface ICreation<TUser, TKey> : ICreation where TUser : IEntity<TKey>
 {
     /// <summary>
     /// Reference to the creator user of this entity.

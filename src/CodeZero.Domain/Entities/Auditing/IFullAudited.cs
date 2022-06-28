@@ -12,7 +12,8 @@ public interface IFullAudited : IAudited, IDeletion
 /// Adds navigation properties to <see cref="IFullAudited"/> interface for user.
 /// </summary>
 /// <typeparam name="TUser">Type of the user</typeparam>
-public interface IFullAudited<TUser> : IAudited<TUser>, IFullAudited, IDeletion<TUser>
-    where TUser : IEntity<string>
+/// <typeparam name="TKey">Type of the user primary key</typeparam>
+public interface IFullAudited<TUser, TKey> : IAudited<TUser, TKey>, IFullAudited, IDeletion<TUser, TKey>
+    where TUser : IEntity<TKey>
 {
 }

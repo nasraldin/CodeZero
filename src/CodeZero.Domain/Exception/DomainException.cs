@@ -6,5 +6,6 @@ public class DomainException : CodeZeroException
 
     public DomainException(string message) : base(message) { }
 
-    public DomainException(string message, System.Exception innerException) : base(message, innerException) { }
+    public DomainException(string message, System.Exception innerException)
+        : base(message, innerException) { }
 }

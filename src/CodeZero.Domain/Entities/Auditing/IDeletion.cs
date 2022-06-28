@@ -22,7 +22,8 @@ public interface IDeletion : ISoftDelete
 /// Adds navigation properties to <see cref="IDeletion"/> interface for user.
 /// </summary>
 /// <typeparam name="TUser">Type of the user</typeparam>
-public interface IDeletion<TUser> : IDeletion where TUser : IEntity<string>
+/// <typeparam name="TKey">Type of the user primary key</typeparam>
+public interface IDeletion<TUser, TKey> : IDeletion where TUser : IEntity<TKey>
 {
     /// <summary>
     /// Reference to the deleter user of this entity.

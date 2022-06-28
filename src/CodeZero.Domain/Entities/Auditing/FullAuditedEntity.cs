@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CodeZero.Domain.Entities.Auditing;
 
 /// <summary>
-/// Implements <see cref="IFullAudited"/> to be a base class for full-audited entities.
+/// Implements <see cref="IFullAudited"/> 
+/// to be a base class for full-audited entities.
 /// </summary>
 /// <typeparam name="TKey">Type of the primary key of the entity</typeparam>
 [Serializable]
@@ -26,13 +27,14 @@ public abstract class FullAuditedEntity<TKey> : AuditedEntity<TKey>, IFullAudite
 }
 
 /// <summary>
-/// Implements <see cref="IFullAudited{TUser}"/> to be a base class for full-audited entities.
+/// Implements <see cref="IFullAudited{TUser, TKey}"/> 
+/// to be a base class for full-audited entities.
 /// </summary>
 /// <typeparam name="TKey">Type of the primary key of the entity</typeparam>
 /// <typeparam name="TUser">Type of the user</typeparam>
 [Serializable]
-public abstract class FullAuditedEntity<TKey, TUser> : AuditedEntity<TKey, TUser>, IFullAudited<TUser>
-    where TUser : IEntity<string>
+public abstract class FullAuditedEntity<TKey, TUser> : AuditedEntity<TKey, TUser>, IFullAudited<TUser, TKey>
+    where TUser : IEntity<TKey>
 {
     /// <summary>
     /// Is this entity Deleted?

@@ -20,8 +20,8 @@ namespace Microsoft.Extensions.Hosting
             webApplication.AddCodeZero();
 
             // Load ServiceSettings
-            var serviceSettings = configuration.GetSection(nameof(ServiceSettings)).Get<ServiceSettings>() ?? new ServiceSettings();
-            var debugConfig = configuration.GetSection(nameof(DebugConfig)).Get<DebugConfig>() ?? new DebugConfig();
+            var serviceSettings = configuration.GetSection(nameof(ServiceSettings)).Get<ServiceSettings>() ?? new();
+            var debugConfig = configuration.GetSection(nameof(DebugConfig)).Get<DebugConfig>() ?? new();
 
             webApplication.WebHost.UseKestrel(webHostBuilder =>
             {

@@ -2,34 +2,27 @@ using System.Text.Json;
 using AspNetCoreRateLimit;
 using CodeZero.Configuration;
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using StackExchange.Redis;
 
 namespace CodeZero.RateLimit;
 
-public class RedisRateLimitPolicyStore : IIpPolicyStore
+public class RedisRateLimitCounterStore : IRateLimitCounterStore
 {
     private readonly ILogger _logger;
-    private readonly IIpPolicyStore _memoryCacheStore;
+    private readonly IRateLimitCounterStore _memoryCacheStore;
     //private readonly IConfig<RedisConfig> _redisOptions;
     private readonly ConnectionMultiplexer _redis;
-    private readonly IpRateLimitOptions _options = default!;
-    private readonly IpRateLimitPolicies _policies = default!;
 
-    public RedisRateLimitPolicyStore(
+    public RedisRateLimitCounterStore(
         IConfig<RedisConfig> redisOptions,
         IMemoryCache memoryCache,
-        ILogger<RedisRateLimitPolicyStore> logger,
-        IConfig<IpRateLimitOptions> options = null!,
-        IConfig<IpRateLimitPolicies> policies = null!)
+        ILogger<RedisRateLimitCounterStore> logger)
     {
         _logger = logger;
-        _memoryCacheStore = new MemoryCacheIpPolicyStore(memoryCache);
-        IConfig<RedisConfig> _redisOptions = redisOptions;
-        _options = options?.Options!;
-        _policies = policies?.Options!;
-        _redis = ConnectionMultiplexer.Connect(_redisOptions.Options.ConnectionString);
+        _memoryCacheStore = new MemoryCacheRateLimitCounterStore(memoryCache);
+        //_redisOptions = redisOptions;
+        _redis = ConnectionMultiplexer.Connect(redisOptions.Options.ConnectionString);
     }
 
     private IDatabase RedisDatabase => _redis.GetDatabase();
@@ -49,17 +42,18 @@ public class RedisRateLimitPolicyStore : IIpPolicyStore
             });
     }
 
-    public async Task<IpRateLimitPolicies> GetAsync(string id, CancellationToken cancellationToken = default)
+    public async Task<RateLimitCounter?> GetAsync(string id, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        var command = await TryRedisCommandAsync(
+
+        return await TryRedisCommandAsync(
             async () =>
             {
                 var value = await RedisDatabase.StringGetAsync(id);
 
                 if (!string.IsNullOrEmpty(value))
                 {
-                    return JsonSerializer.Deserialize<IpRateLimitPolicies>(value);
+                    return JsonSerializer.Deserialize<RateLimitCounter?>(value);
                 }
 
                 return null;
@@ -68,8 +62,6 @@ public class RedisRateLimitPolicyStore : IIpPolicyStore
             {
                 return _memoryCacheStore.GetAsync(id, cancellationToken);
             });
-
-        return command!;
     }
 
     public async Task RemoveAsync(string id, CancellationToken cancellationToken = default)
@@ -91,23 +83,15 @@ public class RedisRateLimitPolicyStore : IIpPolicyStore
             });
     }
 
-    public async Task SeedAsync()
-    {
-        // on startup, save the IP rules defined in appsettings
-        if (_options != null && _policies != null)
-        {
-            await SetAsync($"{_options.IpPolicyPrefix}", _policies).ConfigureAwait(false);
-        }
-    }
-
-    public async Task SetAsync(string id, IpRateLimitPolicies entry, TimeSpan? expirationTime = null, CancellationToken cancellationToken = default)
+    public async Task SetAsync(string id, RateLimitCounter? entry, TimeSpan? expirationTime = null, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
         _ = await TryRedisCommandAsync(
             async () =>
             {
-                await RedisDatabase.StringSetAsync(id, JsonSerializer.Serialize(entry), expirationTime);
+                if (entry.HasValue)
+                    await RedisDatabase.StringSetAsync(id, JsonSerializer.Serialize(entry.Value), expirationTime);
 
                 return true;
             },
@@ -121,9 +105,9 @@ public class RedisRateLimitPolicyStore : IIpPolicyStore
 
     private async Task<T> TryRedisCommandAsync<T>(Func<Task<T>> command, Func<Task<T>> fallbackCommand)
     {
-        var serviceSettings = AppServiceLoader.Instance.Configuration.GetSection(nameof(ServiceSettings)).Get<ServiceSettings>();
+        bool.TryParse(AppServiceLoader.Instance.Configuration["ClientRateLimiting:EnableRateLimitingRedis"], out bool enableRateLimitingRedis);
 
-        if (serviceSettings.EnableRateLimitingRedis && _redis?.IsConnected == true)
+        if (enableRateLimitingRedis && _redis?.IsConnected == true)
         {
             try
             {

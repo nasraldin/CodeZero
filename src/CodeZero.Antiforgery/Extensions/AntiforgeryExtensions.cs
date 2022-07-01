@@ -1,4 +1,5 @@
 using CodeZero;
+using CodeZero.Configuration;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +20,7 @@ public static partial class ServiceCollectionExtensions
             // Angular's default header name for sending the XSRF token.
             options.HeaderName = AppConsts.HeaderName.Xsrf;
             options.FormFieldName = "__RequestVerificationToken";
-            //options.Cookie.Name = "_CodeZeroAntiforgery";
+            options.Cookie.Name = $"_{AppServiceLoader.Instance.ApplicationName}Antiforgery";
 
             // Don't set the cookie builder 'Path' so that it uses the 'IAuthenticationFeature' value
             // set by the pipeline and comming from the request 'PathBase' which already ends with the

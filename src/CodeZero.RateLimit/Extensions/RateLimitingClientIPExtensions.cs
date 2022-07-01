@@ -1,5 +1,4 @@
 using AspNetCoreRateLimit;
-using CodeZero.Configuration;
 using CodeZero.RateLimit;
 using JetBrains.Annotations;
 using Microsoft.Extensions.Configuration;
@@ -18,7 +17,7 @@ public static partial class ServiceCollectionExtensions
         [NotNull] this IServiceCollection services,
         [NotNull] IConfiguration configuration)
     {
-        var serviceSettings = configuration.GetSection(nameof(ServiceSettings)).Get<ServiceSettings>() ?? new ServiceSettings();
+        bool.TryParse(configuration["IpRateLimiting:EnableRateLimitingRedis"], out bool enableRateLimitingRedis);
 
         // load general configuration from appsettings.json
         services.Configure<IpRateLimitOptions>(configuration.GetSection("IpRateLimiting"));
@@ -29,7 +28,7 @@ public static partial class ServiceCollectionExtensions
         // inject counter and rules stores
         services.AddInMemoryRateLimiting();
 
-        if (serviceSettings.EnableRateLimitingRedis)
+        if (enableRateLimitingRedis)
         {
             services.AddSingleton<IIpPolicyStore, RedisRateLimitPolicyStore>();
             services.AddSingleton<IRateLimitCounterStore, RedisRateLimitCounterStore>();

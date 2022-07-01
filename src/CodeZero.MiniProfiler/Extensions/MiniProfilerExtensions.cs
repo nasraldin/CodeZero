@@ -18,7 +18,7 @@ public static partial class ServiceCollectionExtensions
         [NotNull] this IServiceCollection services,
         [NotNull] IConfiguration configuration)
     {
-        var mpConfig = configuration.GetSection(nameof(MiniProfilerConfig)).Get<MiniProfilerConfig>() ?? new MiniProfilerConfig();
+        var mpConfig = configuration.GetSection(nameof(MiniProfilerConfig)).Get<MiniProfilerConfig>() ?? new();
 
         // Note .AddMiniProfiler() returns a IMiniProfilerBuilder for easy intellisense
         services.AddMiniProfiler(options =>

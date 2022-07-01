@@ -14,12 +14,12 @@ public class AppServiceLoader : IAppServiceLoader
     {
         Environment = env;
         Configuration = configuration;
-        APP_NAME = configuration["ApplicationName"] ?? AppDomain.CurrentDomain.FriendlyName;
+        ApplicationName = configuration["ApplicationName"] ?? AppDomain.CurrentDomain.FriendlyName;
 
         Instance = this;
     }
 
     public IWebHostEnvironment Environment { get; set; }
     public IConfiguration Configuration { get; set; }
-    public string APP_NAME { get; set; }
+    public string ApplicationName { get; set; }
 }

@@ -19,7 +19,7 @@ public static partial class ApplicationBuilderExtensions
         [NotNull] this IApplicationBuilder app,
         [NotNull] IConfiguration configuration)
     {
-        var serviceSettings = configuration.GetSection(nameof(ServiceSettings)).Get<ServiceSettings>() ?? new ServiceSettings();
+        var serviceSettings = configuration.GetSection(nameof(ServiceSettings)).Get<ServiceSettings>() ?? new();
         var language = configuration.GetSection(nameof(Language)).Get<Language[]>();
         var supportedCultures = language?.Select(lang => new CultureInfo(lang.Culture)).ToArray()!;
         var defaultCulture = new CultureInfo[] { new CultureInfo("en"), new CultureInfo("ar") };
@@ -34,8 +34,7 @@ public static partial class ApplicationBuilderExtensions
         app.Use(async (context, next) =>
         {
             // Get client prefered language
-            var userLang = context.Request.Headers[AppConsts.HeaderName.AcceptLanguage].ToString()
-                            .Split(',').FirstOrDefault();
+            var userLang = context.Request.Headers[AppConsts.HeaderName.AcceptLanguage].ToString().Split(',').FirstOrDefault();
 
             // Set language
             var lang = supportedCultures?.FirstOrDefault(lang => lang.Name == userLang)?.Name ??
@@ -43,7 +42,6 @@ public static partial class ApplicationBuilderExtensions
             serviceSettings.DefaultCulture;
 
             context.Response.Headers.TryAdd(AppConsts.HeaderName.ContentLanguage, lang);
-
             // Switch app culture
             Thread.CurrentThread.CurrentCulture = new CultureInfo(lang!);
 

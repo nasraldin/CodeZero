@@ -6,8 +6,8 @@
     <AssemblyName>CodeZero.Swagger</AssemblyName>
     <PackageId>CodeZero.Swagger</PackageId>
     <!--Change this {Version} if you fix a bug or add a new rule, for shipping new package.-->
-    <PackageVersion>6.0.0</PackageVersion>
-    <Version>6.0.0</Version>
+    <PackageVersion>6.0.1</PackageVersion>
+    <Version>6.0.1</Version>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Description>Pre-configure Swashbuckle package and Api versioning</Description>
     <PackageDescription>Pre-configure Swashbuckle package and Api versioning</PackageDescription>

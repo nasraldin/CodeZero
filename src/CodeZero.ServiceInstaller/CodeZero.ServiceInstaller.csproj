@@ -6,8 +6,8 @@
     <AssemblyName>CodeZero.ServiceInstaller</AssemblyName>
     <PackageId>CodeZero.ServiceInstaller</PackageId>
     <!--Change this {Version} if you fix a bug or add a new rule, for shipping new package.-->
-    <PackageVersion>6.0.0</PackageVersion>
-    <Version>6.0.0</Version>
+    <PackageVersion>6.0.1</PackageVersion>
+    <Version>6.0.1</Version>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Description>CodeZero.ServiceInstaller enable dependency injection (DI)</Description>
     <PackageDescription>CodeZero.ServiceInstaller enable dependency injection (DI)</PackageDescription>
@@ -28,7 +28,6 @@
   <ItemGroup>
     <ProjectReference Include="..\CodeZero.Antiforgery\CodeZero.Antiforgery.csproj" />
     <ProjectReference Include="..\CodeZero.Exceptional\CodeZero.Exceptional.csproj" />
-    <ProjectReference Include="..\CodeZero.HealthChecks\CodeZero.HealthChecks.csproj" />
     <ProjectReference Include="..\CodeZero.Localization\CodeZero.Localization.csproj" />
     <ProjectReference Include="..\CodeZero.MiniProfiler\CodeZero.MiniProfiler.csproj" />
     <ProjectReference Include="..\CodeZero.RateLimit\CodeZero.RateLimit.csproj" />

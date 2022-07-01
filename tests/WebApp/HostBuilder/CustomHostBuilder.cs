@@ -1,5 +1,4 @@
 using CodeZero;
-using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Debugging;
 
@@ -35,7 +34,6 @@ public static class CustomHostBuilder
 
             // Add services to the container.
             // ...
-            builder.Services.AddCodeZeroHealthChecks<DbContext>(builder.Configuration);
 
             var app = builder.Build();
             app.UseCodeZero(builder.Configuration);

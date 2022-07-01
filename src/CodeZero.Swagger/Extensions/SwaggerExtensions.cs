@@ -26,7 +26,7 @@ public static partial class ServiceCollectionExtensions
         [NotNull] IConfiguration configuration,
         Action<SwaggerGenOptions> setupAction = null!)
     {
-        var swaggerConfig = configuration.GetSection(nameof(SwaggerConfig)).Get<SwaggerConfig>() ?? new SwaggerConfig();
+        var swaggerConfig = configuration.GetSection(nameof(SwaggerConfig)).Get<SwaggerConfig>() ?? new();
         var apiKeyConfig = configuration.GetSection(nameof(ApiKeyConfig)).Get<ApiKeyConfig>();
         // Convert Scopes List to Dictionary (a map of key and value)
         //var scopes = swaggerConfig.Scopes.ToDictionary(sn => sn.ScopeName, sd => sd.ShortDescription);

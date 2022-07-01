@@ -6,8 +6,8 @@
     <AssemblyName>CodeZero.Configuration</AssemblyName>
     <PackageId>CodeZero.Configuration</PackageId>
     <!--Change this {Version} if you fix a bug or add a new rule, for shipping new package.-->
-    <PackageVersion>6.0.0</PackageVersion>
-    <Version>6.0.0</Version>
+    <PackageVersion>6.0.1</PackageVersion>
+    <Version>6.0.1</Version>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Description>CodeZero.Configuration is to help you load appsettings config easier in your application</Description>
     <PackageDescription>CodeZero.Configuration is to help you load appsettings config easier in your application</PackageDescription>

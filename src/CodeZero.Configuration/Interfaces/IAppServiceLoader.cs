@@ -11,5 +11,5 @@ public interface IAppServiceLoader
 {
     IWebHostEnvironment Environment { get; set; }
     IConfiguration Configuration { get; set; }
-    string APP_NAME { get; set; }
+    string ApplicationName { get; set; }
 }

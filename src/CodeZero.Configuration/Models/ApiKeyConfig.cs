@@ -10,6 +10,9 @@ public partial class ApiKeyConfig
     public List<AllowedClients> AllowedClients { get; set; } = default!;
 }
 
+/// <summary>
+/// Represents allowed ApiKey clients configuration parameters
+/// </summary>
 public partial class AllowedClients
 {
     public string Name { get; set; } = default!;

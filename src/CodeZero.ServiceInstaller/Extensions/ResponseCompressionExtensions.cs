@@ -1,8 +1,9 @@
 using System.IO.Compression;
-using CodeZero;
+using CodeZero.Configuration;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.Extensions.Configuration;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -12,28 +13,23 @@ public static partial class ServiceCollectionExtensions
     /// Add Response Compression.
     /// </summary>
     /// <param name="services">The <see cref="IServiceCollection"/>.</param>
+    /// <param name="configuration">The <see cref="IConfiguration"/>.</param>
     /// <returns><see cref="IServiceCollection"/></returns>
-    public static IServiceCollection AddResponseCompressionConfig([NotNull] this IServiceCollection services)
+    public static IServiceCollection AddResponseCompressionConfig(
+        [NotNull] this IServiceCollection services,
+        [NotNull] IConfiguration configuration)
     {
+        var config = configuration.GetSection(nameof(ResponseCompressionConfig)).Get<ResponseCompressionConfig>();
+
         services.AddResponseCompression(options =>
         {
-            options.EnableForHttps = true;
+            options.EnableForHttps = config.EnableForHttps;
             options.Providers.Add<BrotliCompressionProvider>();
             options.Providers.Add<GzipCompressionProvider>();
-            options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[]
+            if (config.MimeTypes.Any())
             {
-                AppConsts.MimeTypes.JSON,
-                AppConsts.MimeTypes.Image_JPEG,
-                AppConsts.MimeTypes.Image_PNG,
-                AppConsts.MimeTypes.Image_SVG,
-                AppConsts.MimeTypes.Multipart_Mixed,
-                AppConsts.MimeTypes.Multipart_FormData,
-                AppConsts.MimeTypes.Text,
-                AppConsts.MimeTypes.Text_UTF8,
-                AppConsts.MimeTypes.Text_CSS,
-                AppConsts.MimeTypes.Text_CSV,
-                AppConsts.MimeTypes.Text_HTML
-            });
+                options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(config.MimeTypes);
+            }
         });
 
         services.Configure<BrotliCompressionProviderOptions>(options =>

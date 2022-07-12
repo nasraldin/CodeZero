@@ -18,6 +18,17 @@ public static partial class ServiceCollectionExtensions
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
         var mapperConfig = new MapperConfiguration(mc =>
         {
+            mc.AddGlobalIgnore("Id");
+            mc.AddGlobalIgnore("CreatedBy");
+            mc.AddGlobalIgnore("CreatedAt");
+            mc.AddGlobalIgnore("UpdatedBy");
+            mc.AddGlobalIgnore("UpdatedAt");
+            mc.AddGlobalIgnore("IsDeleted");
+            mc.AddGlobalIgnore("DeletedBy");
+            mc.AddGlobalIgnore("DeletionTime");
+            mc.AddGlobalIgnore("IsActive");
+            mc.AddGlobalIgnore("ConcurrencyStamp");
+            mc.AddGlobalIgnore("DisplaySequence");
             mc.AddProfile(new MappingProfile());
         });
 

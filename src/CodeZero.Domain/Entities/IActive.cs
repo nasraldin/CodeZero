@@ -1,4 +1,4 @@
-﻿namespace CodeZero.Domain.Entities;
+namespace CodeZero.Domain.Entities;
 
 /// <summary>
 /// Make an entity active/passive.
@@ -9,5 +9,5 @@ public interface IActive
     /// True: This entity is active.
     /// False: This entity is not active.
     /// </summary>
-    bool IsActive { get; set; }
+    bool IsActive { get; }
 }

@@ -21,7 +21,8 @@ public abstract class ValueObject<T> where T : ValueObject<T>
 
     public override int GetHashCode()
     {
-        return GetEqualityComponents().Aggregate(1, (current, obj) => current * 23 + (obj?.GetHashCode() ?? 0));
+        return GetEqualityComponents().Aggregate(1,
+            (current, obj) => current * 23 + (obj?.GetHashCode() ?? 0));
     }
 
     protected abstract IEnumerable<object> GetEqualityComponents();

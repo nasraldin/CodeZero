@@ -7,6 +7,7 @@ namespace CodeZero.Domain.Messaging;
 /// </summary>
 public abstract class Event : Message, INotification
 {
+    [System.ComponentModel.DataAnnotations.Timestamp]
     public DateTime Timestamp { get; private set; }
 
     protected Event()

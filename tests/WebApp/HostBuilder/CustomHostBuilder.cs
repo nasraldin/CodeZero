@@ -1,6 +1,8 @@
 using CodeZero;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Debugging;
+using WebApp.Domain;
 
 namespace System;
 
@@ -34,6 +36,12 @@ public static class CustomHostBuilder
 
             // Add services to the container.
             // ...
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                var folder = Environment.SpecialFolder.LocalApplicationData;
+                var path = Environment.GetFolderPath(folder);
+                options.UseSqlite($"Data Source={Path.Join(path, "webapp.db")}");
+            });
 
             var app = builder.Build();
             app.UseCodeZero(builder.Configuration);

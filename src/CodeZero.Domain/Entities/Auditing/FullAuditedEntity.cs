@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using CodeZero.AutoMapper;
 
 namespace CodeZero.Domain.Entities.Auditing;
 
@@ -13,16 +14,19 @@ public abstract class FullAuditedEntity<TKey> : AuditedEntity<TKey>, IFullAudite
     /// <summary>
     /// Is this entity Deleted?
     /// </summary>
-    public virtual bool IsDeleted { get; set; }
+    [NoMap]
+    public virtual bool IsDeleted { get; protected set; }
 
     /// <summary>
     /// Which user deleted this entity?
     /// </summary>
+    [NoMap]
     public virtual string DeletedBy { get; set; } = default!;
 
     /// <summary>
     /// Deletion time of this entity.
     /// </summary>
+    [NoMap]
     public virtual DateTime? DeletionTime { get; set; }
 }
 
@@ -39,21 +43,25 @@ public abstract class FullAuditedEntity<TKey, TUser> : AuditedEntity<TKey, TUser
     /// <summary>
     /// Is this entity Deleted?
     /// </summary>
-    public virtual bool IsDeleted { get; set; }
+    [NoMap]
+    public virtual bool IsDeleted { get; protected set; }
 
     /// <summary>
     /// Reference to the deleter user of this entity.
     /// </summary>
+    [NoMap]
     [ForeignKey("DeletedBy")]
     public virtual TUser DeleterUser { get; set; } = default!;
 
     /// <summary>
     /// Which user deleted this entity?
     /// </summary>
+    [NoMap]
     public virtual string DeletedBy { get; set; } = default!;
 
     /// <summary>
     /// Deletion time of this entity.
     /// </summary>
+    [NoMap]
     public virtual DateTime? DeletionTime { get; set; }
 }

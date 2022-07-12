@@ -1,4 +1,3 @@
-using CodeZero.Domain.Data;
 using FluentValidation.Results;
 
 namespace CodeZero.Domain.Messaging;
@@ -17,14 +16,16 @@ public abstract class CommandHandler
         ValidationResult.Errors.Add(new ValidationFailure(string.Empty, mensagem));
     }
 
-    protected async Task<ValidationResult> Commit(IAppDbContext context, string message)
+    protected async Task<ValidationResult> Commit(IBaseDbContext context, string message)
     {
-        if (!await context.SaveChangesAsync(CancellationToken.None)) AddError(message);
+        var result = await context.SaveChangesAsync(CancellationToken.None);
+
+        if (result == 0) AddError(message);
 
         return ValidationResult;
     }
 
-    protected async Task<ValidationResult> Commit(IAppDbContext context)
+    protected async Task<ValidationResult> Commit(IBaseDbContext context)
     {
         return await Commit(context, "There was an error saving data").ConfigureAwait(false);
     }

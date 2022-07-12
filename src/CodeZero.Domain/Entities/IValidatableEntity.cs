@@ -11,5 +11,11 @@ public interface IValidatableEntity
     /// Validate the entity, returning a validation result.
     /// </summary>
     /// <returns>A validation result containing errors - or not.</returns>
-    ValidationResult Validate();
+    ValidationResult ValidationResult { get; }
+
+    /// <summary>
+    /// Validate the entity.
+    /// </summary>
+    /// <returns>A validation result true or false.</returns>
+    bool Validate();
 }

@@ -6,8 +6,8 @@
     <AssemblyName>CodeZero.AutoMapper</AssemblyName>
     <PackageId>CodeZero.AutoMapper</PackageId>
     <!--Change this {Version} if you fix a bug or add a new rule, for shipping new package.-->
-    <PackageVersion>6.0.0</PackageVersion>
-    <Version>6.0.0</Version>
+    <PackageVersion>6.0.1</PackageVersion>
+    <Version>6.0.1</Version>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Description>CodeZero.AutoMapper is a pre-configure of AutoMapper library</Description>
     <PackageDescription>CodeZero.AutoMapper is a pre-configure of AutoMapper library</PackageDescription>

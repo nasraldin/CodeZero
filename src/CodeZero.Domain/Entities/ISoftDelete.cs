@@ -1,4 +1,4 @@
-﻿namespace CodeZero.Domain.Entities;
+namespace CodeZero.Domain.Entities;
 
 /// <summary>
 /// Used to standardize soft deleting entities.
@@ -11,5 +11,5 @@ public interface ISoftDelete
     /// <summary>
     /// Used to mark an Entity as 'Deleted'. 
     /// </summary>
-    bool IsDeleted { get; set; }
+    bool IsDeleted { get; }
 }

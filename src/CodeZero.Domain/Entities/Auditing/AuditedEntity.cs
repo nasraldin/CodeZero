@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using CodeZero.AutoMapper;
 
 namespace CodeZero.Domain.Entities.Auditing;
 
@@ -12,11 +13,13 @@ public abstract class AuditedEntity<TKey> : CreationAudited<TKey>, IAudited
     /// <summary>
     /// Last modifier user of this entity.
     /// </summary>
+    [NoMap]
     public virtual string UpdatedBy { get; set; } = default!;
 
     /// <summary>
     /// Last modification date of this entity.
     /// </summary>
+    [NoMap]
     public virtual DateTime UpdatedAt { get; set; }
 }
 
@@ -32,12 +35,14 @@ public abstract class AuditedEntity<TKey, TUser> : AuditedEntity<TKey>, IAudited
     /// <summary>
     /// Reference to the creator user of this entity.
     /// </summary>
+    [NoMap]
     [ForeignKey("CreatedBy")]
     public virtual TUser CreatorUser { get; set; } = default!;
 
     /// <summary>
     /// Reference to the last modifier user of this entity.
     /// </summary>
+    [NoMap]
     [ForeignKey("UpdatedBy")]
     public virtual TUser ModifierUser { get; set; } = default!;
 }

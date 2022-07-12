@@ -1,16 +1,17 @@
-﻿using FluentValidation.Results;
+using FluentValidation.Results;
 using MediatR;
 
 namespace CodeZero.Domain.Messaging;
 
 public abstract class Command : Message, IRequest<ValidationResult>
 {
+    [System.ComponentModel.DataAnnotations.Timestamp]
     public DateTime Timestamp { get; private set; }
     public ValidationResult ValidationResult { get; set; }
 
     protected Command()
     {
-        Timestamp = DateTime.Now;
+        Timestamp = DateTime.UtcNow;
         ValidationResult = new ValidationResult();
     }
 

@@ -152,7 +152,7 @@ public abstract class BaseEntity<TKey> : IEntity<TKey>
         validationResult.Errors.ToList().ForEach(failure => ValidationResult.Errors.Add(failure));
     }
 
-    protected abstract bool Validate();
+    protected virtual bool Validate() => false;
 
     #endregion
 }

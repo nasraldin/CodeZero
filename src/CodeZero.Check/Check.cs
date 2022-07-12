@@ -8,11 +8,17 @@ namespace CodeZero;
 public static class Check
 {
     [ContractAnnotation("value:null => halt")]
+    [return: System.Diagnostics.CodeAnalysis.NotNull]
     public static T NotNull<T>(
-        T value,
-        [InvokerParameterName][NotNull] string parameterName)
+        [NoEnumeration][System.Diagnostics.CodeAnalysis.AllowNull][NotNull] T value,
+        [InvokerParameterName] string parameterName)
     {
-        ArgumentNullException.ThrowIfNull(parameterName);
+        if (value is null)
+        {
+            NotEmpty(parameterName, nameof(parameterName));
+
+            throw new ArgumentNullException(parameterName);
+        }
 
         return value;
     }
@@ -56,6 +62,75 @@ public static class Check
     }
 
     [ContractAnnotation("value:null => halt")]
+    public static IReadOnlyList<T> NotEmpty<T>(
+            [NotNull] IReadOnlyList<T>? value,
+            [InvokerParameterName] string parameterName)
+    {
+        NotNull(value, parameterName);
+
+        if (value!.Count == 0)
+        {
+            NotEmpty(parameterName, nameof(parameterName));
+
+            throw new ArgumentException($"{parameterName} can not be null or empty!");
+        }
+
+        return value;
+    }
+
+    [ContractAnnotation("value:null => halt")]
+    public static string NotEmpty([NotNull] string? value, [InvokerParameterName] string parameterName)
+    {
+        if (value is null)
+        {
+            NotEmpty(parameterName, nameof(parameterName));
+
+            throw new ArgumentNullException(parameterName);
+        }
+        if (value.Trim().Length == 0)
+        {
+            NotEmpty(parameterName, nameof(parameterName));
+
+            throw new ArgumentException($"{parameterName} can not be null or empty!");
+        }
+
+        return value;
+    }
+
+    public static IReadOnlyList<T> HasNoNulls<T>(
+        [NotNull] IReadOnlyList<T>? value,
+        [InvokerParameterName] string parameterName)
+        where T : class
+    {
+        NotNull(value, parameterName);
+
+        if (value!.Any(e => e == null))
+        {
+            NotEmpty(parameterName, nameof(parameterName));
+
+            throw new ArgumentException($"ArgumentIsEmpty: {parameterName} can not be null or empty!");
+        }
+
+        return value!;
+    }
+
+    public static IReadOnlyList<string> HasNoEmptyElements(
+        [NotNull] IReadOnlyList<string>? value,
+        [InvokerParameterName] string parameterName)
+    {
+        NotNull(value, parameterName);
+
+        if (value!.Any(s => string.IsNullOrWhiteSpace(s)))
+        {
+            NotEmpty(parameterName, nameof(parameterName));
+
+            throw new ArgumentException($"CollectionArgumentHasEmptyElements: {parameterName} can not be null or empty!");
+        }
+
+        return value!;
+    }
+
+    [ContractAnnotation("value:null => halt")]
     public static string NotNullOrEmpty(
         string value,
         [InvokerParameterName][NotNull] string parameterName,
@@ -86,7 +161,19 @@ public static class Check
     {
         if (value is null || value.Count <= 0)
         {
-            throw new ArgumentException(parameterName + " can not be null or empty!", parameterName);
+            throw new ArgumentException($"{parameterName} can not be null or empty!", parameterName);
+        }
+
+        return value;
+    }
+
+    public static string? NullButNotEmpty(string? value, [InvokerParameterName] string parameterName)
+    {
+        if (value is not null && value.Length == 0)
+        {
+            NotEmpty(parameterName, nameof(parameterName));
+
+            throw new ArgumentException($"ArgumentIsEmpty: {parameterName} can not be null or empty!");
         }
 
         return value;
@@ -232,6 +319,17 @@ public static class Check
             Console.WriteLine($"IsJson ex: {ex}");
 
             return false;
+        }
+    }
+
+    [Conditional("DEBUG")]
+    public static void DebugAssert([System.Diagnostics.CodeAnalysis.DoesNotReturnIf(false)] bool condition, string message)
+    {
+        if (!condition)
+        {
+#pragma warning disable S112 // General exceptions should never be thrown
+            throw new Exception($"Check.DebugAssert failed: {message}");
+#pragma warning restore S112 // General exceptions should never be thrown
         }
     }
 }

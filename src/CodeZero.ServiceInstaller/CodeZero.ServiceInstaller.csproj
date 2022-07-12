@@ -6,8 +6,8 @@
     <AssemblyName>CodeZero.ServiceInstaller</AssemblyName>
     <PackageId>CodeZero.ServiceInstaller</PackageId>
     <!--Change this {Version} if you fix a bug or add a new rule, for shipping new package.-->
-    <PackageVersion>6.0.1</PackageVersion>
-    <Version>6.0.1</Version>
+    <PackageVersion>6.0.2</PackageVersion>
+    <Version>6.0.2</Version>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Description>CodeZero.ServiceInstaller enable dependency injection (DI)</Description>
     <PackageDescription>CodeZero.ServiceInstaller enable dependency injection (DI)</PackageDescription>
@@ -21,8 +21,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.6" />
-    <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="6.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="6.0.7" />
   </ItemGroup>
 
   <ItemGroup>

@@ -11,7 +11,7 @@ public static class HostingEnvironmentExtensions
     /// <returns> True if the environment name is dev, otherwise false.</returns>
     public static bool IsDev(this IHostEnvironment hostEnvironment)
     {
-        return hostEnvironment.IsEnvironment(AppConsts.Environments.Dev);
+        return hostEnvironment.IsEnvironment(AppConst.Environments.Dev);
     }
 
     /// <summary>
@@ -21,7 +21,7 @@ public static class HostingEnvironmentExtensions
     /// <returns> True if the environment name is prod, otherwise false.</returns>
     public static bool IsProd(this IHostEnvironment hostEnvironment)
     {
-        return hostEnvironment.IsEnvironment(AppConsts.Environments.Prod);
+        return hostEnvironment.IsEnvironment(AppConst.Environments.Prod);
     }
 
     /// <summary>
@@ -31,7 +31,7 @@ public static class HostingEnvironmentExtensions
     /// <returns> True if the environment name is stag, otherwise false.</returns>
     public static bool IsStag(this IHostEnvironment hostEnvironment)
     {
-        return hostEnvironment.IsEnvironment(AppConsts.Environments.Stag);
+        return hostEnvironment.IsEnvironment(AppConst.Environments.Stag);
     }
 
     /// <summary>
@@ -41,7 +41,7 @@ public static class HostingEnvironmentExtensions
     /// <returns> True if the environment name is qa, otherwise false.</returns>
     public static bool IsQA(this IHostEnvironment hostEnvironment)
     {
-        return hostEnvironment.IsEnvironment(AppConsts.Environments.QA);
+        return hostEnvironment.IsEnvironment(AppConst.Environments.QA);
     }
 
     /// <summary>
@@ -51,7 +51,7 @@ public static class HostingEnvironmentExtensions
     /// <returns> True if the environment name is uat, otherwise false.</returns>
     public static bool IsUAT(IHostEnvironment hostEnvironment)
     {
-        return hostEnvironment.IsEnvironment(AppConsts.Environments.UAT);
+        return hostEnvironment.IsEnvironment(AppConst.Environments.UAT);
     }
 
     /// <summary>
@@ -61,6 +61,6 @@ public static class HostingEnvironmentExtensions
     /// <returns> True if the environment name is test, otherwise false.</returns>
     public static bool IsTest(IHostEnvironment hostEnvironment)
     {
-        return hostEnvironment.IsEnvironment(AppConsts.Environments.Test);
+        return hostEnvironment.IsEnvironment(AppConst.Environments.Test);
     }
 }

@@ -1,10 +1,3 @@
-using System.Collections.Immutable;
-using System.Globalization;
-using System.Net;
-using System.Text;
-using System.Text.Json;
-using System.Text.RegularExpressions;
-
 namespace System;
 
 public static partial class StringExtensions
@@ -34,7 +27,11 @@ public static partial class StringExtensions
         return text.Ellipsize(characterCount, "\u00A0\u2026");
     }
 
-    public static string Ellipsize(this string text, int characterCount, string ellipsis, bool wordBoundary = false)
+    public static string Ellipsize(
+        this string text,
+        int characterCount,
+        string ellipsis,
+        bool wordBoundary = false)
     {
         if (string.IsNullOrWhiteSpace(text))
         {
@@ -235,7 +232,8 @@ public static partial class StringExtensions
     }
 
     /// <summary>
-    /// Transforms the culture of a letter to its equivalent representation in the 0-127 ascii table, such as the letter 'é' is substituted by an 'e'
+    /// Transforms the culture of a letter to its equivalent representation 
+    /// in the 0-127 ascii table, such as the letter 'é' is substituted by an 'e'
     /// </summary>
     /// <param name="s"></param>
     /// <returns></returns>
@@ -281,11 +279,12 @@ public static partial class StringExtensions
     public static string Strip(this string subject, Func<char, bool> predicate)
     {
         var result = new char[subject.Length];
-
         var cursor = 0;
+
         for (var i = 0; i < subject.Length; i++)
         {
             var current = subject[i];
+
             if (!predicate(current))
             {
                 result[cursor++] = current;
@@ -305,6 +304,7 @@ public static partial class StringExtensions
         for (var i = 0; i < subject.Length; i++)
         {
             var current = subject[i];
+
             if (Array.IndexOf(chars, current) >= 0)
             {
                 return true;
@@ -329,6 +329,7 @@ public static partial class StringExtensions
         for (var i = 0; i < subject.Length; i++)
         {
             var current = subject[i];
+
             if (Array.IndexOf(chars, current) < 0)
             {
                 return false;
@@ -366,6 +367,7 @@ public static partial class StringExtensions
         for (var i = 0; i < subject.Length; i++)
         {
             var current = subject[i];
+
             if (map.ContainsKey(current))
             {
                 result[i] = map[current];
@@ -382,6 +384,7 @@ public static partial class StringExtensions
     public static string ReplaceAll(this string original, IDictionary<string, string> replacements)
     {
         var pattern = $"{string.Join("|", replacements.Keys)}";
+
         return Regex.Replace(original, pattern, match => replacements[match.Value]);
     }
 
@@ -398,6 +401,7 @@ public static partial class StringExtensions
     public static string ReplaceLastOccurrence(this string source, string find, string replace)
     {
         var place = source.LastIndexOf(find, StringComparison.Ordinal);
+
         return source.Remove(place, find.Length).Insert(place, replace);
     }
 

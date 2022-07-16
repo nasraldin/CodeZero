@@ -1,6 +1,5 @@
 using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
-using JetBrains.Annotations;
 
 namespace System.Collections.Generic;
 
@@ -53,8 +52,12 @@ public static class EnumerableExtensions
     /// <param name="source">Enumerable to apply filtering</param>
     /// <param name="condition">A boolean value</param>
     /// <param name="predicate">Predicate to filter the enumerable</param>
-    /// <returns>Filtered or not filtered enumerable based on <paramref name="condition"/></returns>
-    public static IEnumerable<T> WhereIf<T>(this IEnumerable<T> source, bool condition, Func<T, bool> predicate)
+    /// <returns>Filtered or not filtered enumerable based on 
+    /// <paramref name="condition"/></returns>
+    public static IEnumerable<T> WhereIf<T>(
+        this IEnumerable<T> source,
+        bool condition,
+        Func<T, bool> predicate)
     {
         return condition
             ? source.Where(predicate)
@@ -67,15 +70,21 @@ public static class EnumerableExtensions
     /// <param name="source">Enumerable to apply filtering</param>
     /// <param name="condition">A boolean value</param>
     /// <param name="predicate">Predicate to filter the enumerable</param>
-    /// <returns>Filtered or not filtered enumerable based on <paramref name="condition"/></returns>
-    public static IEnumerable<T> WhereIf<T>(this IEnumerable<T> source, bool condition, Func<T, int, bool> predicate)
+    /// <returns>Filtered or not filtered enumerable based on 
+    /// <paramref name="condition"/></returns>
+    public static IEnumerable<T> WhereIf<T>(
+        this IEnumerable<T> source,
+        bool condition,
+        Func<T, int, bool> predicate)
     {
         return condition
             ? source.Where(predicate)
             : source;
     }
 
-    public static IEnumerable<T> Descendants<T>(this IEnumerable<T> source, Func<T, IEnumerable<T>> descendBy)
+    public static IEnumerable<T> Descendants<T>(
+        this IEnumerable<T> source,
+        Func<T, IEnumerable<T>> descendBy)
     {
         foreach (T value in source)
         {
@@ -95,8 +104,8 @@ public static class EnumerableExtensions
     /// <typeparam name="T"></typeparam>
     /// <param name="enumerable">The enumerable.</param>
     /// <returns>
-    /// Returns true if there is 0 or 1 item in the enumerable or if all items in the enumerable 
-    /// are same (equal to each other) otherwise false.
+    /// Returns true if there is 0 or 1 item in the enumerable or 
+    /// if all items in the enumerable are same (equal to each other) otherwise false.
     /// </returns>
     /// seealso https://stackoverflow.com/a/35839942/5483868
     public static bool AreAllSame<T>(this IEnumerable<T> enumerable)
@@ -197,6 +206,7 @@ public static class EnumerableExtensions
         try
         {
             var enumerator = enumerable.GetEnumerator();
+
             if (enumerator is not null && enumerator.MoveNext())
             {
                 return true;
@@ -217,7 +227,9 @@ public static class EnumerableExtensions
     /// <param name="list"></param>
     /// <param name="Predicate"></param>
     /// <returns></returns>
-    public static IEnumerable<T> RemoveDuplicates<T>(this ICollection<T> list, Func<T, int> Predicate)
+    public static IEnumerable<T> RemoveDuplicates<T>(
+        this ICollection<T> list,
+        Func<T, int> Predicate)
     {
         var dict = new Dictionary<int, T>();
 
@@ -239,7 +251,9 @@ public static class EnumerableExtensions
     /// <param name="list"></param>
     /// <param name="filterParam"></param>
     /// <returns></returns>
-    public static IEnumerable<T> Filter<T>(this IEnumerable<T> list, Func<T, bool> filterParam)
+    public static IEnumerable<T> Filter<T>(
+        this IEnumerable<T> list,
+        Func<T, bool> filterParam)
     {
         return list.Where(filterParam);
     }
@@ -264,12 +278,16 @@ public static class EnumerableExtensions
         return CacheHelper(isEmpty, head, tail);
     }
 
-    private static IEnumerable<T> CacheHelper<T>(Lazy<bool> isEmpty, Lazy<T> head, Lazy<IEnumerable<T>> tail)
+    private static IEnumerable<T> CacheHelper<T>(
+        Lazy<bool> isEmpty,
+        Lazy<T> head,
+        Lazy<IEnumerable<T>> tail)
     {
         if (isEmpty.Value)
             yield break;
 
         yield return head.Value;
+
         foreach (var value in tail.Value)
             yield return value;
     }

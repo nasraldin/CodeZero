@@ -1,5 +1,3 @@
-using CodeZero.Domain.Messaging;
-
 namespace CodeZero.Domain;
 
 public interface IHasDomainEvent

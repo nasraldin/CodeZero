@@ -1,4 +1,4 @@
-namespace CodeZero.Domain;
+namespace CodeZero.Domain.Data;
 
 /// <summary>
 /// Handling Concurrency Conflicts.

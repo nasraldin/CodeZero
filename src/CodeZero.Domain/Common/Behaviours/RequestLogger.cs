@@ -1,7 +1,3 @@
-using System.Reflection;
-using MediatR.Pipeline;
-using Microsoft.Extensions.Logging;
-
 namespace CodeZero.Domain.Common.Behaviours;
 
 public class RequestLogger<TRequest> : IRequestPreProcessor<TRequest>

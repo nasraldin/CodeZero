@@ -1,4 +1,4 @@
-﻿namespace CodeZero.Domain.Common.Responses;
+namespace CodeZero.Domain.Common.Responses;
 
 public class ValidationIssue
 {

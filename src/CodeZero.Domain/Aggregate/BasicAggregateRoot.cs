@@ -1,6 +1,6 @@
 using System.Collections.ObjectModel;
 
-namespace CodeZero.Domain;
+namespace CodeZero.Domain.Aggregate;
 
 [Serializable]
 public abstract class BasicAggregateRoot : IAggregateRoot, IGeneratesDomainEvents

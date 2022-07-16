@@ -1,4 +1,4 @@
-namespace CodeZero.Domain;
+namespace CodeZero.Domain.Exception;
 
 public class DomainException : CodeZeroException
 {

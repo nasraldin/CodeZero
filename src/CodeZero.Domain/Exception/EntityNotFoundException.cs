@@ -1,4 +1,4 @@
-namespace CodeZero.Domain;
+namespace CodeZero.Domain.Exception;
 
 /// <summary>
 /// This exception is thrown if an entity excepted to be found but not found.

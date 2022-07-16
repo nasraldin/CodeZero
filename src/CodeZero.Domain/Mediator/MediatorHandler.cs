@@ -1,7 +1,4 @@
 using System.Runtime.CompilerServices;
-using CodeZero.Domain.Messaging;
-using FluentValidation.Results;
-using MediatR;
 
 namespace CodeZero.Domain.Mediator;
 

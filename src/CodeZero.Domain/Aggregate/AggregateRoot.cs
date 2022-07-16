@@ -1,15 +1,12 @@
-using CodeZero.Domain.Entities;
+namespace CodeZero.Domain.Aggregate;
 
-namespace CodeZero.Domain
+[Serializable]
+public abstract class AggregateRoot : BasicAggregateRoot, IHasConcurrencyStamp
 {
-    [Serializable]
-    public abstract class AggregateRoot : BasicAggregateRoot, IHasConcurrencyStamp
-    {
-        public virtual string ConcurrencyStamp { get; set; }
+    public virtual string ConcurrencyStamp { get; set; }
 
-        protected AggregateRoot()
-        {
-            ConcurrencyStamp = Guid.NewGuid().ToString("N");
-        }
+    protected AggregateRoot()
+    {
+        ConcurrencyStamp = Guid.NewGuid().ToString("N");
     }
 }

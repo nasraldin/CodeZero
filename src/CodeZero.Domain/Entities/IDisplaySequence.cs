@@ -1,4 +1,4 @@
-﻿namespace CodeZero.Domain.Entities;
+namespace CodeZero.Domain.Entities;
 
 /// <summary>
 /// Used to display sequence/order of entities.

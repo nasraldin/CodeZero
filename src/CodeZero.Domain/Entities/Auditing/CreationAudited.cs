@@ -1,6 +1,3 @@
-using System.ComponentModel.DataAnnotations.Schema;
-using CodeZero.AutoMapper;
-
 namespace CodeZero.Domain.Entities.Auditing;
 
 /// <summary>
@@ -13,13 +10,11 @@ public abstract class CreationAudited<TKey> : BaseEntity<TKey>, ICreation
     /// <summary>
     /// Creator of this entity.
     /// </summary>
-    [NoMap]
     public virtual string CreatedBy { get; set; } = default!;
 
     /// <summary>
     /// Creation time of this entity.
     /// </summary>
-    [NoMap]
     public virtual DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 }
 
@@ -29,13 +24,14 @@ public abstract class CreationAudited<TKey> : BaseEntity<TKey>, ICreation
 /// <typeparam name="TKey">Type of the primary key of the entity</typeparam>
 /// <typeparam name="TUser">Type of the user</typeparam>
 [Serializable]
-public abstract class CreationAudited<TKey, TUser> : CreationAudited<TKey>, ICreation<TUser, TKey>
+public abstract class CreationAudited<TKey, TUser> :
+    CreationAudited<TKey>,
+    ICreation<TUser, TKey>
     where TUser : IEntity<TKey>
 {
     /// <summary>
     /// Reference to the creator user of this entity.
     /// </summary>
-    [NoMap]
     [ForeignKey("CreatedBy")]
     public virtual TUser CreatorUser { get; set; } = default!;
 }

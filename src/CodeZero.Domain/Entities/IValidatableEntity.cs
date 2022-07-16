@@ -1,5 +1,3 @@
-using FluentValidation.Results;
-
 namespace CodeZero.Domain.Entities;
 
 /// <summary>

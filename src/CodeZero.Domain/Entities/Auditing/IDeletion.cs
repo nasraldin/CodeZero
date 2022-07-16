@@ -3,7 +3,8 @@ namespace CodeZero.Domain.Entities.Auditing;
 /// <summary>
 /// This interface is implemented by entities which wanted 
 /// to store deletion information (who and when deleted).
-/// <see cref="DeletionTime"/> is automatically set when deleting <see cref="IEntity{TKey}"/>.
+/// <see cref="DeletionTime"/> is automatically set when deleting 
+/// <see cref="IEntity{TKey}"/>.
 /// </summary>
 public interface IDeletion : ISoftDelete
 {

@@ -1,4 +1,3 @@
-using CodeZero.Configuration;
 using CodeZero.Helpers;
 using CodeZero.Middleware;
 using Microsoft.AspNetCore.Http;
@@ -87,7 +86,7 @@ public static partial class ServiceCollectionExtensions
             builder.Services.AddDataProtectionConfig(builder.Configuration);
 
         if (serviceSettings.UseStackExchangeExceptional)
-            builder.Services.AddStackExchangeExceptional(builder.Configuration);
+            builder.Services.AddExceptional(builder.Configuration.GetSection("Exceptional"));
 
         if (serviceSettings.EnableContentNegotiation)
         {

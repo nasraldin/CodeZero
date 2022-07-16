@@ -11,7 +11,7 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Description>CodeZero.Domain is a set of common implementations to help you implementing DDD, CQRS and another facilities for new modern web applications</Description>
     <PackageDescription>CodeZero.Domain is a set of common implementations to help you implementing DDD, CQRS and another facilities for new modern web applications</PackageDescription>
-    <PackageTags>.net core;boilerplate;clean architecture;ddd;cqrs;modular;best-practices</PackageTags>
+    <PackageTags>.net core;ddd;cqrs;modular;best-practices</PackageTags>
     <!--Change this {PackageReleaseNotes}, add your relase notes for fix a bug or a new rule.-->
     <PackageReleaseNotes>CodeZero.Domain .net 6 Inial release</PackageReleaseNotes>
   </PropertyGroup>
@@ -27,8 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CodeZero.AutoMapper\CodeZero.AutoMapper.csproj" />
-    <ProjectReference Include="..\CodeZero.Exception\CodeZero.Exception.csproj" />
     <ProjectReference Include="..\CodeZero.Shared\CodeZero.Shared.csproj" />
   </ItemGroup>
 

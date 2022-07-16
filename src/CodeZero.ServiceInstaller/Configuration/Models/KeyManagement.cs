@@ -1,4 +1,4 @@
-﻿namespace CodeZero.Configuration.Models;
+namespace CodeZero.Configuration.Models;
 
 public partial class KeyManagement
 {

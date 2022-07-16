@@ -1,4 +1,4 @@
-namespace CodeZero.Domain;
+namespace CodeZero.Domain.Data;
 
 public interface IBaseDbContext
 {

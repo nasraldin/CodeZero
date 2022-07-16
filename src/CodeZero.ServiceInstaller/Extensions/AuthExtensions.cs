@@ -1,6 +1,3 @@
-using System.Text;
-using CodeZero.Configuration;
-using JetBrains.Annotations;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -61,7 +58,6 @@ public static partial class ServiceCollectionExtensions
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authConfig.ClientSecret)),
             };
         });
-
 
         ////    .AddOpenIdConnect(jwtOptions =>
         ////{

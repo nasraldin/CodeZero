@@ -1,8 +1,8 @@
-using CodeZero.Configuration;
+using AspNetCoreRateLimit;
 using CodeZero.Middleware;
-using JetBrains.Annotations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 
 namespace Microsoft.AspNetCore.Builder
 {
@@ -30,7 +30,7 @@ namespace Microsoft.AspNetCore.Builder
 
             // Adds middleware for streamlined request logging.
             if (serviceSettings.EnableSerilog)
-                app.UseSerilog();
+                app.UseSerilogRequestLogging();
 
             if (isProd)
             {
@@ -40,10 +40,10 @@ namespace Microsoft.AspNetCore.Builder
 
             // Register the IpRateLimiting
             if (serviceSettings.EnableIpRateLimiting)
-                app.UseRateLimitingClientIP();
+                app.UseIpRateLimiting();
 
             if (serviceSettings.EnableClientRateLimiting)
-                app.UseRateLimitingClientID();
+                app.UseClientRateLimiting();
 
             if (serviceSettings.UseReverseProxy)
                 app.UseProxy(configuration);
@@ -55,11 +55,11 @@ namespace Microsoft.AspNetCore.Builder
                 app.UseResponseCompression();
 
             if (debugConfig.UseMiniProfiler)
-                app.UseMiniProfilerConfig();
+                app.UseMiniProfiler();
 
             // Register the StackExchange Exceptional.
             if (serviceSettings.UseStackExchangeExceptional)
-                app.UseStackExchangeExceptional();
+                app.UseExceptional();
 
             if (serviceSettings.UseLocalization)
                 app.UseLocalizationServices(configuration);

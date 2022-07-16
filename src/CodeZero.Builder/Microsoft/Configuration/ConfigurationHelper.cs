@@ -1,5 +1,3 @@
-using CodeZero;
-
 namespace Microsoft.Extensions.Configuration;
 
 public static class ConfigurationHelper
@@ -17,7 +15,7 @@ public static class ConfigurationHelper
 
         if (string.IsNullOrEmpty(options.EnvironmentName))
         {
-            options.EnvironmentName = Environment.GetEnvironmentVariable(AppConsts.ASPNETCORE_ENVIRONMENT)!;
+            options.EnvironmentName = Environment.GetEnvironmentVariable(AppConst.ASPNETCORE_ENVIRONMENT)!;
         }
 
         Console.WriteLine("[CodeZero] Loads environment variables...");
@@ -32,8 +30,8 @@ public static class ConfigurationHelper
         Console.WriteLine("[CodeZero] Environment variables loaded.");
         Console.ResetColor();
 
-        if ((options.EnvironmentName == AppConsts.Environments.Development ||
-            options.EnvironmentName == AppConsts.Environments.Dev) &&
+        if ((options.EnvironmentName == AppConst.Environments.Development ||
+            options.EnvironmentName == AppConst.Environments.Dev) &&
             options.UserSecretsId is not null)
         {
             Console.WriteLine("[CodeZero] Check UserSecrets...");

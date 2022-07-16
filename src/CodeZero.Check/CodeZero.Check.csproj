@@ -9,8 +9,8 @@
     <PackageVersion>6.0.1</PackageVersion>
     <Version>6.0.1</Version>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Description>CodeZero.Check is a set of common guard extensions to help you implement and make checks easier in your application</Description>
-    <PackageDescription>CodeZero.Check is a set of common guard extensions to help you implement and make checks easier in your application</PackageDescription>
+    <Description>Useful of checks of common guard extensions can help you make checks easier</Description>
+    <PackageDescription>Useful of checks of common guard extensions can help you make checks easier</PackageDescription>
     <PackageTags>.net core;guard;check;best-practices</PackageTags>
     <!--Change this {PackageReleaseNotes}, add your relase notes for fix a bug or a new rule.-->
     <PackageReleaseNotes>Updated the checks and added more validation</PackageReleaseNotes>

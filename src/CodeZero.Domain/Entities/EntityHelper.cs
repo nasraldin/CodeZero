@@ -1,7 +1,4 @@
 using System.Linq.Expressions;
-using System.Reflection;
-using CodeZero.Helpers;
-using JetBrains.Annotations;
 
 namespace CodeZero.Domain.Entities;
 
@@ -165,6 +162,4 @@ public static class EntityHelper
     }
 }
 
-public class DisableIdGenerationAttribute : Attribute
-{
-}
+public class DisableIdGenerationAttribute : Attribute { }

@@ -1,4 +1,4 @@
-﻿namespace CodeZero.Domain.Messaging;
+namespace CodeZero.Domain.Messaging;
 
 public abstract class Message
 {

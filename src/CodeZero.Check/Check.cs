@@ -79,7 +79,9 @@ public static class Check
     }
 
     [ContractAnnotation("value:null => halt")]
-    public static string NotEmpty([NotNull] string? value, [InvokerParameterName] string parameterName)
+    public static string NotEmpty(
+        [NotNull] string? value,
+        [InvokerParameterName] string parameterName)
     {
         if (value is null)
         {
@@ -167,7 +169,9 @@ public static class Check
         return value;
     }
 
-    public static string? NullButNotEmpty(string? value, [InvokerParameterName] string parameterName)
+    public static string? NullButNotEmpty(
+        string? value,
+        [InvokerParameterName] string parameterName)
     {
         if (value is not null && value.Length == 0)
         {
@@ -181,7 +185,8 @@ public static class Check
 
     [ContractAnnotation("value:null => halt")]
     public static string NotNullOrWhiteSpace(
-        string value, [InvokerParameterName][NotNull] string parameterName,
+        string value,
+        [InvokerParameterName][NotNull] string parameterName,
         int maxLength =
         int.MaxValue,
         int minLength = 0)
@@ -203,7 +208,8 @@ public static class Check
     }
 
     /// <summary>
-    /// Removes any special characters in the input string not provided in the allowed special character list. 
+    /// Removes any special characters in the input string not provided 
+    /// in the allowed special character list. 
     /// </summary>
     /// <param name="input">Input string to process</param>
     /// <param name="allowedCharacters">list of allowed special characters </param>
@@ -216,7 +222,8 @@ public static class Check
         char[] buffer = new char[input.Length];
         char[] allowedSpecialCharacters = allowedCharacters.ToCharArray();
 
-        foreach (char c in input.Where(c => char.IsLetterOrDigit(c) || allowedSpecialCharacters.Any(x => x == c)))
+        foreach (char c in input.Where(c => char.IsLetterOrDigit(c) ||
+        allowedSpecialCharacters.Any(x => x == c)))
         {
             buffer[index] = c;
             index++;
@@ -323,7 +330,9 @@ public static class Check
     }
 
     [Conditional("DEBUG")]
-    public static void DebugAssert([System.Diagnostics.CodeAnalysis.DoesNotReturnIf(false)] bool condition, string message)
+    public static void DebugAssert(
+        [System.Diagnostics.CodeAnalysis.DoesNotReturnIf(false)] bool condition,
+        string message)
     {
         if (!condition)
         {

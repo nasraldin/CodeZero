@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -9,11 +9,11 @@
     <PackageVersion>6.0.1</PackageVersion>
     <Version>6.0.1</Version>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Description>CodeZero.Configuration is to help you load appsettings config easier in your application</Description>
-    <PackageDescription>CodeZero.Configuration is to help you load appsettings config easier in your application</PackageDescription>
-    <PackageTags>.net core;boilerplate;clean config;configuration;best-practices</PackageTags>
+    <Description>Help to load Configuration easier in your application</Description>
+    <PackageDescription>Help to load Configuration easier in your application</PackageDescription>
+    <PackageTags>.net core;clean config;configuration;best-practices</PackageTags>
     <!--Change this {PackageReleaseNotes}, add your relase notes for fix a bug or a new rule.-->
-    <PackageReleaseNotes>CodeZero.Configuration .net 6 Inial release</PackageReleaseNotes>
+    <PackageReleaseNotes>Update Configurations</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

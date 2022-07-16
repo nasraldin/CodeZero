@@ -1,8 +1,3 @@
-using System.ComponentModel.DataAnnotations.Schema;
-using CodeZero.Domain.Messaging;
-using FluentValidation;
-using FluentValidation.Results;
-
 namespace CodeZero.Domain.Entities;
 
 /// <summary>

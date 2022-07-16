@@ -1,6 +1,6 @@
 namespace CodeZero;
 
-public static partial class AppConsts
+public static partial class AppConst
 {
     /// <summary>
     /// Represent header names

@@ -1,6 +1,6 @@
-﻿namespace CodeZero;
+namespace CodeZero;
 
-public static partial class AppConsts
+public static partial class AppConst
 {
     /// <summary>
     /// Collection of MimeType Constants for using to avoid Typos

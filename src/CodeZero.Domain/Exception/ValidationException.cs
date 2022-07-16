@@ -1,11 +1,7 @@
-using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
-using System.Text;
-using CodeZero.Exception;
-using CodeZero.Logging;
-using Microsoft.Extensions.Logging;
+using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 
-namespace CodeZero.Domain;
+namespace CodeZero.Domain.Exception;
 
 /// <summary>
 /// This exception type is used to throws validation exceptions.
@@ -94,8 +90,7 @@ public class ValidationException : CodeZeroException,
         LogLevel = LogLevel.Warning;
     }
 
-    public ValidationException(List<FluentValidation.Results.ValidationFailure> failures)
-        : this()
+    public ValidationException(List<ValidationFailure> failures) : this()
     {
         var failureGroups = failures
             .GroupBy(e => e.PropertyName, e => e.ErrorMessage);

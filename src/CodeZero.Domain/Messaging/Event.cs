@@ -1,5 +1,3 @@
-using MediatR;
-
 namespace CodeZero.Domain.Messaging;
 
 /// <summary>

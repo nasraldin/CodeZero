@@ -1,6 +1,6 @@
-﻿namespace CodeZero;
+namespace CodeZero;
 
-public static partial class AppConsts
+public static partial class AppConst
 {
     public static partial class AuthSchemes
     {

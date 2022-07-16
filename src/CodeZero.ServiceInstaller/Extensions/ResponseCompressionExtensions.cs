@@ -1,6 +1,4 @@
 using System.IO.Compression;
-using CodeZero.Configuration;
-using JetBrains.Annotations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
@@ -19,13 +17,15 @@ public static partial class ServiceCollectionExtensions
         [NotNull] this IServiceCollection services,
         [NotNull] IConfiguration configuration)
     {
-        var config = configuration.GetSection(nameof(ResponseCompressionConfig)).Get<ResponseCompressionConfig>();
+        var config = configuration.GetSection(nameof(ResponseCompressionConfig))
+            .Get<ResponseCompressionConfig>();
 
         services.AddResponseCompression(options =>
         {
             options.EnableForHttps = config.EnableForHttps;
             options.Providers.Add<BrotliCompressionProvider>();
             options.Providers.Add<GzipCompressionProvider>();
+
             if (config.MimeTypes.Any())
             {
                 options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(config.MimeTypes);

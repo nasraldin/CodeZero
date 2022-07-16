@@ -1,4 +1,4 @@
-namespace CodeZero.Configuration;
+namespace CodeZero.Configuration.Models;
 
 /// <summary>
 /// Represents Integrating External Services configuration parameters

@@ -1,11 +1,12 @@
 @ECHO off
 cls
 
-ECHO CodeZero by Nasr Aldin
-ECHO nasr2ldin@gmail.com
-ECHO Deleting all BIN and OBJ folders...
+ECHO CodeZero by Nasr Aldin - nasr2ldin@gmail.com
+ECHO Deleting 'BIN' and 'OBJ' folders
+ECHO Version: 1.0.0
 ECHO.
 
+ECHO Deleting...
 FOR /d /r . %%d in (bin,obj) DO (
 	IF EXIST "%%d" (
 		ECHO.Deleting: %%d

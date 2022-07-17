@@ -5,7 +5,7 @@ namespace Microsoft.Extensions.DependencyInjection;
 public static partial class ServiceCollectionExtensions
 {
     /// <summary>
-    /// Adds Domain configure.
+    /// Adds Domain Services.
     /// </summary>
     /// <param name="services">The <see cref="IServiceCollection"/>.</param>
     /// <returns><see cref="IServiceCollection"/></returns>

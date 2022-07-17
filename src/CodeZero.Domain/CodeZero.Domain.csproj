@@ -14,9 +14,14 @@
     <PackageTags>.net core;ddd;cqrs;modular;best-practices</PackageTags>
     <!--Change this {PackageReleaseNotes}, add your relase notes for fix a bug or a new rule.-->
     <PackageReleaseNotes>CodeZero.Domain .net 6 Inial release</PackageReleaseNotes>
+    <Platforms>AnyCPU;ARM64</Platforms>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>obj\Debug\net6.0\CodeZero.Domain.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
     <DocumentationFile>obj\Debug\net6.0\CodeZero.Domain.xml</DocumentationFile>
   </PropertyGroup>
 

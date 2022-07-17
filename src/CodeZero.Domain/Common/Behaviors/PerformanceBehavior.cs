@@ -2,7 +2,7 @@ using System.Diagnostics;
 
 namespace CodeZero.Domain.Common.Behaviours;
 
-public class PerformanceBehaviour<TRequest, TResponse> :
+public class PerformanceBehavior<TRequest, TResponse> :
     IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
 {
@@ -11,7 +11,7 @@ public class PerformanceBehaviour<TRequest, TResponse> :
     private readonly ICurrentUserService _currentUserService;
     private readonly IIdentityService _identityService;
 
-    public PerformanceBehaviour(
+    public PerformanceBehavior(
         ILogger<TRequest> logger,
         ICurrentUserService currentUserService,
         IIdentityService identityService)

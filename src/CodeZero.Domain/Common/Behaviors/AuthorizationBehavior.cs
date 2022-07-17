@@ -1,13 +1,13 @@
 namespace CodeZero.Domain.Common.Behaviours;
 
-public class AuthorizationBehaviour<TRequest, TResponse> :
+public class AuthorizationBehavior<TRequest, TResponse> :
     IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
 {
     private readonly ICurrentUserService _currentUserService;
     private readonly IIdentityService _identityService;
 
-    public AuthorizationBehaviour(
+    public AuthorizationBehavior(
         ICurrentUserService currentUserService,
         IIdentityService identityService)
     {

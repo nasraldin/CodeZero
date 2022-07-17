@@ -1,12 +1,12 @@
 namespace CodeZero.Domain.Common.Behaviours;
 
-public class UnhandledExceptionBehaviour<TRequest, TResponse> :
+public class UnhandledExceptionBehavior<TRequest, TResponse> :
     IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
 {
     private readonly ILogger<TRequest> _logger;
 
-    public UnhandledExceptionBehaviour(ILogger<TRequest> logger)
+    public UnhandledExceptionBehavior(ILogger<TRequest> logger)
     {
         _logger = logger;
     }

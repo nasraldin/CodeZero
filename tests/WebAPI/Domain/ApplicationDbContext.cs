@@ -1,5 +1,4 @@
 using System.Security.Claims;
-using CodeZero.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using WebAPI.Domain.Entities;
@@ -9,15 +8,14 @@ namespace WebAPI.Domain;
 public partial class ApplicationDbContext : DbContext
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
-    private readonly IDomainEventDispatcher _domainEventDispatcher;
+    //private readonly IDomainEventDispatcher _domainEventDispatcher;
     //private readonly IMediatorHandler _mediatorHandler;
 
     public virtual DbSet<Language> Languages { get; set; } = default!;
 
     public ApplicationDbContext(
         DbContextOptions<ApplicationDbContext> options,
-        IHttpContextAccessor httpContextAccessor,
-        IDomainEventDispatcher domainEventDispatcher)
+        IHttpContextAccessor httpContextAccessor)
     : base(options)
     {
         ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
@@ -25,7 +23,7 @@ public partial class ApplicationDbContext : DbContext
         ChangeTracker.CascadeDeleteTiming = CascadeTiming.OnSaveChanges;
         ChangeTracker.DeleteOrphansTiming = CascadeTiming.OnSaveChanges;
         _httpContextAccessor = httpContextAccessor;
-        _domainEventDispatcher = domainEventDispatcher;
+        //_domainEventDispatcher = domainEventDispatcher;
         //_mediatorHandler = mediatorHandler;
     }
 
@@ -34,9 +32,9 @@ public partial class ApplicationDbContext : DbContext
         CancellationToken cancellationToken =
         default)
     {
-        int result = await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+        //int result = await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         // ignore events if no dispatcher provided
-        if (_domainEventDispatcher == null) return result;
+        //if (_domainEventDispatcher == null) return result;
 
         HandleEntityTracker();
         return await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);

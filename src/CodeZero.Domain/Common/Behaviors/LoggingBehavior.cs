@@ -1,13 +1,13 @@
 namespace CodeZero.Domain.Common.Behaviours;
 
-public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest>
+public class LoggingBehavior<TRequest> : IRequestPreProcessor<TRequest>
     where TRequest : notnull
 {
     private readonly ILogger _logger;
     private readonly ICurrentUserService _currentUserService;
     private readonly IIdentityService _identityService;
 
-    public LoggingBehaviour(
+    public LoggingBehavior(
         ILogger<TRequest> logger,
         ICurrentUserService currentUserService,
         IIdentityService identityService)

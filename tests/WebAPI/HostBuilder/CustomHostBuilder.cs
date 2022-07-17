@@ -33,6 +33,7 @@ public static class CustomHostBuilder
         try
         {
             var builder = CodeZeroHostBuilder.CreateAsync(webApplication, options);
+            builder.Services.AddDomainServices();
 
             // Add services to the container.
             // ...

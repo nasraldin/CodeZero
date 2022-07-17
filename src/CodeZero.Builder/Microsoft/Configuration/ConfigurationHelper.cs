@@ -45,7 +45,7 @@ public static class ConfigurationHelper
             builder.AddEnvironmentVariables(options.EnvironmentVariablesPrefix);
         }
 
-        if (options.CommandLineArgs != null)
+        if (options.CommandLineArgs is not null && options.CommandLineArgs.Any())
         {
             builder.AddCommandLine(options.CommandLineArgs);
         }

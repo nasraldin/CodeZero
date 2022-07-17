@@ -91,6 +91,18 @@ public abstract class BaseEntity<TKey> : IEntity<TKey>
     {
         ArgumentNullException.ThrowIfNull(Id);
 
+        var type = Id.GetType();
+
+        if (type == typeof(int) && Id.Equals(0))
+        {
+            // Write message to console in case pass Id 0 in entity
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"throw CodeZeroException: BaseEntity>GetHashCode: Id = {Id}");
+            Console.ResetColor();
+
+            return 0;
+        }
+
         if (Equals(Id, default(int)))
             return GetHashCode();
 

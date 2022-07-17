@@ -78,7 +78,7 @@ public static class EntityHelper
         return false;
     }
 
-    private static bool IsDefaultKeyValue(object value)
+    internal static bool IsDefaultKeyValue(object value)
     {
         if (value is null)
         {

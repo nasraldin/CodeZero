@@ -1,8 +1,12 @@
 using CodeZero;
+using CodeZero.Domain.Common.Interfaces;
+using CodeZero.Domain.Data;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Debugging;
-using WebAPI.Domain;
+using WebAPI.Persistence;
+using WebAPI.Persistence.Interceptors;
+using WebAPI.Services;
 
 namespace System;
 
@@ -20,11 +24,11 @@ public static class CustomHostBuilder
             BasePath = Directory.GetCurrentDirectory(),
             EnvironmentName = Environment.GetEnvironmentVariable(AppConst.ASPNETCORE_ENVIRONMENT)!,
             CommandLineArgs = args,
-            UserSecretsId = "c78a43fb-0c6c-4b2e-bac8-b0d721cb7eff" // this from <UserSecretsId> prop in CodeZeroTemplate.API.csproj
+            UserSecretsId = "c78a43fb-0c6c-4b2e-bac8-b0d721cb7eff" // this from <UserSecretsId> prop in WebAPI.csproj
         };
 
         // Log Serilog Errors
-        bool.TryParse(webApplication.Configuration["DebugConfig:SerilogSelfLog"], out bool result);
+        _ = bool.TryParse(webApplication.Configuration["DebugConfig:SerilogSelfLog"], out bool result);
         if (result && options.EnvironmentName == AppConst.Environments.Development)
         {
             SelfLog.Enable(Console.Error);
@@ -33,19 +37,52 @@ public static class CustomHostBuilder
         try
         {
             var builder = CodeZeroHostBuilder.CreateAsync(webApplication, options);
-            builder.Services.AddDomainServices();
 
             // Add services to the container.
             // ...
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            builder.Services.AddDomainServices();
+            builder.Services.AddScoped<AuditableEntitySaveChangesInterceptor>();
+
+            if (builder.Configuration.GetValue<bool>("ServiceSettings:UseInMemoryDatabase"))
             {
-                var folder = Environment.SpecialFolder.LocalApplicationData;
-                var path = Environment.GetFolderPath(folder);
-                options.UseSqlite($"Data Source={Path.Join(path, "webapp.db")}");
-            });
+                builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                    options.UseInMemoryDatabase("codezero_template"));
+            }
+            else
+            {
+                builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                {
+                    var folder = Environment.SpecialFolder.LocalApplicationData;
+                    var path = Environment.GetFolderPath(folder);
+                    options.UseSqlite($"Data Source={Path.Join(path, "codezero.db")}");
+                });
+            }
+
+            builder.Services.AddScoped<IBaseDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
+            builder.Services.AddScoped<ApplicationDbContextInitialiser>();
+            //builder.Services.AddTransient<IIdentityService, IdentityService>();
+            builder.Services.AddSingleton<ICurrentUserService, CurrentUserService>();
+
+            //builder.Services.AddIdentityCore<ApplicationUser>();
+
+            //builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             var app = builder.Build();
             app.UseCodeZero(builder.Configuration);
+
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                //app.UseMigrationsEndPoint();
+
+                // Initialise and seed database
+                using (var scope = app.Services.CreateScope())
+                {
+                    var initialiser = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitialiser>();
+                    initialiser.InitialiseAsync().WaitAsync(CancellationToken.None);
+                    initialiser.SeedAsync().WaitAsync(CancellationToken.None);
+                }
+            }
 
             // Configure the HTTP request pipeline.
             // ...

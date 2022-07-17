@@ -12,13 +12,13 @@ public class Language : BaseEntity
     public Language(
         string name,
         string culture,
-        string icon,
+        string? icon,
         bool isActive = true,
         bool isRtl = false)
     {
         Name = name;
         Culture = culture;
-        Icon = icon;
+        Icon = icon!;
         IsActive = isActive;
         IsRtl = isRtl;
     }

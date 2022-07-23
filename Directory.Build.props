@@ -4,9 +4,7 @@
     <Company>https://nasraldin.com</Company>
     <Copyright>Copyright © 2022, Nasr Aldin</Copyright>
     <Product>CodeZero</Product>
-    <Description>
-      CodeZero is a set of common implementations to help you implementing DDD, CQRS
-      and another facilities for new modern web applications is an open-source project written in .NET Core.
+    <Description>CodeZero is a set of common implementations to help you implementing DDD, CQRS and another facilities for new modern web applications is an open-source project written in .NET Core.
     </Description>
     <PackageProjectUrl>https://github.com/nasraldin/CodeZero</PackageProjectUrl>
     <RepositoryUrl>https://github.com/nasraldin/CodeZero</RepositoryUrl>

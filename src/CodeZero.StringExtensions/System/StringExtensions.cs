@@ -1,10 +1,3 @@
-using System.Globalization;
-using System.IO.Compression;
-using System.Security.Cryptography;
-using System.Text;
-using System.Text.RegularExpressions;
-using JetBrains.Annotations;
-
 namespace System;
 
 /// <summary>
@@ -17,7 +10,8 @@ public static partial class StringExtensions
     /// Determines whether the given IList object [is null or empty].
     /// </summary>
     /// <param name="obj">The object.</param>
-    /// <returns><c>true</c> if the given IList object [is null or empty]; otherwise, <c>false</c>.</returns>
+    /// <returns><c>true</c> if the given IList object [is null or empty]; 
+    /// otherwise, <c>false</c>.</returns>
     private static bool IsNullOrEmpty<T>(this IList<T> obj)
     {
         return obj == null || obj.Count == 0;
@@ -45,7 +39,7 @@ public static partial class StringExtensions
     /// Determines whether [is not null or empty] [the specified input].
     /// </summary>
     /// <returns>
-    /// 	<c>true</c> if [is not null or empty] [the specified input]; otherwise, <c>false</c>.
+    /// <c>true</c> if [is not null or empty] [the specified input]; otherwise, <c>false</c>.
     /// </returns>
     public static bool IsNotNullOrEmpty(this string input)
     {
@@ -68,7 +62,10 @@ public static partial class StringExtensions
     /// <summary>
     /// Adds a char to beginning of given string if it does not starts with the char.
     /// </summary>
-    public static string EnsureStartsWith(this string str, char c, StringComparison comparisonType = StringComparison.Ordinal)
+    public static string EnsureStartsWith(
+        this string str,
+        char c,
+        StringComparison comparisonType = StringComparison.Ordinal)
     {
         ArgumentNullException.ThrowIfNull(str);
 
@@ -83,7 +80,10 @@ public static partial class StringExtensions
     /// <summary>
     /// Adds a char to end of given string if it does not ends with the char.
     /// </summary>
-    public static string EnsureEndsWith(this string str, char c, StringComparison comparisonType = StringComparison.Ordinal)
+    public static string EnsureEndsWith(
+        this string str,
+        char c,
+        StringComparison comparisonType = StringComparison.Ordinal)
     {
         ArgumentNullException.ThrowIfNull(str);
 
@@ -99,7 +99,8 @@ public static partial class StringExtensions
     /// Gets a substring of a string from end of the string.
     /// </summary>
     /// <exception cref="ArgumentNullException">Thrown if <paramref name="str"/> is null</exception>
-    /// <exception cref="ArgumentException">Thrown if <paramref name="len"/> is bigger that string's length</exception>
+    /// <exception cref="ArgumentException">Thrown if 
+    /// <paramref name="len"/> is bigger that string's length</exception>
     public static string Right(this string str, int len)
     {
         ArgumentNullException.ThrowIfNull(str);
@@ -116,7 +117,8 @@ public static partial class StringExtensions
     /// Gets a substring of a string from beginning of the string.
     /// </summary>
     /// <exception cref="ArgumentNullException">Thrown if <paramref name="str"/> is null</exception>
-    /// <exception cref="ArgumentException">Thrown if <paramref name="len"/> is bigger that string's length</exception>
+    /// <exception cref="ArgumentException">Thrown if 
+    /// <paramref name="len"/> is bigger that string's length</exception>
     public static string Left(this string str, int len)
     {
         ArgumentNullException.ThrowIfNull(str);
@@ -140,6 +142,7 @@ public static partial class StringExtensions
         ArgumentNullException.ThrowIfNull(str);
 
         var count = 0;
+
         for (var i = 0; i < str.Length; i++)
         {
             if (str[i] != c)
@@ -189,19 +192,26 @@ public static partial class StringExtensions
     }
 
     /// <summary>
-    /// Returns an enumerable collection of the specified type containing the substrings in this instance that are delimited by elements of a specified Char array
+    /// Returns an enumerable collection of the specified type 
+    /// containing the substrings in this instance that are 
+    /// delimited by elements of a specified Char array
     /// </summary>
     /// <param name="str">The string.</param>
     /// <param name="separator">
-    /// An array of Unicode characters that delimit the substrings in this instance, an empty array containing no delimiters, or null.
+    /// An array of Unicode characters that delimit the substrings 
+    /// in this instance, an empty array containing no delimiters, or null.
     /// </param>
     /// <typeparam name="T">
     /// The type of the elemnt to return in the collection, this type must implement IConvertible.
     /// </typeparam>
     /// <returns>
-    /// An enumerable collection whose elements contain the substrings in this instance that are delimited by one or more characters in separator. 
+    /// An enumerable collection whose elements contain the substrings 
+    /// in this instance that are delimited by one or more characters in separator. 
     /// </returns>
-    public static IEnumerable<T> SplitTo<T>(this string str, params char[] separator) where T : IConvertible
+    public static IEnumerable<T> SplitTo<T>(
+        this string str,
+        params char[] separator)
+        where T : IConvertible
     {
         foreach (var s in str.Split(separator, StringSplitOptions.None))
             yield return (T)Convert.ChangeType(s, typeof(T));
@@ -258,7 +268,8 @@ public static partial class StringExtensions
     /// Converts PascalCase string to camelCase string.
     /// </summary>
     /// <param name="str">String to convert</param>
-    /// <param name="useCurrentCulture">set true to use current culture. Otherwise, invariant culture will be used.</param>
+    /// <param name="useCurrentCulture">set true to use current culture.
+    /// Otherwise, invariant culture will be used.</param>
     /// <returns>camelCase of the string</returns>
     public static string ToCamelCase(this string str, bool useCurrentCulture = false)
     {
@@ -278,7 +289,8 @@ public static partial class StringExtensions
     /// Converts camelCase string to PascalCase string.
     /// </summary>
     /// <param name="str">String to convert</param>
-    /// <param name="useCurrentCulture">set true to use current culture. Otherwise, invariant culture will be used.</param>
+    /// <param name="useCurrentCulture">set true to use current culture.
+    /// Otherwise, invariant culture will be used.</param>
     /// <returns>PascalCase of the string</returns>
     public static string ToPascalCase(this string str, bool useCurrentCulture = false)
     {
@@ -330,7 +342,8 @@ public static partial class StringExtensions
     /// Example: "ThisIsSampleSentence" is converted to "This is a sample sentence".
     /// </summary>
     /// <param name="str">String to convert.</param>
-    /// <param name="useCurrentCulture">set true to use current culture. Otherwise, invariant culture will be used.</param>
+    /// <param name="useCurrentCulture">set true to use current culture.
+    /// Otherwise, invariant culture will be used.</param>
     public static string ToSentenceCase(this string str, bool useCurrentCulture = false)
     {
         if (string.IsNullOrWhiteSpace(str))
@@ -347,7 +360,8 @@ public static partial class StringExtensions
     /// Converts given PascalCase/camelCase string to kebab-case.
     /// </summary>
     /// <param name="str">String to convert.</param>
-    /// <param name="useCurrentCulture">set true to use current culture. Otherwise, invariant culture will be used.</param>
+    /// <param name="useCurrentCulture">set true to use current culture.
+    /// Otherwise, invariant culture will be used.</param>
     public static string ToKebabCase(this string str, bool useCurrentCulture = false)
     {
         if (string.IsNullOrWhiteSpace(str))
@@ -453,6 +467,7 @@ public static partial class StringExtensions
             throw new ArgumentException(string.Format("HexString cannot be in odd number: {0}", hexString));
 
         var retVal = new byte[hexString.Length / 2];
+
         for (int i = 0; i < hexString.Length; i += 2)
             retVal[i / 2] = byte.Parse(hexString.AsSpan(i, 2), NumberStyles.HexNumber, CultureInfo.InvariantCulture);
 
@@ -480,11 +495,16 @@ public static partial class StringExtensions
     #endregion
 
     #region ModifiedString
-    public static string ReplaceFirst(this string str, string search, string replace, StringComparison comparisonType = StringComparison.Ordinal)
+    public static string ReplaceFirst(
+        this string str,
+        string search,
+        string replace,
+        StringComparison comparisonType = StringComparison.Ordinal)
     {
         ArgumentNullException.ThrowIfNull(str);
 
         var pos = str.IndexOf(search, comparisonType);
+
         if (pos < 0)
         {
             return str;
@@ -494,7 +514,8 @@ public static partial class StringExtensions
     }
 
     /// <summary>
-    /// Trims or removes duplicate delimited characters and leave only one instance of that character.
+    /// Trims or removes duplicate delimited characters and leave 
+    /// only one instance of that character.
     /// charactertrim like , | :
     /// </summary>
     /// <param name="str"></param>
@@ -506,7 +527,8 @@ public static partial class StringExtensions
     }
 
     /// <summary>
-    /// Trims or removes duplicate delimited characters and leave only one instance of that character.
+    /// Trims or removes duplicate delimited characters and leave 
+    /// only one instance of that character.
     /// charactertrim like , | :
     /// </summary>
     /// <param name="str"></param>
@@ -529,11 +551,13 @@ public static partial class StringExtensions
     {
         if (str.Contains('\\'))
         {
-            return string.IsNullOrWhiteSpace(str) ? string.Empty : str[str.LastIndexOf("\\")..].Replace("\\", "");
+            return string.IsNullOrWhiteSpace(str) ? string.Empty :
+                str[str.LastIndexOf("\\")..].Replace("\\", "");
         }
         else if (str.Contains('/'))
         {
-            return string.IsNullOrWhiteSpace(str) ? string.Empty : str[str.LastIndexOf("/")..].Replace("/", "");
+            return string.IsNullOrWhiteSpace(str) ? string.Empty :
+                str[str.LastIndexOf("/")..].Replace("/", "");
         }
         else
         {
@@ -607,7 +631,10 @@ public static partial class StringExtensions
     /// <param name="comparisonType">String comparison type</param>
     /// <param name="postFixes">one or more postfix.</param>
     /// <returns>Modified string or the same string if it has not any of given postfixes</returns>
-    public static string RemovePostFix(this string str, StringComparison comparisonType, params string[] postFixes)
+    public static string RemovePostFix(
+        this string str,
+        StringComparison comparisonType,
+        params string[] postFixes)
     {
         if (str.IsNullOrEmpty())
         {
@@ -648,7 +675,10 @@ public static partial class StringExtensions
     /// <param name="comparisonType">String comparison type</param>
     /// <param name="preFixes">one or more prefix.</param>
     /// <returns>Modified string or the same string if it has not any of given prefixes</returns>
-    public static string RemovePreFix(this string str, StringComparison comparisonType, params string[] preFixes)
+    public static string RemovePreFix(
+        this string str,
+        StringComparison comparisonType,
+        params string[] preFixes)
     {
         if (str.IsNullOrEmpty())
         {
@@ -684,7 +714,8 @@ public static partial class StringExtensions
     /// <summary>
     /// Gets a substring of a string from beginning of the string if it exceeds maximum length.
     /// </summary>
-    /// <exception cref="ArgumentNullException">Thrown if <paramref name="str"/> is null</exception>
+    /// <exception cref="ArgumentNullException">Thrown if 
+    /// <paramref name="str"/> is null</exception>
     public static string Truncate(this string str, int maxLength)
     {
         if (str.IsNotNullOrEmpty())
@@ -702,7 +733,8 @@ public static partial class StringExtensions
     /// <summary>
     /// Gets a substring of a string from Ending of the string if it exceeds maximum length.
     /// </summary>
-    /// <exception cref="ArgumentNullException">Thrown if <paramref name="str"/> is null</exception>
+    /// <exception cref="ArgumentNullException">Thrown if 
+    /// <paramref name="str"/> is null</exception>
     public static string TruncateFromBeginning(this string str, int maxLength)
     {
         if (str.IsNotNullOrEmpty())
@@ -722,7 +754,8 @@ public static partial class StringExtensions
     /// It adds a "..." postfix to end of the string if it's truncated.
     /// Returning string can not be longer than maxLength.
     /// </summary>
-    /// <exception cref="ArgumentNullException">Thrown if <paramref name="str"/> is null</exception>
+    /// <exception cref="ArgumentNullException">Thrown if 
+    /// <paramref name="str"/> is null</exception>
     public static string TruncateWithPostfix(this string str, int maxLength)
     {
         return TruncateWithPostfix(str, maxLength, "...");
@@ -733,7 +766,8 @@ public static partial class StringExtensions
     /// It adds given <paramref name="postfix"/> to end of the string if it's truncated.
     /// Returning string can not be longer than maxLength.
     /// </summary>
-    /// <exception cref="ArgumentNullException">Thrown if <paramref name="str"/> is null</exception>
+    /// <exception cref="ArgumentNullException">Thrown if 
+    /// <paramref name="str"/> is null</exception>
     public static string TruncateWithPostfix(this string str, int maxLength, string postfix)
     {
         if (str.IsNotNullOrEmpty() || maxLength == 0)
@@ -984,7 +1018,11 @@ public static partial class StringExtensions
     /// <param name="arg1">Argument 1</param>
     /// <param name="arg2">Argument 2</param>
     /// <returns>The formatted string</returns>
-    public static string FormatWith(this string text, object arg0, object arg1, object arg2)
+    public static string FormatWith(
+        this string text,
+        object arg0,
+        object arg1,
+        object arg2)
     {
         return string.Format(text, arg0, arg1, arg2);
     }
@@ -1007,19 +1045,26 @@ public static partial class StringExtensions
     /// <param name="provider">The format provider</param>
     /// <param name="args">The argument list</param>
     /// <returns>The formatted string</returns>
-    public static string FormatWith(this string text, IFormatProvider provider, params object[] args)
+    public static string FormatWith(
+        this string text,
+        IFormatProvider provider,
+        params object[] args)
     {
         return string.Format(provider, text, args);
     }
 
     /// <summary>
-    /// Replaces the format item in a specified System.String with the text equivalent of the value of a specified System.Object instance.
+    /// Replaces the format item in a specified System.String with 
+    /// the text equivalent of the value of a specified System.Object instance.
     /// </summary>
     /// <param name="format"></param>
     /// <param name="arg">The arg</param>
     /// <param name="additionalArgs">The additional args</param>
     /// <returns></returns>
-    public static string Format(this string format, object arg, params object[] additionalArgs)
+    public static string Format(
+        this string format,
+        object arg,
+        params object[] additionalArgs)
     {
         if (additionalArgs is null || additionalArgs.Length == 0)
         {

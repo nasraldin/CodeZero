@@ -1,6 +1,3 @@
-using CodeZero;
-using CodeZero.Configuration;
-using JetBrains.Annotations;
 using Microsoft.Extensions.Configuration;
 
 namespace Microsoft.AspNetCore.Builder;
@@ -23,9 +20,9 @@ public static partial class ApplicationBuilderExtensions
         {
             if (headersConfig is not null)
             {
-                context.Response.Headers.Add(AppConsts.HeaderName.XFrameOptions, headersConfig.XFrameOptions);
-                context.Response.Headers.Add(AppConsts.HeaderName.XssProtection, headersConfig.XssProtection);
-                context.Response.Headers.Add(AppConsts.HeaderName.XContentTypeOptions, headersConfig.XContentTypeOptions);
+                context.Response.Headers.Add(AppConst.HeaderName.XFrameOptions, headersConfig.XFrameOptions);
+                context.Response.Headers.Add(AppConst.HeaderName.XssProtection, headersConfig.XssProtection);
+                context.Response.Headers.Add(AppConst.HeaderName.XContentTypeOptions, headersConfig.XContentTypeOptions);
             }
 
             // Remove version discloser

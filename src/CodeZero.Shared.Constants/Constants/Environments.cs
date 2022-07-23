@@ -1,6 +1,6 @@
-﻿namespace CodeZero;
+namespace CodeZero;
 
-public static partial class AppConsts
+public static partial class AppConst
 {
     public static readonly string ASPNETCORE_ENVIRONMENT = "ASPNETCORE_ENVIRONMENT";
 

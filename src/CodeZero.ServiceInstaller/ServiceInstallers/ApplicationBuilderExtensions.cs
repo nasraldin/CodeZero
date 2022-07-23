@@ -1,8 +1,8 @@
-using CodeZero.Configuration;
+using AspNetCoreRateLimit;
 using CodeZero.Middleware;
-using JetBrains.Annotations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 
 namespace Microsoft.AspNetCore.Builder
 {
@@ -19,9 +19,9 @@ namespace Microsoft.AspNetCore.Builder
             [NotNull] IConfiguration configuration,
             Action<IApplicationBuilder> configure = null!)
         {
-            var serviceSettings = configuration.GetSection(nameof(ServiceSettings)).Get<ServiceSettings>() ?? new ServiceSettings();
-            var debugConfig = configuration.GetSection(nameof(DebugConfig)).Get<DebugConfig>() ?? new DebugConfig();
-            var corsSettings = configuration.GetSection(nameof(CorsSettings)).Get<CorsSettings>() ?? new CorsSettings();
+            var serviceSettings = configuration.GetSection(nameof(ServiceSettings)).Get<ServiceSettings>() ?? new();
+            var debugConfig = configuration.GetSection(nameof(DebugConfig)).Get<DebugConfig>() ?? new();
+            var corsSettings = configuration.GetSection(nameof(CorsSettings)).Get<CorsSettings>() ?? new();
 
             var isProd = AppServiceLoader.Instance.Environment.IsProduction() || AppServiceLoader.Instance.Environment.IsStaging();
             var isDev = AppServiceLoader.Instance.Environment.IsDevelopment() || AppServiceLoader.Instance.Environment.IsDev();
@@ -30,7 +30,7 @@ namespace Microsoft.AspNetCore.Builder
 
             // Adds middleware for streamlined request logging.
             if (serviceSettings.EnableSerilog)
-                app.UseSerilog();
+                app.UseSerilogRequestLogging();
 
             if (isProd)
             {
@@ -38,33 +38,30 @@ namespace Microsoft.AspNetCore.Builder
                 app.UseExceptionHandler("/Error");
             }
 
-            if (serviceSettings.EnableHealthChecks)
-                app.UseCodeZeroHealthChecks(configuration);
-
             // Register the IpRateLimiting
             if (serviceSettings.EnableIpRateLimiting)
-                app.UseRateLimitingClientIP();
+                app.UseIpRateLimiting();
 
             if (serviceSettings.EnableClientRateLimiting)
-                app.UseRateLimitingClientID();
+                app.UseClientRateLimiting();
 
-            if (serviceSettings.EnableReverseProxy)
+            if (serviceSettings.UseReverseProxy)
                 app.UseProxy(configuration);
 
-            if (serviceSettings.EnableHttpsRedirection)
+            if (serviceSettings.UseHttpsRedirection)
                 app.UseHttpsRedirection();
 
             if (serviceSettings.EnableResponseCompression)
                 app.UseResponseCompression();
 
-            if (debugConfig.MiniProfilerEnabled)
-                app.UseMiniProfilerConfig();
+            if (debugConfig.UseMiniProfiler)
+                app.UseMiniProfiler();
 
             // Register the StackExchange Exceptional.
-            if (serviceSettings.EnableExceptional)
-                app.UseStackExchangeExceptional();
+            if (serviceSettings.UseStackExchangeExceptional)
+                app.UseExceptional();
 
-            if (serviceSettings.EnableLocalization)
+            if (serviceSettings.UseLocalization)
                 app.UseLocalizationServices(configuration);
 
             app.UseStaticFiles();
@@ -78,13 +75,10 @@ namespace Microsoft.AspNetCore.Builder
 
             app.UseRouting();
 
-            if (serviceSettings.EnableCors && !string.IsNullOrEmpty(corsSettings.DefaultCorsPolicy))
+            if (serviceSettings.UseCors && !string.IsNullOrEmpty(corsSettings.DefaultCorsPolicy))
                 app.UseCors(corsSettings.DefaultCorsPolicy);
 
-            if (serviceSettings.EnableSessionAndCookies)
-                app.UseCookiePolicy().UseSession();
-
-            if (serviceSettings.EnableAuthentication || serviceSettings.EnableApiKey)
+            if (serviceSettings.UseAuthentication || serviceSettings.UseApiKey)
             {
                 // Adds authenticaton middleware to the pipeline 
                 // so authentication will be performed automatically on each request to host

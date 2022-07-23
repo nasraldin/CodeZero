@@ -1,7 +1,3 @@
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Reflection;
-
 namespace System;
 
 /// <summary>
@@ -106,7 +102,8 @@ public static class EnumExtensions
     public static string GetDescription(this Enum value)
     {
         FieldInfo fi = value.GetType().GetField(value.ToString())!;
-        DescriptionAttribute[] attributes = (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
+        DescriptionAttribute[] attributes = (DescriptionAttribute[])fi.GetCustomAttributes(
+            typeof(DescriptionAttribute), false);
 
         if (attributes is not null && attributes.Length > 0)
             return attributes[0].Description;
@@ -147,7 +144,8 @@ public static class EnumExtensions
         FieldInfo fieldInfo = type.GetField(value.ToString())!;
 
         // Get the stringvalue attributes
-        StringValueAttribute[] attribs = (fieldInfo.GetCustomAttributes(typeof(StringValueAttribute), false) as StringValueAttribute[])!;
+        StringValueAttribute[] attribs = (fieldInfo.GetCustomAttributes(
+            typeof(StringValueAttribute), false) as StringValueAttribute[])!;
 
         // Return the first if there was a match.
         return attribs.Length > 0 ? attribs[0].StringValue : null!;

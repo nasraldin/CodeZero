@@ -1,4 +1,3 @@
-using CodeZero.Configuration;
 using CodeZero.Helpers;
 using CodeZero.Middleware;
 using Microsoft.AspNetCore.Http;
@@ -24,28 +23,28 @@ public static partial class ServiceCollectionExtensions
         Console.WriteLine("[CodeZero] Adds ServiceInstallers...");
 
         // Load ServiceSettings
-        var serviceSettings = builder.Configuration.GetSection(nameof(ServiceSettings)).Get<ServiceSettings>() ?? new ServiceSettings();
-        var debugConfig = builder.Configuration.GetSection(nameof(DebugConfig)).Get<DebugConfig>() ?? new DebugConfig();
+        var serviceSettings = builder.Configuration.GetSection(nameof(ServiceSettings)).Get<ServiceSettings>() ?? new();
+        var debugConfig = builder.Configuration.GetSection(nameof(DebugConfig)).Get<DebugConfig>() ?? new();
 
         // Use non-generic Serilog.ILogger
         if (serviceSettings.EnableSerilog)
             builder.Services.AddSingleton(Log.Logger);
 
         // Register default framework order
-        if (serviceSettings.EnableLocalization)
+        if (serviceSettings.UseLocalization)
             builder.Services.AddLocalizationServices(builder.Configuration);
 
-        if (serviceSettings.EnableMemoryCache)
+        if (serviceSettings.UseMemoryCache)
             builder.Services.AddMemoryCache();
 
         //if (serviceSettings.EnableRedis)
         //    builder.Services.AddRedis();
 
-        if (debugConfig.MiniProfilerEnabled)
+        if (debugConfig.UseMiniProfiler)
             builder.Services.AddMiniProfilerConfig(builder.Configuration);
 
         builder.Services.AddSingleton<IPoweredByMiddlewareOptions, PoweredByMiddlewareOptions>();
-        builder.Services.AddRouting(x => x.LowercaseUrls = serviceSettings.RoutingLowercaseUrls);
+        builder.Services.AddRouting(x => x.LowercaseUrls = serviceSettings.UseRoutingLowercaseUrls);
         builder.Services.AddWebEncoders();
 
         Console.WriteLine($"[CodeZero] Adds HttpContextHelper to runtime...");
@@ -56,11 +55,11 @@ public static partial class ServiceCollectionExtensions
             new HttpContextHelper(builder.Services.BuildServiceProvider()
             .GetRequiredService<IHttpContextAccessor>()));
 
-        if (serviceSettings.EnableReverseProxy)
+        if (serviceSettings.UseReverseProxy)
             builder.Services.AddProxy(builder.Configuration);
 
         if (serviceSettings.EnableResponseCompression)
-            builder.Services.AddResponseCompressionConfig();
+            builder.Services.AddResponseCompressionConfig(builder.Configuration);
 
         if (serviceSettings.EnableIpRateLimiting)
             builder.Services.AddRateLimitingClientIP(builder.Configuration);
@@ -68,13 +67,13 @@ public static partial class ServiceCollectionExtensions
         if (serviceSettings.EnableClientRateLimiting)
             builder.Services.AddRateLimitingClientID(builder.Configuration);
 
-        if (serviceSettings.EnableAntiforgery)
+        if (serviceSettings.UseAntiforgery)
             builder.Services.AddAntiforgeryConfig();
 
-        if (serviceSettings.EnableAuthentication)
+        if (serviceSettings.UseAuthentication)
             builder.Services.AddAuth(builder.Configuration);
 
-        if (serviceSettings.EnableCors)
+        if (serviceSettings.UseCors)
             builder.Services.AddCorsConfig(builder.Configuration);
 
         if (serviceSettings.EnableSwagger)
@@ -83,18 +82,22 @@ public static partial class ServiceCollectionExtensions
             builder.Services.AddSwaggerVersioned(builder.Configuration);
         }
 
-        if (serviceSettings.EnableDataProtection)
+        if (serviceSettings.UseDataProtection)
             builder.Services.AddDataProtectionConfig(builder.Configuration);
 
-        if (serviceSettings.EnableExceptional)
-            builder.Services.AddStackExchangeExceptional(builder.Configuration);
-
-        builder.Services.AddControllers();
+        if (serviceSettings.UseStackExchangeExceptional)
+            builder.Services.AddExceptional(builder.Configuration.GetSection("Exceptional"));
 
         if (serviceSettings.EnableContentNegotiation)
+        {
             builder.Services.AddContentNegotiation();
+        }
+        else
+        {
+            builder.Services.AddControllers();
+        }
 
-        if (serviceSettings.EnableMvc)
+        if (serviceSettings.AddMvcServices)
             builder.Services.AddMvcServices(builder.Configuration);
 
         return builder;

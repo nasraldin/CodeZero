@@ -6,36 +6,61 @@
     <AssemblyName>CodeZero.ServiceInstaller</AssemblyName>
     <PackageId>CodeZero.ServiceInstaller</PackageId>
     <!--Change this {Version} if you fix a bug or add a new rule, for shipping new package.-->
-    <PackageVersion>6.0.0</PackageVersion>
-    <Version>6.0.0</Version>
+    <PackageVersion>6.0.2</PackageVersion>
+    <Version>6.0.2</Version>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Description>CodeZero.ServiceInstaller enable dependency injection (DI)</Description>
     <PackageDescription>CodeZero.ServiceInstaller enable dependency injection (DI)</PackageDescription>
-    <PackageTags>.net core;clean architecture;logging;serilog;best-practices</PackageTags>
+    <PackageTags>.net core;logging;serilog;best-practices</PackageTags>
     <!--Change this {PackageReleaseNotes}, add your relase notes for fix a bug or a new rule.-->
     <PackageReleaseNotes>CodeZero.ServiceInstaller .net 6 Inial release</PackageReleaseNotes>
+    <Platforms>AnyCPU;ARM64</Platforms>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>obj\Debug\net6.0\CodeZero.ServiceInstaller.xml</DocumentationFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <DocumentationFile>obj\Debug\net6.0\CodeZero.ServiceInstaller.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.6" />
-    <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="6.0.6" />
+    <PackageReference Include="AspNetCoreRateLimit" Version="4.0.2" />
+    <PackageReference Include="AspNetCoreRateLimit.Redis" Version="1.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="6.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
+    <PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.2.22" />
+    <PackageReference Include="MiniProfiler.EntityFrameworkCore" Version="4.2.22" />
+    <PackageReference Include="MiniProfiler.Providers.MySql" Version="4.2.22" />
+    <PackageReference Include="MiniProfiler.Providers.Redis" Version="4.2.22" />
+    <PackageReference Include="MiniProfiler.Providers.SqlServer" Version="4.2.22" />
+    <PackageReference Include="Serilog" Version="2.11.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="6.0.0" />
+    <PackageReference Include="Serilog.Enrichers.ClientInfo" Version="1.2.0" />
+    <PackageReference Include="Serilog.Enrichers.Environment" Version="2.2.0" />
+    <PackageReference Include="Serilog.Enrichers.Thread" Version="3.1.0" />
+    <PackageReference Include="Serilog.Exceptions" Version="8.3.0" />
+    <PackageReference Include="Serilog.Exceptions.EntityFrameworkCore" Version="8.3.0" />
+    <PackageReference Include="Serilog.Expressions" Version="3.4.0" />
+    <PackageReference Include="Serilog.Formatting.Compact" Version="1.1.0" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="3.3.0" />
+    <PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+    <PackageReference Include="Serilog.Sinks.MariaDB" Version="1.0.1" />
+    <PackageReference Include="Serilog.Sinks.Seq" Version="5.1.1" />
+    <PackageReference Include="StackExchange.Exceptional.AspNetCore" Version="2.2.32" />
+    <PackageReference Include="StackExchange.Exceptional.MySQL" Version="2.2.32" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.3.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CodeZero.Antiforgery\CodeZero.Antiforgery.csproj" />
-    <ProjectReference Include="..\CodeZero.Exceptional\CodeZero.Exceptional.csproj" />
-    <ProjectReference Include="..\CodeZero.HealthChecks\CodeZero.HealthChecks.csproj" />
-    <ProjectReference Include="..\CodeZero.Localization\CodeZero.Localization.csproj" />
-    <ProjectReference Include="..\CodeZero.MiniProfiler\CodeZero.MiniProfiler.csproj" />
-    <ProjectReference Include="..\CodeZero.RateLimit\CodeZero.RateLimit.csproj" />
-    <ProjectReference Include="..\CodeZero.ReverseProxy\CodeZero.ReverseProxy.csproj" />
-    <ProjectReference Include="..\CodeZero.Serilog\CodeZero.Serilog.csproj" />
-    <ProjectReference Include="..\CodeZero.Shared.Exception\CodeZero.Shared.Exception.csproj" />
-    <ProjectReference Include="..\CodeZero.Swagger\CodeZero.Swagger.csproj" />
+    <ProjectReference Include="..\CodeZero.Configuration\CodeZero.Configuration.csproj" />
+    <ProjectReference Include="..\CodeZero.Shared\CodeZero.Shared.csproj" />
   </ItemGroup>
 
   <!--Import common packages are used across all projects-->

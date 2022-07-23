@@ -1,6 +1,4 @@
-using System.ComponentModel;
 using System.Globalization;
-using System.Text.Json;
 
 namespace System;
 
@@ -32,7 +30,8 @@ public static class ObjectExtensions
     {
         if (typeof(T) == typeof(Guid) || typeof(T) == typeof(TimeSpan))
         {
-            return (T)TypeDescriptor.GetConverter(typeof(T)).ConvertFromInvariantString(obj.ToString()!)!;
+            return (T)TypeDescriptor.GetConverter(typeof(T))
+                .ConvertFromInvariantString(obj.ToString()!)!;
         }
         if (typeof(T).IsEnum)
         {
@@ -67,7 +66,8 @@ public static class ObjectExtensions
     /// </summary>
     /// <param name="obj">An object</param>
     /// <param name="condition">A condition</param>
-    /// <param name="func">A function that is executed only if the condition is <code>true</code></param>
+    /// <param name="func">A function that is executed only if 
+    /// the condition is <code>true</code></param>
     /// <typeparam name="T">Type of the object</typeparam>
     /// <returns>
     /// Returns the modified object (by the 

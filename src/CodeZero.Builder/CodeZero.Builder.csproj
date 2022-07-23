@@ -6,17 +6,22 @@
     <AssemblyName>CodeZero.Builder</AssemblyName>
     <PackageId>CodeZero.Builder</PackageId>
     <!--Change this {Version} if you fix a bug or add a new rule, for shipping new package.-->
-    <PackageVersion>6.0.0</PackageVersion>
-    <Version>6.0.0</Version>
+    <PackageVersion>6.0.1</PackageVersion>
+    <Version>6.0.1</Version>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Description>CodeZero.Builder is a set of common useful classes can use in your application</Description>
-    <PackageDescription>CodeZero.Builder is a set of common useful classes can use in your application</PackageDescription>
-    <PackageTags>.net core;boilerplate;clean architecture;string extensions;check;modular;best-practices</PackageTags>
+    <Description>Initializes a new instance of the WebApplicationBuilder class with preconfigured defaults</Description>
+    <PackageDescription>Initializes a new instance of the WebApplicationBuilder class with preconfigured defaults</PackageDescription>
+    <PackageTags>.net core;boilerplate;clean architecture;best-practices</PackageTags>
     <!--Change this {PackageReleaseNotes}, add your relase notes for fix a bug or a new rule.-->
     <PackageReleaseNotes>CodeZero.Builder .net 6 Inial release</PackageReleaseNotes>
+    <Platforms>AnyCPU;ARM64</Platforms>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>obj\Debug\net6.0\CodeZero.Builder.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
     <DocumentationFile>obj\Debug\net6.0\CodeZero.Builder.xml</DocumentationFile>
   </PropertyGroup>
 

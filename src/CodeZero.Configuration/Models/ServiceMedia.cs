@@ -1,9 +1,9 @@
-﻿namespace CodeZero.Configuration;
+namespace CodeZero.Configuration.Models;
 
 /// <summary>
 /// Represents service media configuration parameters
 /// </summary>
-public partial class ServiceMedia
+public partial class MediaConfig
 {
     public int[] SupportedSizes { get; set; } = default!;
     public int MaxBrowserCacheDays { get; set; }

@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 
 namespace CodeZero.Helpers;
 
 /// <summary>
-/// Provides access to the current <see cref="IHttpContextAccessor"/>, if one is available.
+/// Provides access to the current <see cref="IHttpContextAccessor"/>, 
+/// if one is available.
 /// </summary>
 public class HttpContextHelper : IHttpContextHelper
 {

@@ -1,12 +1,12 @@
-﻿namespace CodeZero.Configuration;
+namespace CodeZero.Configuration.Models;
 
 /// <summary>
 /// Represents HostedServices configuration parameters
 /// </summary>
 public partial class HostedServices
 {
-    public string HostedServiceName { get; set; } = default!;
-    public string HostedServiceClientSecret { get; set; } = default!;
-    public string HostedServiceRequestedScopes { get; set; } = default!;
-    public int HostedServiceInterval { get; set; } = 5000;
+    public string ServiceName { get; set; } = default!;
+    public string ServiceClientSecret { get; set; } = default!;
+    public string ServiceRequestedScopes { get; set; } = default!;
+    public int ServiceInterval { get; set; } = 5000;
 }

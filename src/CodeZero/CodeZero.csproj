@@ -11,13 +11,27 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <!--Change this {PackageReleaseNotes}, add your relase notes for fix a bug or a new rule.-->
     <PackageReleaseNotes>CodeZero .net 6 Inial release</PackageReleaseNotes>
+    <Title>CodeZero</Title>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>.net core;boilerplate;clean architecture;extensions;modular;best-practices</PackageTags>
+    <Platforms>AnyCPU;ARM64</Platforms>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>obj\Debug\net6.0\CodeZero.xml</DocumentationFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <DocumentationFile>obj\Debug\net6.0\CodeZero.xml</DocumentationFile>
+  </PropertyGroup>
+
   <!--Import common packages are used across all projects-->
   <Import Project="..\..\Common.props" />
+  <ItemGroup>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>

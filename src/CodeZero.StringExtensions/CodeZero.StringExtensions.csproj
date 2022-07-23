@@ -6,17 +6,22 @@
     <AssemblyName>CodeZero.StringExtensions</AssemblyName>
     <PackageId>CodeZero.StringExtensions</PackageId>
     <!--Change this {Version} if you fix a bug or add a new rule, for shipping new package.-->
-    <PackageVersion>6.0.0</PackageVersion>
-    <Version>6.0.0</Version>
+    <PackageVersion>6.0.1</PackageVersion>
+    <Version>6.0.1</Version>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Description>CodeZero.StringExtensions is a set of common string extensions can use in your application</Description>
-    <PackageDescription>CodeZero.StringExtensions is a set of common string extensions can use in your application</PackageDescription>
-    <PackageTags>.net core;boilerplate;clean architecture;string extensions;check;modular;best-practices</PackageTags>
+    <Description>Useful string extensions can help you to manipulation strings</Description>
+    <PackageDescription>Useful string extensions can help you to manipulation strings</PackageDescription>
+    <PackageTags>.net core;string extensions;check;best-practices</PackageTags>
     <!--Change this {PackageReleaseNotes}, add your relase notes for fix a bug or a new rule.-->
-    <PackageReleaseNotes>CodeZero.StringExtensions .net 6 Inial release</PackageReleaseNotes>
+    <PackageReleaseNotes>Add more extensions</PackageReleaseNotes>
+    <Platforms>AnyCPU;ARM64</Platforms>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>obj\Debug\net6.0\CodeZero.StringExtensions.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
     <DocumentationFile>obj\Debug\net6.0\CodeZero.StringExtensions.xml</DocumentationFile>
   </PropertyGroup>
 
